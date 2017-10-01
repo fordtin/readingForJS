@@ -98,23 +98,57 @@ window.onload = function() {
         if(oText2.value.lastIndexOf('=') > -1) {
             clearAll();
         }
-        if(!isNaN(oText1.value)) {
-            if(typeof Number(oText1.value) == 'number') {
-                if(oText2.value == 0) { //输入0~9
-                    oText1.value = oText2.value = spanType;
+        if(!isNaN(oText1.value)) {  //oText1.value是数字
+            // if(typeof Number(oText1.value) == 'number') {//冗余代码
+
+            // 0.6 + 0.3、 2 + 0.5、 .6 + .3 、 2 + .5
+            //当前点击是否是小数点、以及oText1中是否有小数点（小数点前是''，是0，是整数还是运算符）
+            if(spanType == '.') {//点击了小数点
+                if(oText1.value.lastIndexOf('.') > -1) {//不允许存在两个相邻的小数点
+                    return;
                 }
-                else {//多位数
+        
+                if(oText1.value != '') {//oText1不为空的话
                     oText1.value += spanType;
-                    oText2.value += spanType
                 }
-            }
-            else {
-                oText1.value += spanType;
+                else {//oText1为空的话，前面补上0
+                    oText1.value = '0' + spanType;
+                }
                 oText2.value += spanType;
             }
+            else {//点击的不是小数点
+                if(oText1.value.lastIndexOf('.') > -1) {//oText1中有小数点
+                    oText1.value += spanType;
+                    oText2.value += spanType;
+                }
+                else {//oText1中没有有小数点
+                    if(oText2.value == 0) { //输入0~9
+                        oText1.value = oText2.value = spanType;
+                    }
+                    else {//多位数
+                        oText1.value += spanType;
+                        oText2.value += spanType;
+                    }
+                }
+            } 
+             
+
+
+/*  冗余代码 // }
+            // else {
+            //     oText1.value += spanType;
+            //     oText2.value += spanType;
+            // } */
         }
-        else {
-            oText1.value = spanType;
+        else {  //oText1.value不是数字
+            if(spanType == '.') {
+                oText1.value = '0' + spanType;
+                // oText2.value += oText1.value;
+            }
+            else {
+                oText1.value = spanType;
+                 // oText2.value += oText1.value;
+            }
             oText2.value += oText1.value;
         } 
     }
