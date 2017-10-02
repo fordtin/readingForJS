@@ -38,7 +38,7 @@ window.onload = function() {
     }
 
     //AC按钮
-    clearAll();
+    clearAll(); //两个输入框初始化为0
     function clearAll() {
         oText1.value = oText2.value = 0;
         arr = [];
@@ -83,7 +83,7 @@ window.onload = function() {
 
     //点击计算
     function equal(spanType) {
-        if(oText2.value.lastIndexOf('=') > -1) {//作用是消除这种情况：6+6 = 12,再次点击“=”的时候变成了6 + 6 = 12 = 24
+        if(oText2.value.lastIndexOf('=') > -1 || oText2.value == 'Digit Limit Met') {//作用是消除这种情况：6+6 = 12,再次点击“=”的时候变成了6 + 6 = 12 = 24
             return;
         }
         operEqual.push(spanType);
@@ -101,7 +101,6 @@ window.onload = function() {
             clearAll();
         }
         if(!isNaN(oText1.value)) {  //oText1.value是数字
-
             // 0.6 + 0.3、 2 + 0.5、 .6 + .3 、 2 + .5
             //当前点击是否是小数点、以及oText1中是否有小数点（小数点前是''，是0，是整数还是运算符）
             if(spanType == '.') {//点击了小数点
@@ -110,7 +109,8 @@ window.onload = function() {
                 }
         
                 oText1.value = (oText1.value != '') ? (oText1.value + spanType) : ('0' + spanType); //oText1不为空的话,在原来基础上拼接，否则在前面拼接0
-                oText2.value += spanType;
+                oText2.value = (oText2.value != 'Digit Limit Met') ? (oText2.value + spanType) : ('0' + spanType);//oText2是否为字符串'Digit Limit Met'
+                // oText2.value += spanType;
             }
             else {//点击的不是小数点
                 if(oText1.value.lastIndexOf('.') > -1) {//oText1中有小数点
@@ -118,16 +118,31 @@ window.onload = function() {
                     oText2.value += spanType;
                 }
                 else {//oText1中没有有小数点
+                    if(oText2.value == 'Digit Limit Met') {//超出长度限制提示符时，先清空，再赋值。
+                        clearAll();
+                        oText1.value = oText2.value = spanType;
+                    }
+                    else {
                     oText1.value = (oText2.value == 0) ? spanType : (oText1.value + spanType);  //oText2中的值为0的话，点击的按钮的innerHTML替换掉0，否则在此基础上进行拼接
                     oText2.value = (oText2.value == 0) ? spanType : (oText2.value + spanType);
+                    }
                 }
             } 
              
         }
         else {  //oText1.value不是数字
+            if(oText1.value == '÷' && spanType == 0) {//是除号且当前点击是是0的话，禁止输入
+                return;
+            }
             oText1.value = (spanType == '.') ? ('0' + spanType) : spanType; //在0~9和.号当中，当前点击的是否“.”号的时候
             oText2.value += oText1.value;
         } 
+
+        if(oText1.value.length >= 12 || oText2.value.length >= 22) {
+            oText1.value = 0;
+            oText2.value = 'Digit Limit Met';
+            return;
+        }
     }
 
     //判断是哪种运算
@@ -166,11 +181,10 @@ window.onload = function() {
 
 
         if(oText1.value != '+' && oText1.value != '-' && oText1.value != 'x' && oText1.value != '÷') { //不能连续出现+
-            arr.push(oText1.value);
-            oText1.value = spanType;
-            oText2.value += spanType;
-            oper.push(spanType);    
-            // console.log('Click点击区22222  ' + 'oText1.value  ' + oText1.value + 'arr:    ' + arr + '  oper:   ' + oper + '_this: '  + spanType)
+                arr.push(oText1.value);
+                oText1.value = spanType;
+                oText2.value += spanType;
+                oper.push(spanType);    
         }        
     }
 
@@ -180,8 +194,7 @@ window.onload = function() {
         for(var i = 0; i < arr.length; i++) {
             str += parseFloat(arr[i]);
         }
-        oText1.value = str;
-        oText2.value += str;
+        isFloat(str);
     }
     //减法运算
     function sub() {
@@ -189,8 +202,7 @@ window.onload = function() {
         for(var i = 1; i < arr.length; i++) {
             str -= parseFloat(arr[i]);
         }
-        oText1.value = str;
-        oText2.value += str;
+        isFloat(str);
     }
      //乘法运算
     function mul() {
@@ -198,8 +210,7 @@ window.onload = function() {
         for(var i = 0; i < arr.length; i++) {
             str *= parseFloat(arr[i]);
         }
-        oText1.value = str;
-        oText2.value += str;
+        isFloat(str);
     }
      //除法运算
     function divide() {
@@ -207,10 +218,23 @@ window.onload = function() {
         for(var i = 1; i < arr.length; i++) {
             str /= parseFloat(arr[i]);
         }
-        oText1.value = str;
-        oText2.value += str;
+        isFloat(str);
     }
 
+    //确认是否需要小数点及小数点位数函数
+    function isFloat(str) {
+        var strlen = String(str).length;
+        var index = String(str).lastIndexOf('.');
+        if(index > -1) {
+            str = ((strlen - index - 1) >= 2) ? parseFloat(str).toFixed(2) : parseFloat(str);
+            oText1.value = str;
+            oText2.value += str;
+        }
+        else {
+            oText1.value = str;
+            oText2.value += str;
+        }
+    }
 }
 
 
