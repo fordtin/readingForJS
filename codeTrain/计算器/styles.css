@@ -13,15 +13,16 @@ body {
     zoom: 1;
 }
 .container {
-    position: absolute;
-    right: 100px;
+    /* position: absolute;
+    right: 100px; */
     width: 252px;
-    height: 410px;
+    height: 420px;
     margin: 0px auto;
     padding: 0 24px;
-    border: 1px solid red;
     background: #dfd8d0;
-    /* box-shadow: 2px; */
+    border-radius: 20px;
+    border: 5px solid #908B85;
+    box-shadow: 0px 5px 40px black;
 }
 h2 {
     height: 57px;
@@ -50,7 +51,7 @@ h2 {
 #text1 {
     height: 33px;
     line-height: 33px;
-    font-size: 25px;
+    font-size: 35px;
     color: #333;
 }
 #text2 {
@@ -77,9 +78,13 @@ h2 {
     height: 44px;
     line-height: 44px;
     background: #3a3a3a;
-    margin: 0 16px 7px 0;
+    margin: 0 16px 10px 0;
     color: #fff;
     border-radius: 8px;
+    box-shadow: 0px 3px 0px 0px #222121, inset -1px -3px 10px 1px #515151;
+}
+span:active {
+    transform: translate(0px, 3px);
 }
 span.clear {
     background: #a72d45;
@@ -93,3 +98,4 @@ span.equal {
     width: 116px;
     height: 44px;
 }
+
