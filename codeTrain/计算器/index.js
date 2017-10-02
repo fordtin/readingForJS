@@ -14,21 +14,25 @@ window.onload = function() {
         var target = e.target;
         if(target.nodeName.toLowerCase() === 'span') {
             var spanType = target.innerText;    //获取span元素的内容
-            if(spanType == 'AC') {
-                clearAll();
-            }
-            else if(spanType == 'CE') {
-                // alert(spanType);
-                clean();
-            }
-            else if(spanType == '=') {
-                equal(spanType);
-            }
-            else if(spanType == '+' || spanType == '-' || spanType == 'x'|| spanType == '÷') {
-                clickOperator(spanType);
-            }
-            else {
-                clickNumber(spanType);
+            switch(spanType) {
+                case 'AC':
+                    clearAll();
+                    break;
+                case 'CE':
+                    clean();
+                    break;
+                case '=':
+                    equal(spanType);
+                    break;
+                case '+'://这四项合并
+                case '-':
+                case 'x':
+                case '÷':
+                    clickOperator(spanType);
+                    break;
+                default: //小数点及0~9
+                    clickNumber(spanType);
+                    break;
             }
         }
     }
@@ -79,18 +83,16 @@ window.onload = function() {
 
     //点击计算
     function equal(spanType) {
+        if(oText2.value.lastIndexOf('=') > -1) {//作用是消除这种情况：6+6 = 12,再次点击“=”的时候变成了6 + 6 = 12 = 24
+            return;
+        }
         operEqual.push(spanType);
         arr.push(oText1.value);
         
         if(oText2.value.substring(oText2.value.length, oText2.value.length) != '=') { //0的时候不允许连续输入“=”
-            if(oText1.value == oText2.value) {//两个相等的时候点击“=”,直接赋值
-                oText2.value += spanType + oText1.value;
-            }
-            else {//不相等的时候，直接拼接
-                oText2.value += spanType;
-            }
+            oText2.value += (oText1.value == oText2.value) ? (spanType + oText1.value) : spanType; //两个相等的时候点击“=”号,直接赋值（2 = 2）； 不相等的时候，直接在后面拼接“=”。
         }
-        markOper(); 
+            markOper(); 
     }
 
     //点击数字
@@ -98,23 +100,32 @@ window.onload = function() {
         if(oText2.value.lastIndexOf('=') > -1) {
             clearAll();
         }
-        if(!isNaN(oText1.value)) {
-            if(typeof Number(oText1.value) == 'number') {
-                if(oText2.value == 0) { //输入0~9
-                    oText1.value = oText2.value = spanType;
+        if(!isNaN(oText1.value)) {  //oText1.value是数字
+
+            // 0.6 + 0.3、 2 + 0.5、 .6 + .3 、 2 + .5
+            //当前点击是否是小数点、以及oText1中是否有小数点（小数点前是''，是0，是整数还是运算符）
+            if(spanType == '.') {//点击了小数点
+                if(oText1.value.lastIndexOf('.') > -1) {//不允许存在两个相邻的小数点
+                    return;
                 }
-                else {//多位数
-                    oText1.value += spanType;
-                    oText2.value += spanType
-                }
-            }
-            else {
-                oText1.value += spanType;
+        
+                oText1.value = (oText1.value != '') ? (oText1.value + spanType) : ('0' + spanType); //oText1不为空的话,在原来基础上拼接，否则在前面拼接0
                 oText2.value += spanType;
             }
+            else {//点击的不是小数点
+                if(oText1.value.lastIndexOf('.') > -1) {//oText1中有小数点
+                    oText1.value += spanType;
+                    oText2.value += spanType;
+                }
+                else {//oText1中没有有小数点
+                    oText1.value = (oText2.value == 0) ? spanType : (oText1.value + spanType);  //oText2中的值为0的话，点击的按钮的innerHTML替换掉0，否则在此基础上进行拼接
+                    oText2.value = (oText2.value == 0) ? spanType : (oText2.value + spanType);
+                }
+            } 
+             
         }
-        else {
-            oText1.value = spanType;
+        else {  //oText1.value不是数字
+            oText1.value = (spanType == '.') ? ('0' + spanType) : spanType; //在0~9和.号当中，当前点击的是否“.”号的时候
             oText2.value += oText1.value;
         } 
     }
