@@ -86,13 +86,93 @@ window.onload = function() {
         if(oText2.value.lastIndexOf('=') > -1 || oText2.value == 'Digit Limit Met') {//作用是消除这种情况：6+6 = 12,再次点击“=”的时候变成了6 + 6 = 12 = 24
             return;
         }
+        if((oText1.value == oText2.value) && oText1.value == 0) {//input2中不允许出现0=0；
+            return;
+        }
         operEqual.push(spanType);
         arr.push(oText1.value);
-        
-        if(oText2.value.substring(oText2.value.length, oText2.value.length) != '=') { //0的时候不允许连续输入“=”
+        if(isNaN(oText1.value)) {//+、-、x、÷后面不能直接出现=
+            return;
+        }
+        if(oText2.value.substring(oText2.value.length - 1, oText2.value.length) != '=') { //0的时候不允许连续输入“=”
             oText2.value += (oText1.value == oText2.value) ? (spanType + oText1.value) : spanType; //两个相等的时候点击“=”号,直接赋值（2 = 2）； 不相等的时候，直接在后面拼接“=”。
         }
+        caculate();
+        // aaa();
+    }
+
+    // 判断数组中的内容是否全等
+    function isAllEqual(arr) {
+        // alert(arr);
+        var result = [];
+        for(var i = 0; i < arr.length - 1; i++) {
+            if(arr[i+1] != arr[0]) {
+                result.push(arr[0]);
+            }
+        }
+        console.log(result.length);
+        return result.length;
+        // console.log('result的指是' + result);
+    }
+
+    function caculate() {
+        // alert('oper的lenght' + oper.length);
+        if(oper.length != 1) {//运算符长度大于1
+                // var number = isAllEqual(oper);
+                // alert('number的值是：' + number);
+                if(!isAllEqual(oper)) {//运算符全部与第一个都相等
+                    markOper();
+                    console.log('运算符全部与第一个都相等' + oper.length)
+                }
+                else {//运算符不全等
+                    aaa();
+                    console.log('运算符不全等' + oper.length);
+                }
+        }
+        else {//只有一个运算符
             markOper(); 
+            console.log('只有一个运算符' + oper.length)
+        }
+    }
+
+    function aaa() {
+        var result = 0;
+        console.log('aaaaaaa' + 1);
+        for(var i = 0; i < oper.length; i++) {
+            var s = oper[i];
+            switch(s) {
+                case '+':
+                    result = parseFloat(arr[0]) + parseFloat(arr[1]);
+                    if(arr.length > 2) {
+                        arr.splice(0, 2, result);
+                    }
+                break;
+                case '-':
+                    result = parseFloat(arr[0]) - parseFloat(arr[1]);
+                    if(arr.length > 2) {
+                        arr.splice(0, 2, result);
+                    }
+                break;
+                case 'x':
+                    result = parseFloat(arr[0]) * parseFloat(arr[1]);
+                    if(arr.length > 2) {
+                        arr.splice(0, 2, result);	
+                    }
+                break;
+                case '÷':
+                    result = parseFloat(arr[0]) / parseFloat(arr[1]);
+                    if(arr.length > 2) {
+                        arr.splice(0, 2, result);
+                    }
+                break;
+                default:
+                break;
+            }
+        }
+// alert(arr[0]);
+        result = oper.length ? result : arr[0];
+        // alert(result);
+        isFloat(result);
     }
 
     //点击数字
@@ -179,13 +259,12 @@ window.onload = function() {
             oText2.value = oText1.value;
         } 
 
-
-        if(oText1.value != '+' && oText1.value != '-' && oText1.value != 'x' && oText1.value != '÷') { //不能连续出现+
-                arr.push(oText1.value);
-                oText1.value = spanType;
-                oText2.value += spanType;
-                oper.push(spanType);    
-        }        
+            if(oText1.value != '+' && oText1.value != '-' && oText1.value != 'x' && oText1.value != '÷') { //不能连续出现+
+                    arr.push(oText1.value);
+                    oText1.value = spanType;
+                    oText2.value += spanType;
+                    oper.push(spanType);    
+            }  
     }
 
     //加法运算
