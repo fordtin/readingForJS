@@ -89,16 +89,24 @@ window.onload = function() {
         if((oText1.value == oText2.value) && oText1.value == 0) {//input2中不允许出现0=0；
             return;
         }
-        operEqual.push(spanType);
-        arr.push(oText1.value);
+
+        if(oText1.value == '÷') {//是除号且当前点击是是0的话，禁止输入
+            return;
+        }
         if(isNaN(oText1.value)) {//+、-、x、÷后面不能直接出现=
             return;
         }
+
+        operEqual.push(spanType);
+        arr.push(oText1.value);
+
         if(oText2.value.substring(oText2.value.length - 1, oText2.value.length) != '=') { //0的时候不允许连续输入“=”
             oText2.value += (oText1.value == oText2.value) ? (spanType + oText1.value) : spanType; //两个相等的时候点击“=”号,直接赋值（2 = 2）； 不相等的时候，直接在后面拼接“=”。
         }
-        caculate();
-        // aaa();
+        if(oper.length < 1) {//不允许出现l类似6=66这种情况
+            return;
+        }
+        aaa();
     }
 
     // 判断数组中的内容是否全等
@@ -113,26 +121,6 @@ window.onload = function() {
         console.log(result.length);
         return result.length;
         // console.log('result的指是' + result);
-    }
-
-    function caculate() {
-        // alert('oper的lenght' + oper.length);
-        if(oper.length != 1) {//运算符长度大于1
-                // var number = isAllEqual(oper);
-                // alert('number的值是：' + number);
-                if(!isAllEqual(oper)) {//运算符全部与第一个都相等
-                    markOper();
-                    console.log('运算符全部与第一个都相等' + oper.length)
-                }
-                else {//运算符不全等
-                    aaa();
-                    console.log('运算符不全等' + oper.length);
-                }
-        }
-        else {//只有一个运算符
-            markOper(); 
-            console.log('只有一个运算符' + oper.length)
-        }
     }
 
     function aaa() {
@@ -225,25 +213,7 @@ window.onload = function() {
         }
     }
 
-    //判断是哪种运算
-    function markOper() {
-        switch(oper[0]) {
-            case '+':
-                add();
-                break;
-            case '-':
-                sub();
-                break; 
-            case 'x':
-                mul();
-                break;          
-            case '÷':
-                divide();
-                break;
-            default:
-                break;             
-        }       
-    }
+
     
     //点击+、-、x、÷
     function clickOperator(spanType) {
@@ -265,39 +235,6 @@ window.onload = function() {
                     oText2.value += spanType;
                     oper.push(spanType);    
             }  
-    }
-
-    //加法运算
-    function add() {
-        var str = 0;
-        for(var i = 0; i < arr.length; i++) {
-            str += parseFloat(arr[i]);
-        }
-        isFloat(str);
-    }
-    //减法运算
-    function sub() {
-        var str = parseFloat(arr[0]);
-        for(var i = 1; i < arr.length; i++) {
-            str -= parseFloat(arr[i]);
-        }
-        isFloat(str);
-    }
-     //乘法运算
-    function mul() {
-        var str = 1;
-        for(var i = 0; i < arr.length; i++) {
-            str *= parseFloat(arr[i]);
-        }
-        isFloat(str);
-    }
-     //除法运算
-    function divide() {
-        var str = parseFloat(arr[0]);
-        for(var i = 1; i < arr.length; i++) {
-            str /= parseFloat(arr[i]);
-        }
-        isFloat(str);
     }
 
     //确认是否需要小数点及小数点位数函数
