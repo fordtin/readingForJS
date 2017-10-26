@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+        <h2>ELECTRONIC CACULATOR</h2>
+        <div class="middle">
+                <input v-model="input">
+        </div>
+        <div class="bottom clearfix">
+            <div class="left">
+                <span class="span clear" @click="press">AC</span><span class="span clear" @click="press">CE</span>
+                <span class="span" @click="press">÷</span>
+                <span class="span" @click="press">7</span><span class="span" @click="press">8</span><span class="span" @click="press">9</span>
+                <span class="span" @click="press">4</span><span class="span" @click="press">5</span><span class="span" @click="press">6</span>
+                <span class="span" @click="press">1</span><span class="span" @click="press">2</span><span class="span" @click="press">3</span>
+                <span class="span zero" @click="press">0</span><span @click="press">.</span>
+            </div>
+            <div class="right">
+                <span class="span" @click="press">x</span>
+                <span class="span" @click="press">-</span>
+                <span class="span" @click="press">+</span>
+                <span class="span equal" @click="press">=</span>
+            </div>
+        </div>
+</div>
+<script src="vue.js"></script>
+<script>
+var app = new Vue({
+    el: "#app",
+    data() {
+        return {
+            input: ''
+        }
+    },
+    methods: {
+        press: function(e) {
+            var current = this;
+            var key = e.target.textContent;
+            if(
+                key != 'AC' &&
+                key != 'CE' &&
+                key != '+' &&
+                key != '-' &&
+                key != 'x' &&
+                key != '÷' &&
+                key != '=' 
+                ) {
+                    current.input += key
+                } else if ( key === '=') {
+                    current.input = eval(current.input);
+                } else if( key === 'AC') {
+                    current.input = ''
+                } else if( key === '+') {
+                    current.input += '+'
+                }else if( key === '-') {
+                    current.input += '-'
+                }else if( key === 'x') {
+                    current.input += '*'
+                }else if( key === '÷') {
+                    current.input += '/'
+                }else if( key === 'CE') {
+                    current.input = ''
+                }
+    
+        }
+    }
+})
+</script>
+</body>
+</html>
