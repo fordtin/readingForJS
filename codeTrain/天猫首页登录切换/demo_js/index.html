@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<link rel="stylesheet" href="styles/index.css">
+<style>
+    .login_box {
+        width: 350px;
+        height: 350px;
+        position: absolute;
+        right: 425px;
+        top: 90px;
+        background-color: #fff;
+    }
+
+    .login_box .way {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        right: 0px;
+        top: 0px;
+/*        overflow: hidden;*/
+    }
+    .login_box .way i {
+        display: block;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        margin: 0;
+        color: #ff0036;
+        cursor: pointer;
+    }
+    .login_box .way .password_i {
+        font-size: 40px;
+    }
+     h3 {
+        font-size: 16px;
+        font-weight: 300;
+    }
+    .qcode_login,
+    .password_login {
+        padding: 25px;
+    }
+    .password_login  .field {
+        position: relative;
+        margin-top: 25px;
+        width: 298px;
+    }
+    .password_login .field label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 42px;
+        height: 42px;
+        line-height: 42px;
+        text-align: center;
+        background-color: #ddd;
+    }
+    .password_login .field input {
+        height: 40px;
+        width: 248px;
+        padding-left: 50px;
+        border: 1px solid #cbcbcb;
+       
+    }
+    .password_login  .login {
+        width: 300px;
+        height: 42px;
+        line-height: 42px;
+        text-align: center;
+        font-size: 14px;
+        color: #fff;
+        letter-spacing: 4px;
+        background-color: #ff0036;
+    }
+    .password_login  .link_a {
+        text-align: right;
+    }
+    .password_login  .link_a a {
+        margin-right: 10px;
+    }
+
+
+    .login_box .way .qcode_i {
+        position: absolute;
+        top: 5px;
+        left: 2px;
+        font-size: 26px;
+    }
+    .qcode_login .qcode {
+        text-align: center;
+        margin-top: 25px;
+    }
+    .qcode_login .info {
+        margin: 25px auto 0;
+        width: 188px;
+        overflow: hidden;
+    }
+    .qcode_login .info .qcode_scan {
+        float: left;
+        line-height: 38px;
+        font-size: 38px;
+        margin-right: 5px;
+        color: #ff0036;
+        background-color: #fff;
+
+    }
+    .qcode_login .info p {
+        float: left;
+        width: 140px;
+        color: #9c9c9c;
+    }
+    .qcode_login .info a {
+        color: #ff0036;
+    }
+    .qcode_login .login_link {
+        width: 300px;
+        margin-top: 25px;
+        text-align: right;
+    }
+    .qcode_login .login_link a {
+        margin-right: 10px;
+    }
+    
+    .tips {
+        position: absolute;
+        top: 4px;
+        right: 38px;
+        color: #df9c1f;
+        border: 1px solid #f3d995;
+        background-color: #fefcee;
+        width: 141px;
+        height: 26px;
+        line-height: 26px;
+        text-align: center;
+    }
+
+    .tips:before, .tips before, 
+    .tips:after, .tips after {
+        content: attr(data-content);
+        font-family: xms;
+        position: absolute;
+        top: 0px;
+    }
+    .tips:before, .tips before {
+        color: #f3d995;
+        right: -10px;
+    }
+    .tips:after, .tips after {
+        color: #fefcee;
+        right: -8px;
+    }
+
+</style> 
+</head>
+<body>
+    <header>
+        <a href="#"><img src="images/TB1_Gn8RXX-380-54.png" alt=""></a>
+    </header>
+    <main>
+        <div class="content">
+            <a href="#"><img src="images/TB1SwK3j2VXa-1190-600.png" alt=""></a>
+        </div>
+        <div class="login_box">
+            <div class="top">
+                <div class="way" id="way" onselectstart="return false"; style=" -moz-user-select: none;">
+                    <i class="iconfont password_i" >&#xe649;</i>
+                    <i class="iconfont qcode_i" >&#xe652;</i>
+                </div>
+                <!-- <div class="tips" id="tips" data-content="&#x25c0;" > -->
+                <div class="tips" id="tips" data-content="▶" >
+                    <p>扫码登录更安全</p>
+                </div>
+            </div>
+            <div class="qcode_login panel" id="panel">
+                <h3>手机扫码，安全登录</h3>
+                <div class="qcode">
+                    <img src="images/TB1TjDuSsFXa.png" alt="">
+                </div>
+                <div class="info">
+                        <i class="iconfont qcode_scan">&#xe62a;</i>
+                    <p>打开 <a href="#">手机天猫</a> | <a href="#">手机淘宝</a> 扫一扫登录</p>
+                    
+                </div>
+                <div class="login_link">
+                    <a href="#">密码登录</a>
+                    <a href="#">免费注册</a>
+                         
+                </div>
+            </div>
+
+            <div class="password_login panel" id="panel2">
+                    <h3>密码登录</h3>
+                <form action="">
+                    <div class="field">
+                        <label for="username"   ><i class="iconfont">&#xe611;</i></label>
+                        <span><input type="text" id="username" placeholder="会员名/邮箱号/手机号" /></span>
+                    </div>
+                    <div class="field">
+                        <label for="password"   ><i class="iconfont">&#xe620;</i></label>
+                        <span><input type="password" id="password" placeholder="" /></span>
+                    </div>
+                    <div class="field login">
+                        登录
+                    </div>
+                    <div class="field link_a">
+                            <a href="#">忘记密码</a> <a href="#">忘记会员名</a><a href="#">免费注册</a>  
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+<script>
+(function() {
+    var oWay = document.getElementById('way');
+    var onOff = false;
+
+    //点击切换
+    oWay.onclick = clickBtn;
+    // 切换函数
+    function clickBtn() {
+        if(onOff) {
+            switchStyle('block', 'none');
+        }
+        else {
+            switchStyle('none', 'block');
+        }      
+    }
+
+    // 初始化
+    switchStyle('block', 'none');
+    // 设置样式函数
+    function switchStyle(display1, display2) {
+        var oPanel = document.getElementById('panel');
+        var oPanel2 = document.getElementById('panel2');
+        var aI = oWay.getElementsByTagName('i');
+        var oTips = document.getElementById('tips');
+        oPanel2.style.display = display1;
+        oTips.style.display = display1;
+        aI[0].style.display = display1;
+        aI[1].style.display = display2;
+        oPanel.style.display = display2;
+        onOff = !onOff;      
+    }
+}());
+
+
+
+
+
+
+
+
+
+/*
+var oWay = document.getElementById('way');
+var onOff = false;
+oWay.onclick = function() {
+    if(onOff) {
+        switchStyle('block', 'none');
+    }
+    else {
+        switchStyle('none', 'block');
+    }     
+}
+function switchStyle(display1, display2) {
+    var oPanel = document.getElementById('panel');
+    var oPanel2 = document.getElementById('panel2');
+    var aI = oWay.getElementsByTagName('i');
+    oPanel2.style.display = display1;
+    oPanel.style.display = display2;
+    aI[0].style.display = display1;
+    aI[1].style.display = display2;
+    onOff = !onOff;      
+}
+
+// 初始化
+switchStyle('block', 'none');
+*/
+
+
+
+
+
+
+
+/*
+var oWay = document.getElementById('way');
+var oPanel = document.getElementById('panel');
+var oPanel2 = document.getElementById('panel2');
+var aI = oWay.getElementsByTagName('i');
+
+var onOff = false;
+oWay.onclick = function() {
+    if(onOff) {
+        oPanel2.style.display = 'block';
+        oPanel.style.display = 'none';
+        aI[0].style.display = 'block';
+        aI[1].style.display = 'none';
+        onOff = !onOff;
+    }
+    else {
+        oPanel2.style.display = 'none';
+        oPanel.style.display = 'block';
+        aI[0].style.display = 'none';
+        aI[1].style.display = 'block';
+        onOff = !onOff;
+    }     
+}
+
+// 初始化
+init();
+function init() {
+    oPanel.style.display = 'none';
+    aI[1].style.display = 'none';
+}
+
+*/
+
+</script>
+</html>
