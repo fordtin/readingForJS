@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<input type="button" id="myBtn" value="Clic me" />
+<script>    
+window.onload = function () {
+    var btn = document.getElementById('myBtn');
+    var handler = function() {
+    	alert(this.id);
+	}
+	btn.addEventListener('click', handler, false);
+	btn.removeEventListener('click', handler, false);	
+}
+</script>
+</body>
+</html>
+

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<input type="button" value="Click me" onclick="alert('Clicked')" />
+
+<input type="button" value="Click me HTML字符单引号（&quot;）" onclick="alert(&quot;Clicked&quot;)" />
+
+<input type="button" value="Click me 调用在页面其它地方定义的脚本" onclick="showMessage()" />
+
+<input type="button" value="Click me  try-catch" onclick="try{showMessage(); }catch(ex){}" />
+<script>
+    function showMessage() {
+        alert('Hello world!');
+    }
+</script>
+
+
+</body>
+</html>
+

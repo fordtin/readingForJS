@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<input type="button" id="myBtn" value="Clic me" />
+<script> 
+var EventUtil = {
+	addHandler: function (ele, type, handler) {
+		if(ele.addEventListener) { // DOM2级方法
+			ele.addEventListener(type, handler, false);
+		}
+		else if(ele.attachEvent) { // IE方法
+			ele.attachEvent('on' + type, handler);
+		}
+		else { // DOM0级方法
+			ele['on' + type] = handler;
+		}
+	},
+	removeHandler: function(ele, type, handler) {
+		if(ele.removeEventListener) {
+			ele.removeEventListener(type, handler, false);
+		}
+		else if(ele.attachEvent) {
+			ele.attachEvent('on' + type, handler);
+		}
+		else {
+			ele['on' + type] = null;
+		}
+	}
+};
+var btn = document.getElementById('myBtn');
+var handler = function() {
+	alert(this.id);
+};
+EventUtil.addHandler(btn, 'click', handler);
+EventUtil.removeHandler(btn, 'click', handler);
+
+
+// 存在的问题：addHandler()、removeHandler()没有考虑到所有浏览器，如IE中的作用域问题（不过，使用它们添加和移除事件处理程序还是足够了）；DOM0级对每个事件只支持一个事件处理程序（好在只支持DOM0级的浏览器已经没有那么多了！）
+</script>
+</body>
+</html>
+

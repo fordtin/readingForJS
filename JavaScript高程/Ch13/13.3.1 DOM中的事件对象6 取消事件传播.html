@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<a href="https://www.baidu.com/" id="myLink">阻止链接跳转</a>
+<script> 
+
+    var link = document.getElementById('myLink');
+    link.onclick = function(event) {
+        alert('Clicked');
+        event.stopPropagation();
+    };
+    document.body.onclick = function(event) {
+        alert('Body clicked');
+    };
+
+</script>
+</body>
+</html>
+

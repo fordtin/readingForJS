@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<input type="button" value="Click me" id="myBtn" />
+<input type="button" value="Click me  event对象作为参数" id="myBtn2" />
+<script> 
+    var btn = document.getElementById('myBtn');
+    btn.onclick = function() {
+        var event = window.event;
+        alert(event.type); // click
+    };
+
+    var btn2 = document.getElementById('myBtn2');
+    btn2.attachEvent('onclick', function(event) {
+        alert(event.type); // click
+    });
+
+
+</script>
+</body>
+</html>
+

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<input type="button" id="myBtn" value="Clic me" />
+<script> 
+    var btn = document.getElementById('myBtn');
+    btn.onclick = function(event) {
+    	alert(event.currentTarget === this); // true
+        alert(event.target === this); // true
+    };
+
+
+</script>
+</body>
+</html>
+

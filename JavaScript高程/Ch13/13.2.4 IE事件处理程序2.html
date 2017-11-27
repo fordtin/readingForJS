@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<input type="button" id="myBtn" value="Clic me" />
+<script>    
+window.onload = function () {
+    var btn = document.getElementById('myBtn');
+    btn.attachEvent('onclick', function() {
+        alert('Clicked'); // 后弹出Clicked
+    });	
+    btn.attachEvent('onclick', function() {
+        alert('Hello world!'); // 先弹出Hello world!
+    }); 
+}
+</script>
+</body>
+</html>
+

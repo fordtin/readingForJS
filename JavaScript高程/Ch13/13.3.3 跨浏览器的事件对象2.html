@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<input type="button" value="Click me" id="myBtn" />
+<script> 
+var EventUtil = {
+    // 添加事件处理程序
+    addHandler: function (ele, type, handler) {
+        if(ele.addEventListener) { // DOM2级方法
+            ele.addEventListener(type, handler, false);
+        }
+        else if(ele.attachEvent) { // IE方法
+            ele.attachEvent('on' + type, handler);
+        }
+        else { // DOM0级方法
+            ele['on' + type] = handler;
+        }
+    },
+    // 获取event对象
+    getEvent: function(event) {
+        return event ? event : window.event;
+    },
+    // 获取目标元素
+    getTarget: function(event) {
+        return event.target || event.srcElement;
+    },
+    // 取消事件默认行为
+    preventDefault: function(event) {
+        if(event.preventDefault) {
+            event.preventDefault();
+        }
+        else {
+            event.returnValue = false;
+        }
+    },
+    // 移除事件处理程序
+    removeHandler: function(ele, type, handler) {
+        if(ele.removeEventListener) {
+            ele.removeEventListener(type, handler, false);
+        }
+        else if(ele.attachEvent) {
+            ele.attachEvent('on' + type, handler);
+        }
+        else {
+            ele['on' + type] = null;
+        }
+    },
+    // 阻止冒泡
+    stopPropagation: function(event) {
+        if(event.stopPropagation) {
+            event.stopPropagation();
+        }
+        else {
+            event.cancelBubble = true;
+        }
+    }
+};
+
+
+
+var btn = document.getElementById('myBtn');
+btn.onclick = function(event) {
+    event = EventUtil.getEvent(event);
+    var target = EventUtil.getTarget(event);
+};
+
+
+
+
+</script>
+</body>
+</html>
+

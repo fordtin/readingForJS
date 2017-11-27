@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<a href="https://www.baidu.com/" id="myLink">取消事件的默认行为</a>
+<script> 
+    var link = document.getElementById('myLink');
+    link.onclick = function() {
+        window.event.returnValue = false;
+    };
+
+</script>
+</body>
+</html>
+
