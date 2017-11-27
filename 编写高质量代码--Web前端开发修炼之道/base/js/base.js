@@ -14,7 +14,7 @@ GLOBAL.namespace = function(str) {
 	GLOBAL.namespace("Dom");
 	// 获取下一节点
 	GLOBAL.Dom.getNextNode = function(node) {
-		node = get(node);
+		node = GLOBAL.Dom.get(node);
 		var nextNode = node.nextSibling;
 		if(!nextNode) return null;
 		if(!document.all) {
@@ -35,13 +35,13 @@ GLOBAL.namespace = function(str) {
 		return nextNode;
 	};
 	// 获取样式
-	GLOBAL.Dom.getStyle(node, attr) {
-		node = get(node);
+	GLOBAL.Dom.getStyle = function(node, attr) {
+		node = GLOBAL.Dom.get(node);
 		return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(node, false)[attr];
 	};
 	// 设置透明度
 	GLOBAL.Dom.setOpacity = function(node, level) {
-		node = get(node);
+		node = GLOBAL.Dom.get(node);
 		if(document.all) {
 			node.style.filter = 'alpha(opacity=' + level + ')';
 		}
@@ -86,6 +86,22 @@ GLOBAL.namespace = function(str) {
 	GLOBAL.Dom.removeClass = function(node, str) {
 		node.className = node.className.replace(new RegExp("(^|\\s+)" + str), '');
 	};
+	// 设置节点的文本
+	GLOBAL.Dom.setInnerText = function(node, str) {
+		node = GLOBAL.Dom.get(node);
+		if(typeof node.textContent === 'string') { // textContent: 不支持低版本 IE; 兼容 Chrome / Firefox / Safari / Opera / IE9
+			node.textContent = str;
+		}
+		else { // innerText: 不支持Firefox; 兼容其他浏览器
+			node.innerText = str;
+		}
+	};
+	// 获取节点的文本
+	GLOBAL.Dom.getInnerText = function(node) {
+		node = GLOBAL.Dom.get(node);
+		return (typeof node.textContent === 'string') ? node.textContent : node.innerText;
+	};
+
 
 	// GLOBAL.Dom.hasClass = function (name,type) {
  //        var r = [];
@@ -121,7 +137,7 @@ GLOBAL.namespace = function(str) {
 	};
 	// 添加事件（或者说监听事件）
 	GLOBAL.Event.addHandler = function(node, eventType, handler) {
-		node = get(node);
+		node = GLOBAL.Dom.get(node);
 		if(node.addEventListener) {
 			node.addEventListener(eventType, handler, false);
 		}
@@ -134,7 +150,7 @@ GLOBAL.namespace = function(str) {
 	};
 	// 移除事件
 	GLOBAL.Event.removeHandler = function(node, eventType, handler) {
-		node = get(node);
+		node = GLOBAL.Dom.get(node);
 		if(node.removeEventListener) {
 			node.removeEventListener(eventType, handler, false);
 		}
