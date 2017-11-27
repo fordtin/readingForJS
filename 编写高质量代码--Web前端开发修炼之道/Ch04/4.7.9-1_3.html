@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+/*不确定宽度的块级元素的水平居中——————方法一*/
+ul {list-style: none; margin: 0; padding: 0;}
+table {margin-left: auto; margin-right: auto;}
+.test li {float: left; display: inline; margin-right: 5px;}
+.test a {float: left; width: 20px; height: 20px; text-align: center; line-height: 20px; background-color: #316ac5; color: #fff; border: 1px solid #316ac5; text-decoration: none;}
+.test a:hover {background-color: #fff; color: #316ac5;}
+</style>
+</head>
+<body>
+	<!-- 
+		ul宽度不定（因为li数量不定），无法固定ul宽度来实现居中
+	1.table标签不设宽度，宽度由内部元素的宽度“撑起”，即便不设置宽度，仅设置margin-left:auto和margin-right:auto也能实现水平居中！ 
+		2.缺点：增加了无语义标签，加深了标签的嵌套层数。
+	-->
+	<div class="wrap">
+		<table><tbody><tr><td>
+			<ul class="test">
+				<li><a href="#">1</a></li>
+			</ul>
+		</td></tr></tbody></table>
+		<table><tbody><tr><td>
+			<ul class="test">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+			</ul>
+		</td></tr></tbody></table>
+		<table><tbody><tr><td>
+			<ul class="test">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+			</ul>
+		</td></tr></tbody></table>
+	</div>
+</body>
+</html>

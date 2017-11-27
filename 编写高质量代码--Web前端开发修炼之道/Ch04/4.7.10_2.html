@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+
+	.header {background-color: red;}
+	.footer {clear: both; background-color: red;}
+	.sidebar {width: 25%; float: left; background-color: blue;}
+	.main {width: 70%; float: right; background-color: green;}
+</style>
+</head>
+<body>
+	<!-- 网格布局——————典型的两栏式布局 -->
+	<!-- 
+		这个方法可以实现我们的预期效果，但并不理想。
+		1.和main相比，一般来说，sidebar里面都是附属内容，main里面才是网页的主要内容。如果网速很慢，网页加载时间长，代码会让我们在漫长的等待过程中先看到不太重要的sidebar的内容，之后才会看到网页的主体内容。
+		2.可以进行改进一下，调换main和sidebar标签的顺序
+		这样可以保证先加载main，后加载sidebar
+		注意：main的内容比sidebar更重要，无论sidebar和main在样式谁左谁右，在html标签上要保证main标签在sidebar之前被加载。
+		现在，此方案足够好吗？未必，如果设计图有修改呢？比如，调换了sidebar和main的位置
+		3.
+
+	 -->
+
+	<!-- div.header+div.content>(div.sidebar+div.main)^div.footer -->
+	<div class="header">header</div>
+	<div class="content">
+		<div class="main">main</div>
+		<div class="sidebar">sidebar</div>
+	</div>
+	<div class="footer">footer</div>
+	<img src="http://oy1lwtkfl.bkt.clouddn.com/blog/images/2017/1114/2017-11-14_161555.png" alt="" />
+
+
+</body>
+</html>

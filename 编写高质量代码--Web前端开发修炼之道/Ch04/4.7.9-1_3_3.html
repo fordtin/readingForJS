@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+/*不确定宽度的块级元素的水平居中——————方法三*/
+ul {list-style: none; margin: 0; padding: 0;}
+.wrap{background:#000; width:500px; height:100px; }
+.test {clear: both; padding-top: 5px; float: left; position: relative; left: 50%;}
+.test li {float: left; display: inline; margin-right: 5px; position: relative; left: -50%;}
+.test a {float: left; width: 20px; height: 20px; text-align: center; line-height: 20px; background-color: #316ac5; color: #fff; border: 1px solid #316ac5; text-decoration: none;}
+.test a:hover {background-color: #fff; color: #316ac5;}
+</style>
+</head>
+<body>
+	<!-- 父元素设置float，然后父元素设置position: relative和left: 50%，子元素设置：position: relative和left: -50%来实现居中。 
+	优点：父元素可以保留块级元素仍以display: block的形式来显示，且不会添加无语义标签，不增加嵌套深度
+	缺点：设置了position: relative，带来了一定的副作用。
+	-->
+	<div class="wrap">
+		<ul class="test">
+			<li><a href="#">1</a></li>
+		</ul>
+		<ul class="test">
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+		</ul>
+		<ul class="test">
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+			<li><a href="#">5</a></li>
+		</ul>
+	</div>
+</body>
+</html>

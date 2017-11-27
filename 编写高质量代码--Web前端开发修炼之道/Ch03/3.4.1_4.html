@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+	.title {border-bottom: 1px dashed #fff; text-align: right;}
+	.title h2 {float: left;}
+	a {position: absolute; right: 0;top: 0;}
+	p {text-indent: 2em; line-height: 150%; margin: 0 0 20px 0;}
+	strong {color: red; font-weight: normal;}
+</style>
+</head>
+<body>
+	<!-- 标题和内容 -->
+	<!-- 
+		从标签中可以清楚地看到标题和内容的划分，也能考到“根据浏览器的默认样式”被强调了，但是锚点被包围在了二级标题中，它不属于二级标题！下面改进一下————————见下文
+		2.现在好多了，但是无法完成设计图中的设计！该如何？
+		我们可以在此HTML基础上添加适当的无语义化标签div和span
+	 -->
+	
+	<div class="title">
+		<h2>标签的语义</h2>
+		<a href="#">更多&gt;&gt;</a>
+	</div>
+	 <p>段落一的内容... ... <strong>根据浏览器的默认样式</strong> ... ...</p>
+	 <p>段落二的内容... ... </p>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+	.fl {float: left;}
+	.fr {float: right;}
+	.header {background-color: red;}
+	.footer {clear: both; background-color: red;}
+	.sidebar {width: 25%; background-color: blue;}
+	.main {width: 70%;  background-color: green;}
+</style>
+</head>
+<body>
+	<!-- 网格布局——————典型的两栏式布局 -->
+	<!-- 
+		这个方法可以实现我们的预期效果，但并不理想。
+		1.和main相比，一般来说，sidebar里面都是附属内容，main里面才是网页的主要内容。如果网速很慢，网页加载时间长，代码会让我们在漫长的等待过程中先看到不太重要的sidebar的内容，之后才会看到网页的主体内容。
+		2.可以进行改进一下，调换main和sidebar标签的顺序
+		这样可以保证先加载main，后加载sidebar
+		现在，此方案足够好吗？未必，如果设计图有修改呢？比如，调换了sidebar和main的位置
+		3.改变float
+		如果设计图又被修改呢？
+		之前代码不适用了！
+		将宽度和浮动绑定在同个类中，会限制类的灵活性，我们又得重新修改样式。
+		浮动方向是个不稳定的因素，它很可能会变化。
+		
+		4.4.3节中提到过：“多用组合”原则，如果一个类中有些部分会经常变化，我们可以将这个经常变化的部分抽离出来单独设成一个类，然后用类的组合来实现最终样式。按照这种思路，重新编写图4-48代码。
+
+		现在设计图修改成图4-49所示，代码该如何应对呢？
+	 -->
+
+	<!-- div.header+div.content>(div.sidebar+div.main)^div.footer -->
+	<div class="header">header</div>
+	<div class="content">
+		<div class="main fr">main</div>
+		<div class="sidebar fl">sidebar</div>
+	</div>
+	<div class="footer">footer</div>
+	<img src="http://oy1lwtkfl.bkt.clouddn.com/blog/images/2017/1114/2017-11-14_162416.png" alt="" />
+
+
+</body>
+</html>

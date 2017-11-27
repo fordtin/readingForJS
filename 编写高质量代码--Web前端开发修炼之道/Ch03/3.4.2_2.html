@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+	.form fieldset {border: none;}
+	.form legend {display: none;}
+</style>
+</head>
+<body>
+	<!-- 表单 -->
+	<!-- 
+		这种方法虽然能实现视觉上的效果，但“帐号：”、“密码：”和它们对应的输入框之间没有语义上的照应，表单用途也不清楚。下面改进一下————————见下文
+		2. 一般来说，表单域要用fieldset标签包起来，并用legend标签说明表单的用途
+		   2.1 因为fieldset默认有边框，而legend也有默认样式，为满足设计需要，可以将fieldset的“border”设置为“none”，把legend的“display”设为“none”，以此来兼顾语义和设计两方面的要求。
+		   2.2 每个input标签对应的说明文本都需要使用label标签，并且通过为input设置id属性，在label标签中设置“for=someId”来让说明文本和相应的input关联起来。
+	 -->
+	<form action="" method="" class="fieldset">
+		<div><span>帐号：</span> <input type="text" id="name" /></div>
+		<div><span>密码：</span> <input type="password" id="pw" /></div>
+		<input type="submit" value="登录" class="subBtn" />
+	</form>
+	
+	<form action="" method="" class="form">
+		<fieldset>
+			<legend>登录表单</legend>
+			<p><label for="name">帐号：</label><input type="text" id="name" /></p>
+			<p><label for="pw">密码：</label><input type="password" id="pw" /></p>
+			<input type="submit" value="登录" class="subBtn" />
+		</fieldset>
+	</form>
+	
+</body>
+</html>

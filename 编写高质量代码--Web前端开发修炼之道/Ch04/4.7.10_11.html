@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+	.content {clear: both;}
+	.header {background-color: red;}
+	.footer {clear: both; background-color: red;}
+	.sidebar {background-color: blue;}
+	.main {background-color: green;}
+	.content-lr-7025 .main {float: left; width: 70%;}
+	.content-lr-7025 .sidebar {float: right; width: 25%;}
+	.content-rl-7025 .main {float: right; width: 70%;}
+	.content-rl-7025 .sidebar {float: left; width: 25%;}
+</style>
+</head>
+<body>
+	<!-- 网格布局——————典型的两栏式布局 -->
+	<!-- 
+		这个方法可以实现我们的预期效果，但并不理想。
+		1.和main相比，一般来说，sidebar里面都是附属内容，main里面才是网页的主要内容。如果网速很慢，网页加载时间长，代码会让我们在漫长的等待过程中先看到不太重要的sidebar的内容，之后才会看到网页的主体内容。
+		2.可以进行改进一下，调换main和sidebar标签的顺序
+		这样可以保证先加载main，后加载sidebar
+		现在，此方案足够好吗？未必，如果设计图有修改呢？比如，调换了sidebar和main的位置
+		3.改变float
+		如果设计图又被修改呢？
+		之前代码不适用了！
+		将宽度和浮动绑定在同个类中，会限制类的灵活性，我们又得重新修改样式。
+		浮动方向是个不稳定的因素，它很可能会变化。
+
+		现在设计图修改成图4-49所示，代码该如何应对呢？
+
+		改成如图4-50呢？
+
+		总结一：
+		1.浮动从main和sidebar中抽离出来了，main和sidebar的灵活性增加了，提高了类的重用性。面对设计的修改，我们只需简单地修改一下相关类的挂钩(fl、fr)就可从容应对！
+		2.但即便如此，这仍然不是最佳方案。到目前为止，我们考虑的都是main和sidebar宽度固定的情况，如果main和sidebar宽度也发生变化呢？
+		3.见图4-51，上下两个main和sidebar的宽度稍有不同，对于这种情况，我们该如何处理呢？依照之前的思路，如果宽度也是个容易变化的因素，那么将它也抽离出来，单独成一个类,这种思路可以解决我们遇到的问题，而且具有非常高的灵活性。
+		但也有不足之处，如果要修改，需要成对的进行修改，如main和sidebar要对调位置，需要同时修改main和sidebar两者挂的(fl、 fr)类。
+		4.有一种思路可以帮助我们解决这个问题————————利用子选择器，见下文
+		利用子选择器，我们可以削弱main和sidebar作为样式挂钩的能力，单独的main和sidebar选择符就像是一个抽象类，我们可以在其中定义一些公共的样式。用于布局的浮动和宽度属性，不由main和sidebar这两个抽象类直接提供，而由它们的衍生类——————content-xx-xxxx .main和content-xx-xxxx .sidebar提供。
+		5.子选择器方式便于修改是通过预设大量分支实现的，不够轻便。如果我们新增一种main宽度80%，sidebar宽度15%的布局，用组合的方式，见下文
+		6.用子选择符的方式——————见下文
+		由5和6可以看出组合类的方式比子选择符更易于扩展，更轻便。是不是组合类的方式更好呢？一般情况下，扩展性是好的，是需要尽量提供的，但扩展性太好并不一定有利于维护。
+		7.content-xx-xxxx的宽度设置   xxxx的具体单位最好使用百分比这种相对单位，而不要使用px。因为使用百分比，可以嵌套使用，提高重用性。——————见下文
+		8.每个main和sidebar本身又可以包含main和sidebar，只要挂上content-xx-xxxx就可以控制自己包含的main和sidebar的布局，一层套一层，只在最外层的容器给定具体宽度，所有其他容器的宽度均用百分比设置。这种方式的布局极具有灵活性，又因为content-xx-xxxx是全站统一管理的，所以非常稳定，它有一个专有的名称，叫做网格布局
+	 -->
+
+	<!-- div.header+div.content>(div.sidebar+div.main)^div.footer -->
+	<div class="header">header</div>
+	<div class="content content-lr-7025">
+		<div class="main content-lr-7025">main
+			<div class="main"></div>
+			<div class="sidebar"></div>
+		</div>
+		<div class="sidebar">sidebar</div>
+	</div>
+	<div class="footer">footer</div>
+
+</body>
+</html>

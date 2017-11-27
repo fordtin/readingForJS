@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+/*不确定宽度的块级元素的水平居中——————方法二*/
+ul {list-style: none; margin: 0; padding: 0;}
+.wrap{background:#000; width:500px; height:100px; }
+.test {text-align: center; padding: 5px;}
+.test li {display: inline;}
+.test a {padding: 2px 6px; background-color: #316ac5; color: #fff; border: 1px solid #316ac5; text-decoration: none;}
+.test a:hover {background-color: #fff; color: #316ac5;}
+</style>
+</head>
+<body>
+	<!-- 对比方法一，好处是不用增加无语义标签，简化了标签的嵌套深度，但也存在一定问题：将块级元素display类型改为inline，变成了行内元素，而行内元素比起块级元素缺少一些功能，如设定长宽值，在某些特殊需求的CSS设置中，这种方法可能会带来一些限制。 -->
+	<div class="wrap">
+		<ul class="test">
+			<li><a href="#">1</a></li>
+		</ul>
+		<ul class="test">
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+		</ul>
+		<ul class="test">
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+			<li><a href="#">5</a></li>
+		</ul>
+	</div>
+</body>
+</html>

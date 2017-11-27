@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+
+	.header {background-color: red;}
+	.footer {clear: both; background-color: red;}
+	.sidebar {width: 25%; float: left; background-color: blue;}
+	.main {width: 70%; float: right; background-color: green;}
+</style>
+</head>
+<body>
+	<!-- 网格布局——————典型的两栏式布局 -->
+	<!-- 
+		这个方法可以实现我们的预期效果，但并不理想。
+		1.和main相比，一般来说，sidebar里面都是附属内容，main里面才是网页的主要内容。如果网速很慢，网页加载时间长，代码会让我们在漫长的等待过程中先看到不太重要的sidebar的内容，之后才会看到网页的主体内容。
+	 -->
+
+	<!-- div.header+div.content>(div.sidebar+div.main)^div.footer -->
+	<div class="header">header</div>
+	<div class="content">
+		<div class="sidebar">sidebar</div>
+		<div class="main">main</div>
+	</div>
+	<div class="footer">footer</div>
+
+
+
+
+
+</body>
+</html>

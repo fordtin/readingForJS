@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+.mb10{margin-bottom: 10px;}
+.wrap {background-color: #000; width: 500px; color: #fff; height: 100px; margin-bottom: 10px; display: table-cell; vertical-align: middle; *position: relative;}
+.test {width: 200px; height: 50px; background-color: red;}
+.verticalWrap {*position: absolute; *top: 50%;}
+.vertical {*position: relative; *top: -50%;}
+</style>
+</head>
+<body>
+	<!-- 2.3父元素高度确定的多行文本、图片、块级元素的竖直居中——————有两种方法 -->
+	<!-- 
+		1.CSS中有一个竖直居中的属性vertical-align，但只有当父元素为td或者th时，这个属性才会生效。
+		2.Firefox和IE8下，可以设置块级元素的display类型为table-cell，激活vertical-align属性，但IE6-IE7并不支持，所以此重方法没办法跨浏览器兼容。
+		3.方法一：但可以使用最原始的方法来实现兼容————直接使用表格
+		4.td标签默认情况下就隐式地设置了vertical-align的值为middle，所以不需要再显示的设置一遍。
+		5.不会带来样式上的副作用，但添加了无语义标签，并增加了嵌套的深度。
+		方法二：对不支持display:table-cell的IE6-IE7，使用特定格式的hack。
+		好处：没有增加额外标签，
+		缺点：使用了hack，不利于维护，另一方面，需要设置position:relative和position:absolute，带来的副作用。
+	 -->
+	<div class="mb10">
+		<div class="wrap">
+			<div class="verticalWrap">
+				<div class="vertical">
+					hello world<br/>
+					hello world<br/>
+					hello world<br/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="mb10">
+		<div class="wrap">
+			<div class="verticalWrap">
+				<img src="images/1.gif" class="vertical" alt="" />
+			</div>
+		</div>
+	</div>
+	<div class="mb10">
+		<div class="wrap">
+			<div class="verticalWrap">
+				<div class="test vertical"></div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

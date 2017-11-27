@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+	* {margin: 0; padding: 0;}
+.nav li {float:left; display:inline; margin-right:10px; font-family:黑体;}
+.nav a{float:left; width:139px; height:31px; line-height:31px; font-size:24px;color:#fff; text-decoration:none; text-align:center; background: #ff0000 url(img3.gif);}
+.nav a:hover{background-position:0 -31px;}
+
+</style>
+
+</head>
+<body>
+
+<script>
+4.5 低权重原则（避免滥用子选择器）	
+	1.CSS设置的样式是可以层叠的，如下代码：
+	/*	css 的层叠
+		<style type=”text/CSS”>
+			span{font-size:40px}
+			.test{color:red}
+		</style>
+		<span class="test">1234567890</span>
+	*/
+	2.如果两个不同选择符设置的样式有冲突，又会如何呢？如下代码：
+	/*  css 层叠有冲突的情况
+		<style type=”text/CSS”>
+			span{font-size:40px;color:green;}
+			.test{color:red;}
+		</style>
+		<span class="test">1234567890</span>
+	*/
+	上面涉及到CSS选择符的权重问题。CSS选择符是由权重的，当不同选择符的样式设置有冲突时，会采用权重高的选择符设置的样式。
+	权重的规则是这样的：HTML标签的权重是1，class权重是10，id权重是1000
+
+	3.如果CSS选择符权重相同，那么样式会遵循就近原则，哪个选择符最后定义，就采用哪个选择符的样式。<br/>
+	“就近原则”指的是选择符定义的先后顺序，而不是挂class名的先后顺序。“<span class="test test2"></span>”与“<span class="test2 test">1234567890</span>”没有区别。
+	/*  选择符权重相同的情况
+		<style type=”text/CSS”>
+			span{font-size:40px}
+			.test{color:red}
+			.test2{color:green}
+		</style>
+		<span class="test test2">1234567890</span>
+	*/
+	/* 调换样式的位置
+		<style type=”text/CSS”>
+			span{font-size:40px}
+			.test2{color:green}
+			.test{color:red}
+		</style>
+		<span class="test test2">1234567890</span>
+	*/
+	4.1 CSS选择符权重是个容易被忽视的问题，如不太注意选择选择符权重常常会出现意想不到的小麻烦。
+	/*	需标红的代码
+		<style type=”text/CSS”>
+			#test{font-size:14px;}
+		</style>
+		<p id="test">CSS 选择符权重很重要</p>
+	*/
+
+	4.2 现在需要将“很重要”设置为红色，该如何做呢？
+	方案一————————利用子选择器
+	/* 用子选择器
+		<style type=”text/CSS”>
+			#test{font-size:14px;}
+			#test span{color:red;}
+		</style>
+		<p id="test">CSS 选择符权重<span>很重要</span></p>
+	*/
+	方案二————————新建class
+	/* 新建 class
+		<style type=”text/CSS”>
+			#test{font-size:14px;}
+			.font{color:red;}
+		</style>
+		<p id="test">CSS 选择符权重<span class="font">很重要</span></p>
+	*/
+	4.3 很多工程师推荐方案一，因为使用子选择器可以避免新增class，让HTML代码更简洁。（这么考虑是有道理的，但如果这时候需求有变化，需要增加新的文字进来，如下）
+	/* 添加新的文本
+		<style type=”text/CSS”>
+			#test{font-size:14px;}
+			#test span{color:red;}
+		</style>
+		<p id="test">CSS 选择符权重<span>很重要</span>,我们要小心处理</p>
+	*/
+	4.4 要求将“小心处理”这几个字设置为绿色，我们也可以这么做，代码清单如下：
+	/* 需标绿的代码
+		<style type=”text/CSS”>
+			#test{font-size:14px;}
+			#test span{color:red;}
+			.font{color:green;}
+		</style>
+		<p id="test">
+			CSS 选择符权重<span>很重要</span>,
+			我们要<span class="font">小心处理</span>
+		</p>
+	*/
+	本以为“小心处理”会被选择符“.font”设置为绿色，但它却被选择符权重更高的“#test span”设置成了红色，子选择器在无意中影响到了我们新添加的代码。如果想要达到预期，重写代码如下：
+	/* 被迫加重权重的选择器
+		<style type=”text/CSS”>
+			#test{font-size:14px;}
+			#test span{color:red;} 选择符权重为 100+1=101
+			#test .font{color:green;} 选择符权重为 100+10=110
+		</style>
+		<p id="test">
+			CSS 选择符权重<span>很重要</span>,
+			我们要<span class="font">小心处理</span>
+		</p>
+	*/
+	4.5 而如果使用方案二，情况会如何呢？
+	/* 新增 class 作为标绿容器的选择符
+	<style type=”text/CSS”>
+		#test{font-size:14px;}
+		.font{color:red;}
+		.font2{color:green;}
+	</style>
+	<p id="test">
+		CSS 选择符权重<span class="font">很重要</span>,
+		我们要<span class="font2">小心处理</span>
+	</p>
+	*/
+	4.6 因为没有使用子选择器，会增加CSS选择符的权重，CSS选择符的权重越高，样式越不易被覆盖，越容易对其它选择符产生影响。
+	所以除非确定HTML结构非常稳定，一定不会再修改了，否则尽量不要使用子选择器。
+	为了保证样式容易被覆盖，提高可维护性，CSS选择符需保证权重尽可能低。
+	少用子选择器，就需多添加class。
+
+
+</script>
+<script>
+4.6 CSS sprite
+	1.如图4-19所示导航条，鼠标滑过要有图4-20所示的高亮效果
+	实现代码如下：
+	/*	用两张图实现高亮
+		<style type=”text/CSS”>
+			.nav li {float:left; display:inline; margin-right:10px; font-family:黑体;}
+			.nav a {float:left; width:139px; height:31px; line-height:31px; font-size:24px; color:#fff; text-decoration:none; text-align:center; background:url(img1.gif);}
+			.nav a:hover {background:url(img2.gif);}
+		</style>
+		<ul class="nav">
+			<li><a href="#">联系我们</a></li>
+			<li><a href="#">产品答疑</a></li>
+			<li><a href="#">广告服务</a></li>
+		</ul> 
+	*/
+	2.根据设计图，将默认状态的背景图切成两张图片，分别命名为img1、img2，如图4-21和图4-22.给a标签的默认状态设置样式background:url(img1.gif)，给滑过状态设置样式background:url(img2.gif)，这样便可实现需求。
+
+	3.这种做法存在一个问题：img2.gif并不会马上加载，只有当鼠标滑过时，才会加载，在图片加载完成以前，背景会显示为空白。
+
+	4.为了解决这个问题，修改部分代码：
+	/* 利用一张大图的背景移动实现高亮
+		<style type=”text/CSS”>
+			.nav li {float:left; display:inline; margin-right:10px; font-family:黑体;}
+			.nav a{float:left; width:139px; height:31px; line-height:31px; font-size:24px;color:#fff; text-decoration:none; text-align:center; background: #ff0000 url(img3.gif);}
+			.nav a:hover{background-position:0 -31px;}
+
+		</style>
+		<ul class="nav">
+			<li><a href="#">联系我们</a></li>
+			<li><a href="#">产品答疑</a></li>
+			<li><a href="#">广告服务</a></li>
+		</ul>
+	*/
+	5.这种做法将默认状态和滑过状态的两张图片合在一起，如图4-23。它的思路是通过改变背景图的background-position属性来指定大小的容器里展示部分位置的背景图，如图4-24所示，我们将这种技术称为图片翻转技术。
+
+	6.图片翻转技术将多张图片合并为一张，然后利用background-position属性来展示我们需要的部分。按照这种思路，后来衍生出另一种技术将这种思路发挥到了极致————————将网站的多张背景图片合并到一张大图上，这便是CSS sprite。
+
+	7.CSS sprite将网站的背景图片河道一张大图上，出发点已经不是“解决滑过状态是背景图片出现空白”的问题了。
+	图片的加载是会发出HTTP请求的，一张图片需要一条HTTP请求，如果一个页面需要加载多张图片，那么它会相应地发出多条HTTP请求。HTTP请求数越多，访问服务器的次数就越多，服务器的压力也就越大。
+	将多张图片合并成一张大图，会大大减少网页的HTTP请求数，减小服务器压力。
+
+	8.CSS sprite技术看似简单，其实不容易掌握，主要原因如下：
+	它能合并的只能是用于背景的图片，对于<img src="" />设置的图片，是不能合并到CSS sprite大图中的，如果合并这些图片会影响页面可读性。
+	对于横向和纵向都平铺的图片，也不能使用CSS sprite；如果是横向平铺的，只能将所有横向平铺的图片合并成一张大图，只能竖直排列，不能水平排列；如果是纵向平铺的，只能将所有纵向平铺的图片合并成一张大图，只能水平排列，不能竖直排列。
+
+	9.图片如何排列能够尽量紧凑，同时保证不会影响扩展性。——————————这点是CSS sprite技术最困难也是最具有挑战性的地方。
+
+	10. CSS sprite技术存在的问题：将网站的多张背景图片合并到一张大图上，通过background-position进行定位，这对于图片的位置精确度要求非常高。
+	一方面制作网页是，需要精确测量坐标，还需要考虑如何让图案尽可能密集排列，这影响了开发速度；
+	另一方面，大图中每个小图的坐标值都不可轻易改动——————因为每改动一个小图，都可能影响到周边其它图片，这大大降低了可维护性。
+
+	CSS sprite技术最大好处：减少HTTP请求，减轻服务器压力，但却需要付出“降低开发效率”和“增大维护难度”代价。对流量不大的网站来说，CSS sprite带来好处不明显，而它付出的代价却很大，这并不划算。————————所以是否使用CSS sprite主要取决于网站流量。
+</script>
+
+
+
+</body>
+</html>

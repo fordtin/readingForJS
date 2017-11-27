@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+.wrap {background-color: #000; width: 500px; color: #fff; height: 100px;}
+.test {width: 200px; height: 50px; background-color: red;}
+</style>
+</head>
+<body>
+	<!-- 2.3父元素高度确定的多行文本、图片、块级元素的竖直居中——————有两种方法 -->
+	<!-- 
+		1.CSS中有一个竖直居中的属性vertical-align，但只有当父元素为td或者th时，这个属性才会生效。
+		2.Firefox和IE8下，可以设置块级元素的display类型为table-cell，激活vertical-align属性，但IE6-IE7并不支持，所以此重方法没办法跨浏览器兼容。
+		3.但可以使用最原始的方法来实现兼容————直接使用表格
+		4.td标签默认情况下就隐式地设置了vertical-align的值为middle，所以不需要再显示的设置一遍。
+		5.不会带来样式上的副作用，但添加了无语义标签，并增加了嵌套的深度。
+	 -->
+
+	<table><tbody><tr><td class="wrap">
+		hello world<br/>
+		hello world<br/>
+		hello world<br/>
+	</td></tr></tbody></table>
+
+	<table><tbody><tr><td class="wrap">
+		<img src="images/1.gif" alt="" />
+	</td></tr></tbody></table>
+
+	<table><tbody><tr><td class="wrap">
+		<div class="test"></div>
+	</td></tr></tbody></table>
+
+</body>
+</html>

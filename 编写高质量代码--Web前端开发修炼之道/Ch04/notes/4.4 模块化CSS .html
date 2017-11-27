@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+	* {margin: 0; padding: 0;}
+	.div1000 {width: 1000px; margin: auto; border: 1px solid #ff0000;}
+	.img1000 {width: 1000px; height: 780px;}
+
+	.div1500 {width: 1000px; height: 1150px; border: 1px solid #ff0000; margin: auto;}
+	.img1100 {height: 1000px; background-size: contain;}
+</style>
+
+</head>
+<body>
+<script>
+4.4 模块化CSS（CSS中引入面向对象编程思想）
+4.4.1 如何划分模块？（单一职责）
+	模块化可以让代码高度重用，显著提高开发效率。
+	拆分模块的第一个技巧：模块与模块之间不要包含相同的部分，如有相同的部分，应将它们提取出来，拆分成一个独立的模块。
+	拆分模块的第二个技巧：模块应在保证数量尽可能少的原则下，做到尽可能简单，以提高重用性。
+</script>
+<!-- 示意图 -->
+	<div class="div1000">
+		<img class="img1000" src="images/图4-2 模块化示意图1.png" alt="" title="图4-2 模块化示意图1" />
+		<p class="p441">
+			图4-2所示设计图，该如何划分模块？
+			1.除了第3列，前两列的上下部分从视觉上来看结构相同。因此可以将设计图案图4-3所示的四种模块来编写代码。（每个模块都要完整包含自己区域的内容，相同类型的模块可以重用）
+		</p>
+	</div>
+	<div class="div1000">
+		<img class="img1000" src="images/图4-3 模块化示意图2.png" alt="" title="图4-3 模块化示意图2" />
+		<p class="p441">
+			2.仔细观察，发现模块1和模块2有相似的部分，模块3和模块4也有相似的部分，这些相似的部分分别在两个模块里都写了一遍。（一方面增加了冗余代码量，另一方面如果需要修改相似部分代码，两个模块都需要修改，增加了修改的成本）。<br/>
+			3.我们可以将相似的部分提取出来，再进一步拆分成更小的模块。我们可将设计图拆成6个模块，如图4-4所示。（这样，每个模块都相对独立，和其它模块没有重复的地方，模块重用率提高了）
+		</p>
+	</div>
+
+	<div class="div1000">
+		<img class="img1000" src="images/图4-4 模块化示意图3.png" alt="" title="图4-4 模块化示意图2" />
+	</div>
+	<div class="div1000">
+		<img class="img1000" src="images/图4-5 模块化示意图4.png" alt="" title="图4-5 模块化示意图4" />
+		<p>
+			4. 图4-5中框出的部分如果需要修改，按4种模块拆分就需要在模块1和模块2中分别修改；<br/>
+			按6种模块拆分的话，只需要修改模块4就可以了！（可见拆分成6个模块可以提高可维护性，方便修改）<br/>
+			5.至此可以归纳出<strong>拆分模块的第一个技巧：模块与模块之间不要包含相同的部分，如有相同的部分，应将它们提取出来，拆分成一个独立的模块。</strong>
+		</p>
+	</div>
+	<div class="div1000">
+		<img class="img1000" src="images/图4-6 模块化示意图5.png" alt="" title="图4-6 模块化示意图5" />
+		<p>
+			6.按照6中模块拆分的方式已经足够好了吗？虽然模块与模块之间已经不再有相同部分了，每个模块都相对独立，但模块1和模块2包含的结构比较复杂，如需要添加如下的模块会怎么样呢？
+		</p>
+		<p>
+			7.图4-6与图4-2是不是很像呢？我们能不能直接使用图4-4中拆分的模块来拆分图4-6呢？<br/>
+			答案是不行！虽然图4-6中的设计与图4-4中的模块1和模块2很像，但并不一样。 图4-4中模块1和模块2除了标题和边框之外，还包含其他内容。
+		</p>
+	</div>
+	<div class="div1000">
+		<img class="img1000" src="images/图4-7 模块化示意图6.png" alt="" title="图4-7 模块化示意图6" />
+		<p>
+			8.将图4-4中的模块1和模块2进一步拆分，得到如图4-7所示的8个模块，其中的模块1和模块2就可以匹配图4-6中的设计了！如图4-8所示
+		</p>
+	</div>
+	<div class="div1000">
+		<img class="img1000" src="images/图4-8 模块化示意图7.png" alt="" title="图4-8 模块化示意图7" />
+		<p>
+			总结：<br/>
+			9.按照6中模块来拆分，其中模块1和模块2会因为结构复杂，而难以在相似的设计中重用;按照8种模块来拆分，模块的结构更加简单，能重用在相似的设计中。<strong>我们在拆分模块时，应将模块拆得尽可能简单，以提高弹性。</strong>
+			10.模块功能越简单其重用性和越高，但数量也会相应增加，增加了维护难度。所以，拆分模块时应该在“数量少”和“结构简单”之间去一个最合适的平衡点。<br/>
+			<strong>这就是拆分模块的第二个技巧：模块应在保证数量尽可能少的原则下，做到尽可能简单，以提高重用性。</strong>
+		</p>
+	</div>
+<img src="images/图4-9 CSS命名实例图.png" alt="" />
+<script>
+4.4.2 CSS的命名（命名空间的概念）
+	1.1 CSS的命名空间推荐使用英语，不要使用汉语拼音。如头部用head，底部用foot，主体部分用main，导航用nav，菜单用menu等。（方便阅读和理解，提高可维护性）
+	/*	
+		css 命名方案一 
+		<style type=”text/CSS”>
+			.timeList{xxxxxxx}
+		</style>
+		<ul class="timelist">
+			<li>2009 年 08 月(3)</li>
+			<li>2009 年 07 月(12)</li>
+			<li>2009 年 06 月(3)</li>
+			<li>2009 年 05 月(8)</li>
+			<li>2009 年 04 月(2)</li>
+			<li>2009 年 03 月(8)</li>
+		</ul>
+	*/
+	1.2 时间的无序列表。timelist命名，用到了两个单词，但它们连在一起，很难一眼认出来，可读性差。如果命名需要用到两个户两个以上单词，常见做法有两种：驼峰命名法(timeList)和划线命名法(time_list，用中划线“-”或下划线“_”)。推荐两种方法组合使用。
+	1.3 每个li都有一条下划线，但最后一个没有，IE6不支持:last伪类（所以不能简单地使用.timeList li {border-bottom: xxx;}和.timeList li:last{border-bottom: none;}）。我们只能为最后一个li挂个特殊的class来实现想要的效果。如下
+	/*	
+		css 命名方案二
+		<style type=”text/CSS”>
+			.timeList{xxxxxxx}
+			.timeList li{border-bottom:xxxx;}
+			.timeList .last{border-bottom:none;}
+		</style>
+		<ul class=”timeList”>
+			<li>2009 年 08 月(3)</li>
+			<li>2009 年 07 月(12)</li>
+			<li>2009 年 06 月(3)</li>
+			<li>2009 年 05 月(8)</li>
+			<li>2009 年 04 月(2)</li>
+			<li class=”last”>2009 年 03 月(8)</li>
+		</ul>	
+	*/
+	1.4 为最后一个li标签挂上名为last的class，可以实现我们想要的效果，但这样的命名还不够好。（这涉及一个问题——————滥用子选择符，很多工程师喜欢使用子选择符，但滥用子选择符易留下冲突隐患。）
+	1.5 last是个过于简单且常用的命名，如果工程师A过于依赖于子选择符，可能是CSS代码里出现大量类似于“.timeList .last”、“.nameList .last” “.ageList .last”这样的选择符，如果多人合作，工程师B可能习惯直接使用“.last”作为选择符，从而和“.timeList .last”等选择符设置的样式层叠，产生意料之外的影响。
+	1.6 除了“.last”之外，常见的容易产生冲突的命名还有“.first”、“.item”等。
+	1.7 为了将风险降至最低，不推荐轻易使用子选择符。我们使用“.timeListLastItem”代替“.timeList .last”来作为选择符，就可以降低冲突隐患了。改用后代码：
+	/*		
+		css 命名方案三
+		<style type=”text/CSS”>
+			.timeList{xxxxxxx}.timeList li{border-bottom:xxxx;}
+			.timeListLastItem{border-bottom:none;}
+		</style>
+			<ul class=”timeList”>
+			<li>2009 年 08 月(3)</li>
+			<li>2009 年 07 月(12)</li>
+			<li>2009 年 06 月(3)</li>
+			<li>2009 年 05 月(8)</li>
+			<li>2009 年 04 月(2)</li>
+			<li class=”timeListLastItem”>2009 年 03 月(8)</li>
+		</ul>	
+	*/
+	1.8 这样命名仍然不够好（将整个ul视为一个模块，在结构上“.timeListLastItem”从属于“.timeList”，但命名上看不出明显的从属关系。虽然CSS没有真正意义上的“封装”功能，但如果CSS命名能够表现出从属关系，就可以相对地让模块的封装性更好。
+	1.9 如前所述，我们可以结合驼峰命名法和划线命名法来进行命名（驼峰命名法————用于区别不同单词，划线————用于表明从属关系。）“.timeListLastItem”改为“.timeList-lastItem”,这样进一步提高了CSS命名的可读性（不仅能从命名中清楚看出各个单词，还能了解到从属关系）。
+
+
+
+
+	2.1 4.2中说过，CSS可以分为base、common、page三层。其中base层和common层是公共的，由于同一加载到所有页面里，一般只会由一个人来负责，不会出现冲突问题。而page层是页面级的，可能会由多个合作完成，有可能存在冲突隐患。
+
+		我们在命名CSS时，首先要判断它是位于什么层的，如果模块多次反复出现，那么应该归为common层，不用考虑冲突问题，而如果出现的次数少，那么应该将它归为page层，需要考虑如何避免冲突。
+
+		假设图4-9（时间的无序列表）所示模块位于page层，这个页面有多个模块，因为某种原因图4-9所示模块由工程师A制作，而另一个模块由工程师B制作。工程师B有可能为自己负责的模块取了同样的名字timeList。代码如下：
+	/*
+		css 命名冲突
+		<style type=”text/CSS”>
+			// made by 工程师 A
+			.timeList{xxxxxxx}
+			.timeList li{border-bottom:xxxx;}
+			.timeList-lastItem{border-bottom:none;}
+			...
+			// made by 工程师 B
+			.timeList{}
+			.timeList li{border-bottom:xxxx;}
+		</style>
+		<!--made by 工程师 A-->
+			<ul class=”timeList”>
+			<li>2009 年 08 月(3)</li>
+			<li>2009 年 07 月(12)</li>
+			<li>2009 年 06 月(3)</li>
+			<li>2009 年 05 月(8)</li>
+			<li>2009 年 04 月(2)</li>
+			<li class=”timeList-lastItem”>2009 年 03 月(8)</li>
+		</ul>
+		......
+		......
+		<!--made by 工程师 B-->
+		<ol class=”timeList”>
+			<li>2009-08-07</li>
+			<li>2009-08-06 </li>
+			<li>2009-08-05</li>
+		</ol>
+	*/
+	2.2 工程师B因为没有注意到工程师A写的代码，给自己的HTML标签挂了同名的class，无意中和工程师A编写的代码产生了冲突。
+	如何避免这种冲突呢？
+	可以通过给命名加前缀的方式解决这个问题。（每个加入到团队中的工程师，需分配一个唯一的标识符，这个标识符加上划线作为自己所负责的page层CSS命名时的前缀）比如，可以使用姓名首字母缩写作为标识符，工程师A叫做“李明”，标识符为lm，工程师B叫“张三”，其标识符为zs。重写代码如下：
+	/*
+		css 命名加前辍
+		<style type=”text/CSS”>
+			//made by 工程师 A
+			.ad-timeList{xxxxxxx}
+			.ad-timeList li{border-bottom:xxxx;}
+			.ad-timeList-lastItem{border-bottom:none;}
+			...
+			// made by 工程师 B
+			.zx-timeList{}
+			.zx-timeList li{border-bottom:xxxx;}
+		</style>
+		<!--made by 工程师 A-->
+		<ul class=”ad-timeList”>
+			<li>2009 年 08 月(3)</li>
+			<li>2009 年 07 月(12)</li>
+			<li>2009 年 06 月(3)</li>
+			<li>2009 年 05 月(8)</li>
+			<li>2009 年 04 月(2)</li>
+			<li class=”ad-timeList-lastItem”>2009 年 03 月(8)</li>
+		</ul>
+		......
+		......
+		<!--made by 工程师 B-->
+		<ol class=”zx-timeList”>
+			<li>2009-08-07</li>
+			<li>2009-08-06 </li>
+			<li>2009-08-05</li>
+		</ol>
+	*/
+	2.3 加了前缀之后，工程师A和工程师B都可以专心于自己负责的代码，不用担心冲突问题了。但这样一来，存在一个问题——————CSS命名过长。
+		在base层，因CSS只包含原子类，并且是所有团队成员共享的一层，所以功能单一，不存在划线分隔和命名前缀的问题，这层CSS命名大多非常简短。
+		在common层，由于有了组件概念，根据组件的复杂程度，CSS命名空间可能会比较场，如“infoList-firstItem-img”、“nav-item-select”等。
+		到了page层，因为需要加前缀，命名可能会更长，如“zs-dropMenu-lastItem-img”等
+		命名长可以带来很好的可读性，可以避免多人合作的冲突，但也会增加文件大小。（有些工程师可能会因为这点而反对使用过长的命名，这的确是个无法兼顾的问题，但权衡两者，过长命名影响的只是纯文件，比起图片和Flash等资源，文件大小并不会很大，它带来的坏处在可接受范围内，而它带来的好处确是非常明显的。）
+	2.4 将面向对象思想借鉴到CSS领域：
+		1.用划线作为从属关系分隔符——————其实是将模块视为了类，从属模块的元素被视为了类的属性，通过命名的直观，得到一种“封装”。
+		2.类似于“.last”这样的命名，相当于是公共变量，如果对其修改，很容易产生全局范围内的影响，所以并不推荐使用，而“.timeList-lastItem”相当于“.timeList”范围内的私有变量，“.timeList”起到了命名空间的作用，对其修改只会作用于“.timeList”组件内部，而不会产生全局影响。
+		3.从加前缀的角度看，不加前缀的base层和common层就像是公共属性，适用于全局（所有页面）范围内，而加前缀的page层就像是私有属性，只适用于特定页面。
+		笔者更推荐加前缀的命名方式：
+	/*
+		<!-- 不加前辍的命名方式 -->
+		<div=”box”>
+			<div class=”hd”></div>
+			<div class=”bd”></div>
+			<div class=”ft”></div>
+		</div>
+		<!-- 加前辍的命名方式 -->
+		<div=”box”>
+			<div class=”box-hd”></div>
+			<div class=”box-bd”></div>
+			<div class=”box-ft”></div>
+		</div>
+
+	*/
+</script>
+
+<script>
+4.4.3 挂多个class还是新建class（多用组合，少用继承）
+	有如下三个简单模块：我们该如何设置它的CSS呢？
+	111111111111
+	222222222222
+	333333333333
+
+	444444444444444444
+	555555555555555555
+	666666666666666666
+
+	777777777777
+	888888888888
+	999999999999
+	/*
+		方案一
+		<style type=”text/CSS”>
+			.numberList1{border:1px solid #ccc;padding:10px}
+			.numberList1 li{height:20px;line-height:20px;font-size:12px}
+			.numberList2{border:1px solid #ccc;padding:10px;}
+			.numberList2 li{height:20px;line-height:20px;font-size:16px}
+			.numberList3{border:1px solid #ccc;padding:10px;}
+			.numberList3 li{height:20px;line-height:20px;font-size:12px;color:red}
+		</style>
+		<ul class="numberList1">
+			<li>111111111111111111</li>
+			<li>222222222222222222</li>
+			<li>333333333333333333</li>
+		</ul>
+		<ul class="numberList2">
+			<li>444444444444444444</li>
+			<li>555555555555555555</li>
+			<li>666666666666666666</li>
+		</ul>
+		<ul class="numberList3">
+			<li>777777777777777777</li>
+			<li>888888888888888888</li>
+			<li>999999999999999999</li>
+		</ul>	
+	*/	
+	1.1方案一可以实现我们想要的效果，但是非常冗余。“.numberList1”、“.numberList2”和“.numberList3”的CSS设置相同，“.numberList1 li”、“.numberList2 li”和“.numberList3 li”有部分CSS一致。改进产生方案二：
+	/*
+		方案二
+		<style type=”text/CSS”>
+			.numberList1,.numberList2,.numberList3{border:1px solid #ccc;padding:10px}
+			.numberList1 li,.numberList2 li,.numberList3 li{height:20px;line-height:20px;font-size:12px}
+			.numberList2 li{font-size:16px}
+			.numberList3 li{color:red}
+		</style>
+		<body>
+		<ul class="numberList1">
+			<li>111111111111111111</li>
+			<li>222222222222222222</li>
+			<li>333333333333333333</li>
+		</ul>
+		<ul class="numberList2">
+			<li>444444444444444444</li>
+			<li>555555555555555555</li>
+			<li>666666666666666666</li>
+		</ul>
+		<ul class="numberList3">
+			<li>777777777777777777</li>
+			<li>888888888888888888</li>
+			<li>999999999999999999</li>
+		</ul>
+	*/	
+	1.2 除了方案二，还有一种思路，产生方案三：
+	/*
+		方案三
+		<style type=”text/CSS”>
+			.f12{font-size:12px}
+			.f16{font-size:16px}
+			.red{color:red}
+			.numberList{border:1px solid #ccc;padding:10px;}
+			.numberList li{height:20px;line-height:20px;}
+		</style>
+		<body>
+		<ul class="numberList f12">
+			<li>111111111111111111</li>
+			<li>222222222222222222</li>
+			<li>333333333333333333</li>
+		</ul>
+		<ul class="numberList f16">
+			<li>444444444444444444</li>
+			<li>555555555555555555</li>
+			<li>666666666666666666</li>
+		</ul>
+		<ul class="numberList f12 red">
+			<li>777777777777777777</li>
+			<li>888888888888888888</li>
+			<li>999999999999999999</li>
+		</ul>
+	*/
+	1.3 方案一将图中三个模块视为完全不同且彼此独立的三个类，分别命名为numberList1、numberList2、numberList3，并对它们分别设置样式。（缺点：代码冗余）
+	方案二和方案一思路相同，仍将模块视为完全不同且彼此独立的三个类，只是使用CSS技巧将相同的三个类相同的部分提取出来，去除了代码的冗余。
+	方案三换了种思路，提取了更多力度更小的类，通过类的组合实现设计图效果
+
+	方案二和方案三看似都是不错的解决方案，其中方案二的优势是调用简单，一个模块只需挂一个类；方案三调用稍麻烦，但也有效控制了冗余，代码精简。
+	看起来方案二和方案三都不错，但如果想实现如下所示效果，又会如何呢？
+
+	111111111111
+	222222222222
+	333333333333
+
+	444444444444444444
+	555555555555555555
+	666666666666666666
+
+	777777777777
+	888888888888
+	999999999999
+
+	1010101010101010101010
+	1111111111111111111111
+	1212121212121212121212
+
+	2.1 按照方案二的思路：
+	/*	
+		方案二面对扩展
+		<style type=”text/CSS”>
+			.numberList1, .numberList2, .numberList3, .numberList4 {border:1px solid #ccc; padding:10px}
+			.numberList1 li,.numberList2 li, .numberList3 li, .numberList4 li {height:20px;line-height:20px;font-size:12px}
+			.numberList2 li,.numberList4 li {font-size:16px}
+			.numberList3 li,.numberList4 li {color:red}
+		</style>
+		<ul class="numberList1">
+			<li>111111111111111111</li>
+			<li>222222222222222222</li>
+			<li>333333333333333333</li>
+		</ul>
+		<ul class="numberList2">
+			<li>444444444444444444</li>
+			<li>555555555555555555</li>
+			<li>666666666666666666</li>
+		</ul>
+		<ul class="numberList3">
+			<li>777777777777777777</li>
+			<li>888888888888888888</li>
+			<li>999999999999999999</li>
+		</ul>
+		<ul class="numberList4">
+			<li>101010101010101010</li>
+			<li>111111111111111111</li>
+			<li>121212121212121212</li>
+		</ul>
+	*/
+	2.2 按照方案三的思路：
+	/*
+		方案三面对扩展
+		<style type=”text/CSS”>
+			.f12{font-size:12px}
+			.f16{font-size:16px}
+			.red{color:red}
+			.numberList{border:1px solid #ccc;padding:10px;}
+			.numberList li{height:20px;line-height:20px;}
+		</style>
+		<ul class="numberList f12">
+			<li>111111111111111111</li>
+			<li>222222222222222222</li>
+			<li>333333333333333333</li>
+		</ul>
+		<ul class="numberList f16">
+			<li>444444444444444444</li>
+			<li>555555555555555555</li>
+			<li>666666666666666666</li>
+		</ul>
+		<ul class="numberList f12 red">
+			<li>777777777777777777</li>
+			<li>888888888888888888</li>
+			<li>999999999999999999</li>
+		</ul>
+		<ul class="numberList f16 red">
+			<li>101010101010101010</li>
+			<li>111111111111111111</li>
+			<li>121212121212121212</li>
+		</ul>
+	*/
+	2.3 按照方案二的思路，我们需要再定义一个numberList4，在CSS里需要修改好几处；
+		按照方案三的思路，我们无需扩展新的类，只需在HTML标签的class里将之前定义的类重新组合即可。
+
+	2.4 在面向对象编程里，有类似的情况：继承与组合。
+	2.4.1 继承的思路：将一个复杂且包含变化的类，拆分成几个复杂但稳定的类。
+	首先明确一个抽象的父类，父类有着几乎所有的方法和属性，子类继承自父类，根据需求，添加新的方法和属性，覆盖掉与父类有变化的方法和属性。但使用继承的haul，任何一点小的变化也许要重新定义一个类，很容易引起类的爆炸式增长，产生一大堆有着细微不同的子类。
+	2.4.2 组合的思路：将一个复杂的类分成容易产生变化的部分和相对稳定的部分，将容易变化的部分拆分出去，每一种可能的变化设计成一个个单独的类，相对稳定的部分设计成一个主体类，这样将一个复杂的类拆分成几个简单的类，类之间没有继承关系，这遵循了面向对象设计的“单一职责”原则。
+		这些容易变化的类的实例复制给主体类作为一个属性，实现了类的组合。用组合的方式，可以大大减少类的数量。
+
+	2.4.3 在面向对象编程里，有个很重要的原则：多用组合，少用继承。
+	方案三就是借鉴了编程领域类的组合思想，将方案二中复杂的numberList1类、numberList2类、numberList3类拆分成了几个相对简单的类，其中相对稳定的部分拆分成numberList类，而可能变化的部分拆分成f12类、f16类和red类。通过类的组合，很容易实现类的扩展，避免产生类爆炸。
+
+	2.4.4 HTML标签的class属性和id属性不同，id只能挂一个额，而class可以挂多个，用空格分隔。
+	HTML的class与程序中的“类”类似，class可以挂多个额，从技术上支持了“组合”的用法
+	我们在写CSS时，如能灵活运用这点就可以大大较少类的数量，一方面减少了代码量，提高了可维护性，另一方面使类的职责更单一，弹性更强，增加了类的重用性，提高了开发效率。
+	挂多个class会不会让HTML标签看起来过于臃肿呢？这样做真的好吗？臃肿固然不好看，但它带来的好处却是不容易忽视的，笔者推荐挂多个class，哪怕让HTML标签看起来不太轻盈。
+
+
+
+</script>
+4.4.4 如何处理上下margin？
+	<div class="div1500">
+		<img class="img1100" src="images/图4-12  简单示意图.png" alt="" />
+		<p>
+			1.对于模块来说，其上下margin不确定，因美术设计的需求不同，可能同样样式的模块，在不同位置上有不同的上下margin。如图4-12所示：
+		</p>
+	</div>
+	<div class="div1500">
+		<img class="img1100" src="images/图4-13  简单示意图中样式相同的模块.png" alt="" />
+		<p>
+			2.图4-13用红色框框出的部分用相同的样式、字号、颜色，且都有下划线。很明显，可以将它提取成一个通用的组件。
+		<!-- 		
+			提取标题组件
+			<style type=”text/CSS”>
+			.title{border-bottom:1px dashed #B2BCC6;color:#0066CF;font-size:16px;font-weight:bold;}
+			</style>
+			<h2 class=”title”>服务理念</h2>
+			…
+			<h2 class=”title”>服务宗旨</h2>
+			…
+			<h2 class=”title”>Gsns 产品的优势</h2>
+	 	-->	
+		</p>
+	</div>
+	<div class="div1500">
+		<img class="img1100" src="images/图4-14  包含上下margin的模块.png" alt="" />
+		<p>
+			3.这些样式相同的模块还有上下margin，我们该如何设置它们的上下margin呢？提取组件时，需要将上下margin也包含进来吗？
+			需要按图4-14所示重新提取组件吗？但是这三个模块的margin-top并不相同。如图4-15所示：
+		</p>
+	</div>
+	<div class="div1500">
+		<img class="img1100" src="images/图4-15   模块的margin-top不同.png" alt="" />
+		<p>
+			4.如果组件需包含margin值，代码如下：<br/>
+		<!-- 
+			包含 margin 的标题组件
+			<style type=”text/CSS”>
+			.title1 {border-bottom:1px dashed #B2BCC6; color:#0066CF; font-size:16px; font-weight:bold; margin-top:20px;}
+			.title2 {border-bottom:1px dashed #B2BCC6; color:#0066CF; font-size:16px; font-weight:bold; margin-top:60px;}
+			</style>
+			<h2 class=”title1”>服务理念</h2>
+			…
+			<h2 class=”title1”>服务宗旨</h2>
+			…
+			<h2 class=”title2”>Gsns 产品的优势</h2>
+		 -->
+			5.如果又出现一个类的设计，需要改变margint-top值，我们需要再定义title3和title4吗？<br/>
+			包含margin这个不稳定样式到组件里，大大限制了类的重用性！如果再多设计几个margin值不同的模块，很容易产生类数量的大爆炸。<br/>
+			这就是我们上节提到过的“多用组合，少用继承”，解决这个问题的方法就是将类中不稳定的部分分离出来，单独设置成一个类，将相对稳定的剩下的那部分设置成另一个类，通过类的组合——————挂多个class实现最终样式。<br/>
+			6.模块的上下margin是类的组合的一个典型应用，应用组合代码如下：
+		<!-- 
+			应用类的组合
+			<style type=”text/CSS”>
+			.mt20{margin-top:20px;}
+			.mt60{margin-top:60px;}
+			.title{border-bottom:1px dashed #B2BCC6; color:#0066CF; font-size:16px; font-weight:bold;}
+			</style>
+			<h2 class=”title mt20”>服务理念</h2>
+			…
+			<h2 class=”title mt20”>服务宗旨</h2>
+			…
+			<h2 class=”title mt60”>Gsns 产品的优势</h2>
+		 -->
+
+
+
+
+		</p>
+	</div>
+	<div class="div1500">
+		<img class="img1100" src="images/图4-16   给其它模块加margin-bottom.png" alt="" />
+		<p>
+			7.除了给图中所示模块挂上margin-top的类，其实也可以给别的模块挂上margin-bottom的类。<br/>
+		</p>
+
+	</div>
+	<div class="div1500">
+		<img class="img1100" src="images/图4-17  margin-top和margin-bottom混用.png" alt="" />
+		<p>
+			8.图4-17混用了margin-top和margin-bottom。<br/>相邻的margin-left与margin-right不会重合，但相邻的margin-top和margin-bottom会产生重合。
+			所以最好统一使用margin-top或margin-bottom，不要混合使用，从而降低出现问题的风险。<br/>
+			图4-17真实效果如果4-18所示。
+		</p>
+	</div>
+	<div class="div1500">
+		<img class="img1100" src="images/图4-18  margin-top和margin-bottom重合.png" alt="" />
+		<p>
+			9.总结：如果不确定模块的上下margin特别稳定，最好不要将它写到模块的类里，而是使用类的组合，单独为上下margin挂用于边距的原子类（如mt10、mb20）。模块最好不要混用margin-top和margin-bottom，统一使用margin-top或margin-bottom。
+		</p>
+	</div>
+
+
+</body>
+</html>

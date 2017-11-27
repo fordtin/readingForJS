@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+#one {width: 300px; height: 300px; background-color: #000;}
+#two {width: 100px; height: 100px; background-color: #ff0000; position: absolute; z-index: 2; left: 100px; top: 250px;}
+#three {width: 100px; height: 100px; background-color: #00ff00; position: relative; z-index: 2; left: 120px; top: -100px;}
+
+</style>
+</head>
+<body>
+	<!-- z-index -->
+	<!-- 
+		1. z轴在元素设置position为absolute或relative后被激活，其大小有z-index设置，z-index越大，元素位置越靠上。
+		2.值得注意的是，z-index可以为负数——————见下文
+		  z-index可以为负数，可以创造一些特殊的效果，但也会带来一些麻烦，比如，对id分别为one、two、three的三个div监听click事件——————见下文
+		  点击红色区域，无法弹出提示信息，其它两个可以。这是因为红色区域z-index为负数，位于z-index为0的body之下，被透明的body挡住了
+		3.如果不设置z-index值，那么默认z-index为0，但它仍然会浮于body之上。如果多个元素z-index值相同，那么HTML标签中后出现的元素，会浮在先出现的元素之上——————件下文
+		4.说到多个元素位置发生重叠，处了设置position为relative或absolute激活z-index外，还有一种特殊情况，它并未激活z-index，但仍然让元素发生了重叠，这就是负边距————————见下文
+
+
+
+
+
+
+
+	 -->
+
+	<div id="one">one</div>
+	<div id="two">two</div>
+	<div id="three">three</div>
+	<script>
+		var one = document.getElementById('one'), 
+			two = document.getElementById('two'),
+			three = document.getElementById('three');
+		one.onclick = function() {
+			alert("one");
+		}
+		two.onclick = function() {
+			alert("two");
+		}
+		three.onclick = function() {
+			alert("three");
+		}
+	</script>
+</body>
+</html>

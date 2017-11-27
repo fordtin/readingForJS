@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+* {margin: 0; padding: 0;}
+
+
+
+</style>
+</head>
+<body>
+
+<script>
+4.7 CSS的常见问题
+4.7.1 CSS的编码风格
+	1. CSS常见的编码风格有两种：多行式和一行式
+	/*	多行式的 css 编码风格
+		.test{
+			width:100px;
+			height:50px;
+			color:#ccc;
+		}
+		.demo{
+			background-color:green;
+			font-size:20px;
+		}
+	*/
+
+	/* 一行式的 css 编码风格
+		.test{width:100px;height:50px;color:#ccc;}
+		.demo{background-color:green;font-size:20px;}
+	*/
+	2. 多行式编码风格
+	好处：可读性更强，
+	缺点；容易使CSS文件的行数过多，编辑样式时，需要来回拖动文本编辑器的滚动条，影响开发速度；过多的空白也会增大CSS文件的大小
+	3. 一行式编码风格
+	可读性方面稍差一点，但可以有效减少CSS文件的行数，有利于提高开发速度，同时也可减少CSS文件大小。
+
+	4.CSS布局兴起早期缺少强大的调试工具，样式调试需要通过仔细阅读CSS文件来完成，多行式编码风格成为主流
+	前端工具日益强大，特别是Firefox+firebug流行，样式调试工作已经不再需要仔细阅读CSS文件了，一行式编码风格成为主流
+	5.笔者推荐一行式编码风格
+
+4.7.2 id和class
+	id和class作为CSS选择符最常用的挂钩，其区别已成了一个经典问题。
+	1.同一个网页，相同id只能出现一次，不可重复，而class可以任意出现多次
+	2.id的CSS选择符权重为100，而class的选择符权重为10
+
+	3.原生JavaScript提供getElementById()方法，支持通多id对应到相关的HTMLLIElement，但原生JavaScript不支持通过class对应到相关的HTMLLIElement。更多id和class常见用法，详见5.3.2节。
+
+	4.一般情况下，建议尽量使用class，少用id。
+
+4.7.3 CSS hack
+	CSS hack方式有多种，常用方式做如下归纳：
+	1. IE条件注释法（微软官方的hack）
+		1.1 如想针对IE引入一个CSS文件，代码如下：
+		/*	只在 IE 下生效
+			<!--[if IE]>
+				<link type="text/CSS" href="test.css" rel="stylesheet" />
+			<![endif]-->
+		*/
+		CSS文件test.css就只加载到IE浏览器了，非IE会忽略这条语句。
+
+		1.2 如想针对特定版本IE加载CSS文件，代码如下：
+		/* 只在 IE6 下生效
+			<!--[if IE 6]>
+				<link type="text/CSS" href="test.css" rel="stylesheet" />
+			<![endif]-->
+		*/
+		1.3 想针对某个范围内版本IE进行hack，可结合lte（<=）、lt（<）、gte（>=）、gt（>）、！（不等于）关键词来进行注释。
+		/* 只在 IE6 以上版本生效
+			<!--[if gt IE 6]>
+				<link type="text/CSS" href="test.css" rel="stylesheet" />
+			<![endif]-->
+		*/
+
+		/* 只在 IE7 上不生效
+			<!--[if ! IE 7]>
+				<link type="text/CSS" href="test.css" rel="stylesheet" />
+			<![endif]-->
+		*/
+		1.4 虽然条件注释最常用于CSS 的hack，但它能包含的内容其实不仅仅是link标签，如下：
+		/*	条件注释和 style 标签
+			<!--[if IE 6]>
+				<style type=”text/CSS”>
+				.test{}
+				</style>
+			<![endif]-->
+		*/
+		/* 条件注释和 script 标签
+			<!--[if IE 6]>
+				<script type=”text/JavaScript”>
+				alert(“我是 IE 6”);
+				</script>
+			<![endif]-->
+		*/
+
+		1.5 IE条件注释是微软官方的hack，从向前兼容方面考虑，它是最安全的hack方式，理论上是最好的选择。但这种方式需要将所有的hack根据浏览器类型集中在相应的文件中。
+		如有个.test类，要求在IE6下width为60px，在IE7下width为70px,在IE8下width为80px，用IE条件注释的方式hack，需要写三个CSS文件，如下：
+		<!-- ie6.css、 ie7.css 和 ie8.css
+			1) ie6.css
+			.test{width:60px;}
+			2) ie7.css
+			.test{width:70px;}
+			3) IE 8.css
+			.test{width:80px;}
+		 -->
+		通过IE条件注释，将ie6.css、ie7.css、IE 8.css导入到网页中，代码如下：
+		<!-- 针对不同 IE 版本分别导入样式
+			[if IE 6]>
+			<link type="text/CSS" href="ie6.css" rel="stylesheet" />
+			<![endif]
+			[if gt IE 7]>
+			<link type="text/CSS" href="ie7.css" rel="stylesheet" />
+			<![endif]
+			[if gt IE 8]>
+			<link type="text/CSS" href="IE 8.css" rel="stylesheet" />
+			<![endif]
+		 -->
+		 虽然它的向后兼容性是最好的，但它的缺点也非常明显：将统一CSS的选择符下的样式分散到了三个文件中去控制，增加了开发和维护的成本。
+	2.选择符前缀法 （另一种常用的hack方法）
+		原理：在CSS选择符前加一些只有特定浏览器才能识别的前缀，从而让某些样式只对特定浏览器生效。如“*html”前缀只对IE6生效，“*+html”前缀只对IE7生效
+		<!-- 选择符前辍 hack 法
+			<style type=”text/CSS”>
+				.test{width:80px;} /*IE 6,IE 7,IE 8*/
+				*html .test{width:60px;} /*only for IE 6*/
+				*+html .test{width:70px;} /*only for IE 7*/
+			</style>
+		 -->
+		 选择符前缀法相较于IE条件注释来说，“.test类”的样式可以集中起来，可维护性强了很多，但不能保证以后的IE9、IE10不识别*html和*+html（？？？），在向后兼容性上存在一点风险。另外，选择符前缀法不用用于内联样式上，比如<div class = "test" style="width:60px;"></div>就无法使用选择符前缀法来hack，因为它根本就没有用到选择符。
+	3.样式属性前缀法
+	 	原理：在样式的属性名前加前缀，这些前缀只在特定浏览器下才生效。如“_”只在IE6下生效，“*”在IE7和IE6下生效。
+		<!-- 样式属性前辍 hack 法
+			<style type=”text/CSS”>
+				.test{width:80px;*width:70px;_width:60px;}
+			</style>
+		 -->
+		 样式前缀法比起选择符前缀法聚合程度更高，代码更精简，可维护性更强，但和选择符前缀法一样，在向后兼容上存在一点风险。
+
+		 样式前缀法可用于内联样式上，如<div class="test" style="width: 80px; *width: 70px; _width: 60px;"></div>。
+
+		 虽然IE条件注释法在理论上是首推的hack方法，但因为他不利于开发和维护，所以事实上最流行的hack方式还是选择符前缀法和样式属性前缀法，我们可根据需要选择使用。
+
+4.7.4 解决超链接访问后hover样式不出现的问题	
+	1.有时我们同事设置了a:visited和a:hover的样式，但一旦超链接访问后，hover的样式就不再出现，这是怎么回事？
+	这是因为a:visited和a:hover的顺序放错了。如下代码：
+	<!-- 不正确的伪类顺序
+	<style type="text/CSS">
+		a:hover{color:yellow;}
+		a:visited{color:green;}
+	</style>
+	<a href="https://www.baidu.com/">hello world</a>
+	 -->
+	 2. 如果没有点击a标签，鼠标滑过的时候，颜色显示黄色，但一旦点击a标签，颜色就变成绿色，鼠标滑过时颜色不再显示为黄色。
+	 将a:visited和a:hover的顺序换一下，如下：
+	<!-- 正确的伪类顺序
+		<style type="text/CSS">
+			a:visited{color:green;}
+			a:hover{color:yellow;}
+		</style>
+		<a href="https://www.baidu.com/">hello world</a>
+	 -->
+	 这样不管a是否被点击过，鼠标滑过时都会显示为黄色。
+
+	 3.总结：关于a标签的始终状态的排序问题，有个简单的好记原则：love hate原则。即l(link)ov(visited)e  h(hover)a(active)te	 
+
+4.7.5 hasLayout
+	1.很多时候，CSS在IE下的解析十分奇怪，在Firefox下显示非常正确，但在IE下却出了问题。有些时候这些问题甚至表现得函诡异——————如一个比较经典的Bug：设置border的时候，有时border会断开，刷新页面或者滚动滚动条的时候，断掉的部分又会重新连接起来。
+	2. 这些诡异的问题大部分都和IE下一个神秘的属性相关————hasLayout。它是IE专有的一个属性，用于CSS的解析引擎。有时候在IE下一些复杂的CSS设置解析起来会出现Bug,原因可能与hasLayout没有被自动触发有关，可以通过一些技巧手动触发hasLayout属性解决Bug。
+
+	3. hasLayout触发方式有很多：如设置width、height值，设置position为relative等，但设置了这些都活在触发hasLayout的同时带来一些副作用。
+	早期推荐使用“height: 1%”来触发，（那时还未出现IE7，而height属性在IE6下其实按照“min-height”来解析的，所以要对IE6进行hack， “*{height: 1%;}”，就可以触发hasLayout，同时不带来副作用。
+
+	4. IE7出现以后，IE7已经能否正确识别height属性了，“height: 1%”的方法不适用了。
+
+	5. 一个更好的方法开始流行：“zoom: 1”。使用“zoom: 1”触发hasLayout，并且不会像height等属性一样引入副作用。更秒的是，我们可以不用CSS hack了。“zoom: 1”并不一定可以触发hasLayout的，极少数情况下，如非常复杂的CSS设置，特别是DHTML的时候，使用“zoom: 1”也会无效，此时，可能需要借助更强大的“position:relative”来帮助触发hasLayout。
+	
+	6.“zoom: 1”是最常用、最安全、成本最小的触发hasLayout方式。
+
+	7. hasLayout的设计初衷： 用于辅助块级元素的盒模型解析的，它是用于块级元素的。如用于行内元素，会引发一些特殊的效果。详见4.7.7节。
+
+4.7.6 块级元素和行内元素的区别	
+	块级元素和行内元素是布局最基本的两种元素，常见的块级元素有div/p/form/ul/ol/li等，常见的行内元素有span、strong、em等。
+
+	两者有何区别呢？
+	块级元素：
+		1.独占一行，默认情况下，宽度自动填满其父元素宽度
+		2.块级元素可设置width、height属性，而行内元素无效，如下代码2
+		3.块级元素即使设置了width，仍然是独占一行的。
+		4.块级元素可试着margin和padding属性。行内元素：水平方向的padding-left/padding-right/margin-left/margin-right都产生边距效果，但竖直方向的padding-top/padding-bottom/margin-top/margin-bottom却不会产生边距效果，如下代码3
+	行内元素：不符独占一行，相邻行内元素会排列在同一行里，直到一行排不下，才会换行，其宽度随元素内容而变化，如下代码：
+	<!-- 1 块级元素和行内元素区别
+		<style type="text/CSS">
+			p{background:red}
+			div{background:yellow}
+			span{background:blue}
+			strong{background:green}
+		</style>
+		<p>块级元素 p</p>
+		<div>块级元素 div</div>
+		<span>行内元素 span</span>
+		<strong>行内元素strong</strong>
+	 -->
+	<!-- 2 对块级元素和行内元素设置长宽
+		<style type="text/CSS">
+			p{background:red;width:200px;height:200px;}
+			div{background:yellow;width:400px;height:100px;}
+			span{background:blue;width:200px;height:200px;}
+			strong{background:green;width:400px;height:100px;}
+		</style>
+		<p>块级元素 p</p>
+		<div>块级元素 div</div>
+		<span>行内元素 span</span>
+		<strong>行内元素strong</strong>
+	 -->
+	<!-- 3. 块级元素、行内元素的 margin 和 padding
+		<style type="text/CSS">
+			p{background:red;padding:20px;margin:20px;}
+			div{background:yellow;padding:20px;}
+			span{background:blue;padding:20px;margin:20px;}
+			strong{background:green;padding:20px;margin:20px;}
+		</style>
+		<p>块级元素 p</p>
+		<div>块级元素 div</div>
+		<span>行内元素 span</span>
+		<strong>行内元素strong</strong>
+	 -->
+	 竖直方向的margin看不到如何效果，竖直方向的padding虽然增大了行内元素的面积，但并没有和相邻元素拉开距离。（**** 行内替换元素、行内非替换元素）
+
+	 块级元素和行内元素的CSS相关属性是display，其中块级元素display:block;行内元素display:inline。可以通过修改display属性来切换块级元素和行内元素。如下代码
+	<!-- 改变块级元素和行内元素的显示
+		<style type="text/CSS">
+			p{background:red;display:inline;}
+			div{background:yellow;display:inline;}
+			span{background:blue;display:block;}
+			strong{background:green;display:block;}
+		</style>
+		<p>块级元素 p</p>
+		<div>块级元素 div</div>
+		<span>行内元素 span</span>
+		<strong>行内元素strong</strong>
+	 -->
+
+4.7.7 display:inline-block 和 hasLayout7
+	1. display的值处理block和inline，还有其它值，如list-item、table-cell等，但因为IE6和IE7浏览器支持的display类型很少，所以为了兼容IE，真正能用的display类型只有block、inline和none三种。
+
+	2. 另一种非常有用的display类型：inline-block，其实在IE6/IE7下也有办法事件。但并不是说IE6/IE7支持这个属性，它的实现其实是个hack————触发行内元素的hasLayout。
+	
+	3. hasLayout是IE为browser解析盒模型而设计的一个专有属性，它的设计初衷是用于块级元素内的，如果触发行内元素的hasLayout，就会让行内原点拥有一些块级元素的特性。
+
+	4.display：inline-block特性：
+		行内的块级元素，拥有块级元素的特点，可设置长度，可设置margin和padding值，但它却不是独占一行。
+		它的宽度并不沾满父元素，而是和行内元素一样，可和其它行内元素排在同一行里。
+		它集块级元素和行内元素的特点于一身，是个非常有用的display类型。
+	
+	5. IE6/IE7是不支持display：inline-block的。如下：
+	<!-- 设置 display:inline-block
+		<style type="text/CSS">
+			p{color:red;width:100px;background:#ccc;height:30px;display:inline-block;}
+		</style>
+		abcdefg <p>12345</p>
+	 -->
+	 5.1 正常情况下，p内的12345会独占一行，显示在abcdefg下方，但如果p设置了display：inline-block,他会显示在abcdefg后面，长宽设置保留。可以看到IE8和Firefox都可以正常解析，而IE6/IE7还不支持，考虑兼容性，必须舍弃这种用法。
+
+	 对行内元素触发hasLayout，就可模拟display：inline-block的效果。
+	<!-- 触发 hasLayout 在 IE6、 IE7 下模拟 inline-block
+		<style type="text/CSS">
+			span{color:red;width:100px;background:#ccc;height:30px;display:inline-block;}
+		</style>
+		abcdefg <span>12345</span>
+	 -->
+	 5.2 上面代码并不是正真的在IE6、IE7下生效了，它们只是令span触发了hasLayout属性，其效果和设置zoom：1是一模一样的。在这里，我们可以把display：inline-block改成zoom：1，可以看到在IE6/IE7下效果仍然一样，只是为了兼容IE8和Firefox，我们还是使用display：inline-block
+	<!-- 	 
+		<style type="text/CSS">
+			span{color:red;width:100px;background:#ccc;height:30px; zoom: 1; display: inline-block;}
+		</style>
+		abcdefg <span>12345</span>
+	 -->
+	5.3 但此时对IE6/IE7的hack还不完美，注意到左边的文字abcdefg和span是底对齐的，而IE8和Firefox是顶对齐的。这个可以通过设置span的vertical-align解决的代码如下：
+	<!-- 调整竖直排列的位置
+	<style type="text/CSS">
+	span{color:red;width:100px;background:#ccc;height:30px;display:inline-block; *vertical-align:-10px;}
+	</style>
+	abcdefg <span>12345</span>
+	 -->
+
+	5.4 总结：
+	利用hasLayout可以在不支持display：inline-block的IE6/IE7下模拟出display：inline-block的效果，实现IE6/IE7/IE8和Firefox都兼容的display：inline-block的应用。但也存在一定问题：
+	1.只能对行内元素实现display：inline-block；如果是块级元素则不行（这限制了我们能使用的标签只能是行内元素标签。
+	2.这个方法中还用到了针对IE的hack，*vertical-align，这也是不好的，能不用hack就尽量不用hack
+
+	5.5 虽然IE6/IE7不支持CSS设置为display：inline-block，但事实上IE6/IE7的CSS解析引擎还是有display：inline的，比如说img标签、button标签都具有display：inline-block特性，可以设置长度但却并不独占一行。
+
+4.7.8 relative、absolute和float3
+	
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+4.7.9 居中
+4.7.10 网格布局
+4.7.11 z-index的相关问题以及Flash和IE 6下的select元素
+4.7.12 插入png图片
+4.7.13 多版本IE并存方案—CSS的调试利器IETester
+	
+
+</script>
+</body>
+</html>
