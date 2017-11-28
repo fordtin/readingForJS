@@ -8,3 +8,5 @@
     <a href="http://p03fjrkvd.bkt.clouddn.com/github/2017/11/index1.html">测试文件</a>
 修改：get(node)——————→GLOBAL.Dom.get(node);
 
+## 20171129——————————addHandler/removeHandler(this指向)
+

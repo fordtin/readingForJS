@@ -136,26 +136,28 @@ GLOBAL.namespace = function(str) {
 		}
 	};
 	// 添加事件（或者说监听事件）
-	GLOBAL.Event.addHandler = function(node, eventType, handler) {
+	GLOBAL.Event.addHandler = function(node, eventType, handler, scope) {
 		node = GLOBAL.Dom.get(node);
+		scope = scope || node;
 		if(node.addEventListener) {
-			node.addEventListener(eventType, handler, false);
+			node.addEventListener(eventType, function() {handler.apply(scope, arguments)}, false);
 		}
 		else if(node.attachEvent) {
-			node.attachEvent('on' + eventType, handler);
+			node.attachEvent('on' + eventType, function() {handler.apply(scope, arguments)});
 		}
 		else {
 			node['on' + eventType] = handler;
 		}
 	};
 	// 移除事件
-	GLOBAL.Event.removeHandler = function(node, eventType, handler) {
+	GLOBAL.Event.removeHandler = function(node, eventType, handler, scope) {
 		node = GLOBAL.Dom.get(node);
+		scope = scope || node;
 		if(node.removeEventListener) {
-			node.removeEventListener(eventType, handler, false);
+			node.removeEventListener(eventType, function(){handler.apply(scope, arguments)}, false);
 		}
 		else if(node.attachEvent) {
-			node.attachEvent('on' + eventType, handler);
+			node.attachEvent('on' + eventType, function(){handler.apply(scope, arguments)});
 		}
 		else {
 			node['on' + eventType] = null;
