@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+
+
+<script>
+// 继承
+// 原型的继承	
+  	// 定义Animal类
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		Animal.call(this, name);
+	}
+	Bird.prototype = Animal.prototype;
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	myBird.say(); // I'm a(an) animal , my name is 八哥
+	// 1.通过将Animal类的原型传给Bird类的原型，Bird类成功获得了say行为
+	// 2.但事情并不像想象中那么简单，如果我想要给Bird类添加fly行为，会怎么样呢？
+
+</script>
+</body>
+</html>

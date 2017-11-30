@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+
+
+<script>
+
+// 私有属性的作用域
+	// 定义Animal类
+	function Animal(name) {
+		// 公有属性
+		this.name = name || 'xxx';
+		this.type = 'animal';
+
+		// 私有属性
+		var age = 20;
+		// 私有方法
+		var move = function() {
+			alert("I'm moving now");
+		}
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		// 公有方法
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name + ", I'm " + age);
+		},
+		act: function() {
+			move();
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal('旺财');
+	myDog.say(); // 报错，age is not defined
+	myDog.act(); // 报错，move is not defined
+
+
+</script>
+</body>
+</html>

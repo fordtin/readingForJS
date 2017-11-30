@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+
+
+<script>
+// 通过get和set方法访问属性
+	// 定义Animal类
+	function Animal(name) {
+		var name;
+		var type = 'animal';
+		var _age = 20;
+		this.getName = function() {
+			return name;
+		}
+		this.setName = function(o) {
+			name = o;
+		}
+		this.getType = function() {
+			return type;
+		}
+		this.setType = function(o) {
+			type = o;
+		}
+		this._getAge = function() {
+			return _age;
+		}
+		this._setAge = function(o) {
+			_age = o;
+		}
+		this.setName(name);
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		// 以_开头的为私有方法
+		_move : function() {
+			alert("I'm moving now");
+		},
+		// 公有方法
+		say : function() {
+			alert("I'm a(an) " + this.getType() + " , my name is " + this.getName() + ", I'm " + this._getAge());
+		},
+		act : function() {
+			this._move();
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal('旺财');
+	myDog.say(); // I'm a(an) animal , my name is 旺财, I'm 20
+	myDog.setType('dog');  // 通过 set 方法设置 type 属性的值
+	alert(myDog.getType()); // dog  通过 get 方法获取 type 属性的值
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+
+
+<script>
+// 监听属性的valueChange
+	// 定义Animal类
+	function Animal(name) {
+		var name = name;
+		var type = 'animal';
+		var _age = 20;
+		// 添加master属性，默认值为Bob
+		var master = 'Bob';
+		this.getName = function() {
+			return name;
+		}
+		this.setName = function(o) {
+			if(o != '旺财' && o != '小强') {
+				alert('您设置的name值不合要求');
+				return;
+			}
+			name = o;
+			// 触发name属性的valueChange事件
+			this._valueChangeHandler('name');
+		}
+		// master属性的获取方法
+		this.getMaster = function() {
+			return master;
+		}
+		// master属性的设置方法
+		this.setMaster = function(o) {
+			master = o;
+			// 触发master属性的valueChange事件
+			this._valueChangeHandler('master');
+		}
+		this.getType = function() {
+			return type;
+		}
+		this.setType = function(o) {
+			alert('赋值失败，Animal类的type属性是只读的');
+		}
+		this._getAge = function() {
+			return _age;
+		}
+		this._setAge = function(o) {
+			_age = o;
+		}
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		// 以_开头的为私有方法
+		_move : function() {
+			alert("I'm moving now");
+		},
+		// 公有方法
+		say : function() {
+			alert("I'm a(an) " + this.getType() + " , my name is " + this.getName() + ", I'm " + this._getAge());
+		},
+		act : function() {
+			this._move();
+		},
+		// 公有行为，用于注册属性的valueChange事件
+		onChange : function(valueName, fun) {
+			this['_' + valueName + 'ChangeHandlers'] = this['_' + valueName + 'ChangeHandlers'] || [];
+			this['_' + valueName + 'ChangeHandlers'].push(fun);
+		},
+		// 私有行为：属性valueChange的处理函数
+		_valueChangeHandler: function(valueName) {
+			var o = this['_' + valueName + 'ChangeHandlers'];
+			if(o) {
+				for(var i = 0, n = o.length; i < n; i++) {
+					var methodName = 'get' + valueName.charAt(0).toUpperCase() + valueName.slice(1);
+					o[i](this[methodName]());
+				}
+			}
+		}
+	};
+	// 实例化Animal类
+	var myDog = new Animal('旺财');
+	// 给myDog注册name属性的valueChange事件
+	myDog.onChange('name', function(o) {
+		// 回调函数接收新的value值作为参数，可以对其进行匹配
+		if(o == '小强') {
+			alert(1);
+		}
+		else {
+			alert(2);
+		}
+	});
+	// 给myDog换个新名字小强
+	myDog.setName('小强'); // 1
+	// 给myDog再注册一个name属性的valueChange事件
+	myDog.onChange('name', function(o) {
+		alert('my new name is ' + o);
+	});
+	// 给myDog换个新名字旺财
+	myDog.setName('旺财'); // 2
+	// 给myDog注册master属性的valueChange事件
+	myDog.onChange('master', function(o) {
+		alert('my new master is ' + o); // my new name is 旺财
+	});
+
+
+
+	// 给狗换个主人
+	myDog.setMaster('李明'); // my new master is 李明
+	var myDog2 = new Animal('小强');
+	// 给myDog2注册master属性的valueChange事件
+	myDog2.onChange('master', function(o) {
+		alert(o + ' is my new master'); 
+	});
+	myDog2.setMaster('王二'); // 王二 is my new master
+
+
+
+
+
+</script>
+</body>
+</html>

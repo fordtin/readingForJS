@@ -1,0 +1,30 @@
+code5-103 电话本程序.html
+code5-104 面向对象和面向过程.html
+code5-107 JavaScript中的类.html
+code5-108 构造函数和原型之间的引用.html
+code5-109 使用原型.html
+code5-110 使用原型.html
+code5-111 JavaScript类的典型用法.html
+code5-112 JavaScript中公有还是私有.html
+code5-113 私有属性的作用域.html
+code5-114 行为访问私有属性的方法.html
+code5-115 使用命名约定来模拟私有属性.html
+code5-116 通过get和set方法访问属性.html
+code5-117 通过set方法保护属性.html
+code5-118 监听属性的valueChange.html
+code5-119 定义Animal类和定义Bird类.html
+code5-122 Bird继承Animal的构造函数中的属性和行为.html
+code5-122 改进构造函数中的继承.html
+code5-123 实际效果.html
+code5-124 使用call方法确定this的指向.html
+code5-125 原型的继承.html
+code5-126 原型的继承(添加fly行为).html
+code5-126 原型的继承(添加fly行为)——传值与传址.html
+code5-126 原型的继承(添加fly行为)——传值与传址2.html
+code5-126 原型的继承(添加fly行为)——传值与传址3.html
+code5-130 改进原型继承.html
+code5-131 定义一个extend函数.html
+code5-132 用面向对象的方式重写电话本程序.html
+code5-136 用面向对象的方式重写Tab.html
+LIST.TXT
+提取文件名.bat

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+#readText {
+	width: 400px;
+	background-color: pink;
+}
+</style>
+</head>
+<body>
+
+<div id="wrap">	
+		<div id="readText"></div>
+</div>
+
+<script>
+/*	
+// 写入
+	// FileSystemObject可以将文件翻译成文件流
+		Var fso=new ActiveXObject(Scripting.FileSystemObject); 
+	// 用于创建一个textStream 对象	
+		Var f=fso.createtextfile(“C:\a.txt”,2,true); 
+	// 调用textStream的方法
+		f.writeLine(“wo shi di yi hang”);
+	// 关闭textStream 对象	
+		f.close();
+*/
+
+// 读取
+	// 创建一个可以将文件翻译成文件流的对象
+		// Var fso=new ActiveXObject(Scripting.FileSystemObject);
+	// 用于创建一个textStream 对象
+		// Var f=fso.opentextfile(“C:\a.txt”,1，true);
+	// 调用读取方法  
+		// while(!f.AtEndOfStream) { 
+		// 	f.Readline(); 
+		// } 
+	// 关闭textStream 对象
+		// f.close(); 
+
+
+// 读取文件
+	var fso, ts, s;
+	var ForReading = 1;
+	var arr = [];
+	var readText = document.getElementById('readText');
+	var wrap = document.getElementById('wrap');
+	fso = new ActiveXObject('Scripting.FileSystemObject');
+	ts = fso.OpenTextFile('H:LIST.TXT', ForReading);
+
+	s = ts.ReadAll();
+	// document.getElementById('readText').innerHTML = s;
+	// alert(s);
+
+	// 将生成的字符串文件名分隔成数组
+	arr = s.split('.html');
+	var html = '';
+	for(var i = 0; i < arr.length - 1; i++) {
+
+		html += '### ' + arr[i].split(' ')[1] + "<a href = " + '"' + arr[i].toString().replace(/^\s*/g, '') + '.html' + '"' + '>' + arr[i].split(' ')[1] + "</a>```" 
+		 + "//" + arr[i].split(' ')[1] + "  代码清单  " + arr[i].split(' ')[0] + "```";
+	}
+	// 将生成的内容输出到页面
+	readText.innerHTML = html;
+
+
+	// 注：1.str.replace(/^\s*/g, '');  去除前面的空格
+</script>
+<img src="" alt="" />
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+
+
+<script>
+// 改进构造函数中的继承
+
+  	// 定义Animal类
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		Animal(name);
+	}
+	Bird.prototype = {
+
+	};
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	alert(myBird.type); // undefined
+	// 1.在Bird类的构造函数里调用Animal()函数，希望它内部的this.xxx可以在Bird类的构造函数里执行一遍，但奇怪的是，弹出的是undefined，这是怎么回事？
+	// 2.这和Animal的调用方式有关。在JavaScript中，function有两种不同的用法：
+		// 2.1作为函数存在，直接使用“()”进行调用，如“function test() {}; test();”test被用做函数，直接被“()”符号调用
+		// 2.2 作为类的构造函数，使用new调用，如“function test() {}; new test();”test作为类的构造函数，通过new进行test类的实例化。这两种方法的调用，function内部的this指向会有所不同————作为函数的function，其this指向的是window对象，而作为类构造函数的function，其this指向的是实例对象。
+	// 3.Bird类构造函数中的Animal是通过函数方式调用的，它内部的this指向的是window对象。
+
+
+
+
+
+
+</script>
+</body>
+</html>

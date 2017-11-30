@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+
+<script>
+// 继承
+/*
+	// 1.JavaScript中实例的属性和行为是由构造函数和原型两部分共同组成，我们定义两个类：Animal和Bird
+	// 2.如果想让Bird继承自Animal，我们需要把Animal构造函数和原型中的属性和行为全都传给Bird的构造函数和原型。
+  	// 定义Animal类
+	function Animal() {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype = function() {
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird() {
+
+	}
+	Bird.prototype = {
+
+	};
+*/
+// Bird类虽然有自己特有的属性和行为，但它大部分属性和行为和Animal相同，需要继承自Animal类。
+// 先让Bird继承Animal的构造函数中的属性和行为，如下：
+  	// 定义Animal类
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		this.name = name;
+		this.type = 'animal';
+	}
+	Bird.prototype = {
+
+	};
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	alert(myBird.type); // animal
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

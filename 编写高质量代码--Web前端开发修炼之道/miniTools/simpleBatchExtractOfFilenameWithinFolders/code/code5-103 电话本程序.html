@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+// 定义电话本 1
+	var phonebook = [
+		{name:"雷欧",tel:"111111"},
+		{name:"王二",tel:"444444"},
+		{name:"张三",tel:"222222"},
+		{name:"李四",tel:"333333"},
+		{name:"赵五",tel:"555555"}
+	];
+// 定义电话本 2
+	var phonebook2 = [
+		{name:"leo",tel:"111111"},
+		{name:"Tom",tel:"222222"},
+		{name:"Bob",tel:"333333"}
+	];
+// 查询电话
+	function getTel(oPhonebook,oName){
+		var tel = "";
+		for(var i=0;i<oPhonebook.length;i++){
+			if(oPhonebook[i].name == oName){
+				tel = oPhonebook[i].tel;
+				break;
+			}
+		}
+		return tel;
+	}
+// 添加记录
+	function addItem(oPhonebook,oName,oTel){
+		oPhonebook.push({name:oName,tel:oTel});
+	}
+// 删除记录
+	function removeItem(oPhonebook,oName){
+		var n;
+		for(var i=0;i<oPhonebook.length;i++){
+			if(oPhonebook[i].name == oName){
+				n = i;
+				break;
+			}
+		}
+		if(n != undefined){
+			oPhonebook.splice(n,1);
+		}
+	}
+
+
+
+// 从电话本 1 中查询”雷欧”的电话
+var str = getTel(phonebook, '雷欧');
+console.log(str); // ""
+// 在电话本 1 中添加”leo”的记录
+addItem(phonebook, 'leo', '666666');
+str = getTel(phonebook, 'leo');
+console.log(str); // 666666
+// 在电话本 1 中删除”雷欧”的记录
+removeItem(phonebook, 'leo');
+str = getTel(phonebook, 'leo');
+console.log(str); // ""
+// 在电话本 2 中查询”leo”的记录
+str = getTel(phonebook2, 'leo');
+console.log(str); // 111111
+
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+
+<script>
+
+// 行为访问私有属性的方法	
+	// 定义Animal类
+	function Animal(name) {
+		// 公有属性
+		this.name = name || 'xxx';
+		this.type = 'animal';
+
+		// 私有属性
+		var age = 20;
+		// 私有方法
+		var move = function() {
+			alert("I'm moving now");
+		}
+		this.say = function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name + ", I'm " + age);
+		}
+		this.act = function() {
+			move();
+		}
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+
+	}
+	// 实例化Animal类
+	var myDog = new Animal('旺财');
+	myDog.say(); // I'm a(an) animal , my name is 旺财, I'm 20
+	myDog.act(); // I'm moving now
+
+</script>
+</body>
+</html>

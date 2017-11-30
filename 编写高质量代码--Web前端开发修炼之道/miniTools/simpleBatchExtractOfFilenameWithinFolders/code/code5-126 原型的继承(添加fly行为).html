@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<!-- 	
+	
+ -->
+<script>
+// 继承
+
+// 原型的继承(添加fly行为)
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		Animal.call(this, name);
+	}
+	Bird.prototype = Animal.prototype;
+	Bird.prototype.fly = function() {
+		alert("I'm flying");
+	}
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	myBird.say(); // I'm a(an) animal , my name is 八哥
+	myBird.fly(); // I'm flying
+	var myDog = new Animal('旺财');
+	myDog.fly(); // I'm flying
+	// 1.只想给Bird类添加fly行为，为什么Animal类也获得了fly行为？
+	// 2.数组、hash对象等复杂数据类型（数组、hash对象可包括简单数据类型），在进行赋值时会直接用内存地址赋值，而不是将数据复制一份，用复制的数据进行赋值，即通常所说的传址。
+	// 3.prototype本质上也是个hash对象，所以直接用它赋值时会进行传址。
+	// 4.我们可以用for in 来遍历prototype，从而实现prototype的传值。
+	// 5. 因为prototype和function(用做类的function)的关系，我们还有另一种方法实现prototype的传值——————new SomeFunction()
+
+
+
+
+</script>
+</body>
+</html>

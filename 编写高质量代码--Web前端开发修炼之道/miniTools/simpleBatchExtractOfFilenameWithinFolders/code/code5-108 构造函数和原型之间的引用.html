@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+<script>
+
+
+
+
+
+
+
+// 用Java来定义一个类
+/*
+	public class Animal {
+		String name, type = 'animal';
+		public Animal(String a) {
+			name = a;
+		}
+		public void say() {
+			System.out.printIn("I'm a(an) " + type + " , my name is " + name);
+		}
+	}
+	// 实例化Animal类
+	Animal myDog = new Animal('旺财');
+	myDog.say();
+*/
+
+// 构造函数和原型之间的引用
+	// 定义Animal类的构造函数
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';
+		this.say = function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal('旺财');
+	// myDog.say(); // I'm a(an) animal , my name is 旺财
+
+	var a = Animal.prototype; // a指向Animal类对应的原型
+	var b = a.constructor; // b指向a对应的类的构造函数
+	console.log(b == Animal);	// true
+</script>
+</body>
+</html>
