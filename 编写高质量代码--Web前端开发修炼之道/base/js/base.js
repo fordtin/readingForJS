@@ -12,6 +12,9 @@ GLOBAL.namespace = function(str) {
 
 // DOM相关（用来操作DOM、包括获取DOM节点和设置DOM属性）————————Dom命名空间
 	GLOBAL.namespace("Dom");
+	GLOBAL.Dom.getChildrenIndex = function(node) {
+		
+	};
 	// 获取下一节点
 	GLOBAL.Dom.getNextNode = function(node) {
 		node = GLOBAL.Dom.get(node);
