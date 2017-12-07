@@ -12,9 +12,6 @@ GLOBAL.namespace = function(str) {
 
 // DOM相关（用来操作DOM、包括获取DOM节点和设置DOM属性）————————Dom命名空间
 	GLOBAL.namespace("Dom");
-	GLOBAL.Dom.getChildrenIndex = function(node) {
-		
-	};
 	// 获取下一节点
 	GLOBAL.Dom.getNextNode = function(node) {
 		node = GLOBAL.Dom.get(node);
@@ -104,7 +101,26 @@ GLOBAL.namespace = function(str) {
 		node = GLOBAL.Dom.get(node);
 		return (typeof node.textContent === 'string') ? node.textContent : node.innerText;
 	};
-
+	// 获取当前元素是父元素的第几个子元素(只是计算元素Element，即nodeType为1的节点，文本节点、注释节点等将不被统计)
+	GLOBAL.Dom.getChildrenIndex = function(node) {
+		if(node.sourceIndex) { // 从IE4到IE11，都有sourceIndex属性，这个属性表示了元素在DOM树的顺序，比较元素和父元素的sourceIndex的差值就很可以知道元素是第几个子元素了
+			return node.sourceIndex - node.parentNode.sourceIndex - 1;
+		}
+		// other browsers
+		var i = 0; 
+		while(node = node.previousElementSibling) {
+			i++;
+		}
+		return i;
+	};
+	// 获取当前元素是父元素的第几个子元素(计算所有节点在内)
+	GLOBAL.Dom.getNodeIndex = function(node) {
+		var i = 0;
+		while(node = node.previousSibling) {
+			i++;
+		}
+		return i;
+	};
 
 	// GLOBAL.Dom.hasClass = function (name,type) {
  //        var r = [];
