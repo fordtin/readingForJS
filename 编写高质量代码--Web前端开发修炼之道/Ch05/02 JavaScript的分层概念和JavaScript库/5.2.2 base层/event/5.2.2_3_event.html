@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+	#test1 {background-color: #0000ff; height: 100px;}
+	#test2 {background-color: #00ff00;height: 100px;}
+</style>
+</head>
+<body>
+<!-- 	
+	base层，为common层和page层提供接口。
+	event对象： 在IE中，event对象是作为window的属性作用于全局作用域的，在Firefox中，event对象是作为事件的参数存在的
+
+	为了兼容IE和Firefox，通常我们会用一个变量指向event对象，然后通过这个变量来访问event对象。
+	event对象的部分属性名在IE和Firefox下也是不同的，如派生事件的对象在IE下是通过event对象的srcElement属性访问的，而在Firefox下，是通过event对象的target属性访问的
+
+ -->
+<input type="button" id="btn" value="按钮" />
+<span id="span">hello world</span>
+<script>
+
+document.getElementById('btn').onclick = function (e) {
+	e = window.event || e; // e在IE下和Firefox下都指向了event对象
+	var el = e.srcElement || e.target;
+	// alert(el);
+	alert(el.tagName);  
+}
+document.getElementById('span').onclick = function (e) {
+	e = window.event || e; // e在IE下和Firefox下都指向了event对象
+	var el = e.srcElement || e.target;
+	alert(el.tagName);  
+}
+
+</script>
+</body>
+</html>

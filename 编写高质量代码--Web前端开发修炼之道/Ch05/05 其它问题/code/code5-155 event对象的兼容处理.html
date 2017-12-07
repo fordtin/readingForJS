@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+<input type="button" id="btn" value="click me"  />
+
+<script>
+document.getElementById('btn').onclick = function(e) {
+    e = window.event || e; // e兼容IE和Firefox，指向event对象
+    alert(e);
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+<div id="foo">foo</div>
+<script>
+// 箭头函数中的 this
+/*
+var obj = {
+	x: 10,
+	foo: function() {
+		var fn = () => {
+			return () => {
+				return () => {
+					console.log(this); // {x: 10, foo: ƒ}
+					console.log(this.x); // 10
+				}
+			}
+		}
+		fn()()();
+	}
+}
+obj.foo();
+
+// 箭头函数完全修复了 this 的指向，this 总是指向词法作用域，也就是外层调用者 obj
+*/
+
+// 如果使用箭头函数，以前的这种 hack 写法————————var self = this;  
+var obj = {
+	x: 10,
+	foo: function() {
+		var fn = () => {
+			return () => {
+				return () => {
+					console.log(this); // {x: 10, foo: ƒ}
+					console.log(this.x); // 10
+				}
+			}
+		}
+		fn.bind({x: 14})()()();
+		fn.call({x: 14})()();
+	}
+}
+obj.foo(); // ???????????????????? 好像没什么变化呀？
+// 由于 this 在箭头函数中已经按照词法作用域绑定了，所以，用 call()或者 apply()调用箭头函数时，无法对 this 进行绑定，即传入的第一个参数被忽略。
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

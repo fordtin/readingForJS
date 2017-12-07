@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+function Dog(o) {
+    this.name = o;
+}
+var myDog = new Dog('旺财');
+alert(myDog); // [object Object]
+Dog.prototype.toString = function() {
+    return 'my name is ' + this.name;
+};
+alert(myDog); // my name is 旺财
+var me = {
+    name: 'leo',
+    email: '1333@gmail.com',
+    toString: function() {
+        return "I'm leo, my email is 1333@gmail.com";
+    }
+}
+alert(me); // I'm leo, my email is 1333@gmail.com
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

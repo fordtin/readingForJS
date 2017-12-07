@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+	/**
+	* 创建一个新对象
+	* new Object()创建出来的对象几乎是空白的，需要自己添加属性，方法
+	*/
+	var person = new Object();
+	//为person对象添加属性
+	person.name = "leo";
+	person.age = 25;
+	//为person对象添加方法
+	person.showName = function(){
+		alert("姓名："+this.name);
+	}
+	person.showAge = function(){
+		alert("年龄："+this.age);
+	}
+	//调用对象的方法
+	person.showName();
+	person.showAge();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

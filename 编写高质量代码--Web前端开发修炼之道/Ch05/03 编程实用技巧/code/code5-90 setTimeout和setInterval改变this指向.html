@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<script>
+var name = 'somebody';
+var leo = {
+    name: 'leo',
+    say: function() {
+        alert("I'm " + this.name);
+    }
+};
+leo.say(); // I'm leo
+setTimeout(leo.say, 1000); // I'm somebody
+setInterval(leo.say, 1000); // I'm somebody
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+	#test1 {background-color: #0000ff; height: 100px;}
+	#test2 {background-color: #00ff00;height: 100px;}
+</style>
+</head>
+<body>
+<!-- 	
+	base层，为common层和page层提供接口。
+	透明度，IE下通过滤镜实现，Firefox下透明度是通过CSS的opacity实现的。
+	不封装接口的话：
+ -->
+
+<div id="test1"></div>
+<div id="test2"></div>
+<script>
+var test1 = document.getElementById('test1'),
+	test2 = document.getElementById('test2');
+if(document.all) {
+	test1.style.filter = 'alpha(opacity=20)';
+	test2.style.filter = 'alpha(opacity=80)';
+}
+else {
+	test1.style.opacity = 0.2;
+	test2.style.opacity = 0.8;
+}
+
+
+
+
+</script>
+</body>
+</html>

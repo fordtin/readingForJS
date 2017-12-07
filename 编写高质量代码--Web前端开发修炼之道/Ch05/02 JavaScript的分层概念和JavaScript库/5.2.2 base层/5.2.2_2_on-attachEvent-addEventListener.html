@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+
+</style>
+</head>
+<body>
+<!-- 	
+	base层，为common层和page层提供接口。
+	on/attachEvent/addEventListener
+	如果要让某个DOM节点监听事件，最简单方法就是使用on-xxx方法
+	
+	需要让click事件再触发另一个监听函数
+		希望点击按钮：先弹1，再弹2
+		实际上：只会弹2
+ -->
+<input type="button" value="click me" id="btn" />
+<script>
+var btn = document.getElementById('btn');
+btn.onclick = function(e) {
+	alert(1);
+}
+btn.onclick = function(e) {
+	alert(2);
+}
+</script>
+</body>
+</html>

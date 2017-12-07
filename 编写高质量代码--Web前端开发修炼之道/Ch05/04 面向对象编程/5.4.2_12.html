@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<!-- 	
+	
+ -->
+<script>
+// 上面的Animal类没有使用原型，我们将它改用原型的方式重写
+/*  使用原型
+	// 定义Animal类
+	function Animal() {
+
+	};
+	// 修改Animal类的原型
+	Animal.prototype = {
+		name: 'xxx',
+		type: 'animal',
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is 旺财
+*/
+
+
+// JavaScript类的典型用法
+/*
+	// 定义Animal类
+	function Animal(name) {
+		this.name = name || 'xxx';
+		this.type = 'animal';
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is xxx
+	// 1.myDog的name和type属性来自构造函数，而say行为来自原型。
+	// 2.this关键字无论出现在构造函数中， 还是出现在原型中，指向的都是实例对象，通过this关键字，可以让属性和方法在构造函数和原型间通信。
+*/
+
+// 继承
+	// 1.JavaScript中实例的属性和行为是由构造函数和原型两部分共同组成，我们定义两个类：Animal和Bird
+	// 2.如果想让Bird继承自Animal，我们需要把Animal构造函数和原型中的属性和行为全都传给Bird的构造函数和原型。
+  	// 定义Animal类
+	function Animal(name) {
+		this.name = name || 'xxx';
+		this.type = 'animal';	
+	}
+	Animal.prototype = function() {
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird() {
+
+	}
+	Bird.prototype = {
+
+	};
+
+
+
+
+
+</script>
+</body>
+</html>

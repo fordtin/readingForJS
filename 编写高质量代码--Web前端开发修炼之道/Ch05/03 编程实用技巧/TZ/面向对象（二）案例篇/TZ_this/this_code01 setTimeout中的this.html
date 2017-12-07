@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<script>	
+// 简单总结一下JS面向对象中的this，this一般会在两种情况下出问题，一是使用定时器、二是事件
+// 注意下面的说法是在构造函数里哦，其它情况下，this指向的是调用者
+
+function Person(name) {
+	this.name = name;
+	//定时器
+	setTimeout(this.showName, 3000);
+}
+Person.prototype.showName = function() {
+	alert(this); // [object Window]
+	alert('姓名：' + this.name); // 姓名：
+};
+var p1 = new Person('李明');
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

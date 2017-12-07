@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<!-- 	
+	
+ -->
+<script>
+
+
+// 使用命名约定来模拟私有属性
+
+	// 定义Animal类
+	function Animal(name) {
+		// 公有属性
+		this.name = name || 'xxx';
+		this.type = 'animal';
+
+		// 私有属性
+		// var age = 20;
+		this._age = 20;
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		// 以_开头的为私有方法
+		_move : function() {
+			alert("I'm moving now");
+		},
+		// 公有方法
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name + ", I'm " + this._age);
+		},
+		act : function() {
+			this._move();
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal('旺财');
+	myDog.say(); // I'm a(an) animal , my name is 旺财, I'm 20
+	myDog.act(); // I'm moving now
+	myDog._move(); // I'm moving now  (不推荐实例直接调用_move，违反命名约定)
+	alert(myDog._age); // 20 (不推荐实例直接调用_age，违反命名约定)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

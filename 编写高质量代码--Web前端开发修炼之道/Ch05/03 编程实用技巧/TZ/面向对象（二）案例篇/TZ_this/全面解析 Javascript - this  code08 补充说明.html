@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+// this 为保留字，你不能重写 this
+function test() {
+	var this = {}; // Uncaught SyntaxError: Unexpected token this
+}
+/*
+
+宿主对象
+1. 一门语言在运行的时候，需要一个环境，叫做宿主环境。
+2. 对于JavaScript，宿主环境最常见的是 web 浏览器，浏览器提供了一个 JavaScript 运行的环境，这个环境里面，需要提供一些接口，好让 JavaScript 引擎能够和宿主环境对接。
+3. JavaScript 引擎才是真正执行 JavaScript 代码的地方，常见的引擎有 V8(目前最快 JavaScript 引擎、Google 生产)、JavaScript core。
+4. 在浏览器或者服务端( nodejs )都有自己的 JS 引擎，在浏览器中，全局对象为 window，而在 nodejs 中，全局对象为 global。
+
+*/
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

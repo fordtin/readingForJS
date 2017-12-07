@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<script>
+// 传址与传值
+// 数组传值的简单方法
+	var a = [1, 2, 3];
+	var b = a.slice(), 
+		c = a.concat();
+	b.pop();
+	c.push(4);
+	console.log(a); // [1, 2, 3]
+	console.log(b); // [1, 2]
+	console.log(c); // [1, 2, 3, 4]
+
+	// prototype本质上也是个hash对象
+
+</script>
+</body>
+</html>

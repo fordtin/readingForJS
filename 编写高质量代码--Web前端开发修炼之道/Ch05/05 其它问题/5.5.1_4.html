@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+
+</style>
+</head>
+<body>
+
+
+<script>
+// 5.5.1 prototype和内置类
+// 5.4.2讲到了JavaScript语言中prototype和类关系，本节更进一步了解prototype
+	// 1.JavaScript内置类：包括 Array、String、Function 等，它们提供了JavaScript大部分基本数据类型。
+	// 2.这些类提供的一些方法和属性可以直接调用：Array：length属性，push、pop方法等；String：length属性，replace、split方法等；Function：call、apply方法等。
+	// 3.这些内置类不一定需要通过new的方式进行实例化，我们平时习惯用更简短的方式调用它们，但本质上是一样的。
+// 调用内置类
+/*
+	var a = new String('hello world'); // 通过 new String()实例化 string 类型对象
+	var b = 'hello world'; // 直接通过""实例化 string 类型对象
+	console.log(a.length);
+	console.log(b.length);
+	var c = new Array(1, 2, 3); // 通过 new Array()实例化 array 类型对象
+	var d = [1, 2, 3]; // 直接通过[]实例化 array 类型对象
+	console.log(c);
+	console.log(d);
+	// 1.只要是类就会有原型，不管它是自定义类还是JavaScript的内置类，我们可以通过修改内置类的原型，让JavaScript基本类型的对象获得一些有趣的功能。
+	// 2. 很多语言中，Array 具有each，map等方法，但遗憾的是，JavaScript语言中Array并不提供这些好用的方法。（本书出版于2011年，现在2017已经有了！）
+// 扩展内置类
+	Array.prototype.each = function (fun) {
+		for(var i = 0, n = this.length; i < n; i++) {
+			fun(this[i], i);
+		}
+	};
+	Array.prototype.clone = function() {
+		var o = [];
+		this.each(function(v, k) {
+			o[k] = v;
+		});
+		return o;
+	};
+	Array.prototype.map = function(fun) {
+		var o = [];
+		this.each(function(v, k) {
+			o[k] = fun(v, k);
+		});
+		return o;
+	};
+	//因为 IE 中 delete 是保留字，所以方法名改用 Delete
+	Array.prototype.Delete = function(a) {
+		var o = this.clone();
+		for(var i = o.length, n = 0; i > n; i--) {
+			if(o[i] == a) {
+				o.splice(i, 1);
+			}
+		}
+		return o;
+	}
+	var a = [1, 2, 3, 4, 5];
+	var str = '';
+	a.each(function(v, k) {
+		str += k + ' : ' + v + '\n';
+	});
+	console.log(str);
+	var b = a.map(function(v, k) {
+		return v * 10;
+	});
+	console.log(a); // [1, 2, 3, 4, 5]
+	console.log(b); // [10, 20, 30, 40, 50]
+	var c = b.Delete(20);
+	console.log(c); // [10, 30, 40, 50]
+	// 1.上面代码最难理解的地方就在于扩展方法中的this代表什么？
+	// 5.4中提到过，无论在类的构造函数中还是在原型中，this都指向实例化的对象。
+	// 2.除了可以扩展内置类的方法，还可以重写内置类的方法
+*/
+// 重写内置类的方法————————？？？
+/*
+	var a = [1, 2, 3];
+	console.log(a); // [1, 2, 3]
+	Array.prototype.toString = function(str) {
+		return "I'm an array";
+	};
+	console.log(a); // [1, 2, 3] ???
+	alert(a); // I'm an array
+	// 1.“alert(a)”自动调用了a的toString方法
+	// 2.需要字符串时，对象会隐式的自动调用toString方法，包括我们自定义的对象
+*/
+
+// 自定义toString方法
+/*
+	function Dog(o) {
+		this.name = o;
+	}
+	var myDog = new Dog('旺财');
+	alert(myDog); // [object Object]
+	Dog.prototype.toString = function() {
+		return 'my name is ' + this.name;
+	};
+	alert(myDog); // my name is 旺财
+	var me = {
+		name: 'leo',
+		email: '1333@gmail.com',
+		toString: function() {
+			return "I'm leo, my email is 1333@gmail.com";
+		}
+	}
+	alert(me); // I'm leo, my email is 1333@gmail.com
+	// 1.内置类的方法可以重写，但属性确不能重写
+*/
+// 重写属性
+/*	
+	Array.prototype.length = 1;
+	String.prototype.length = 1;
+	alert([1, 2, 3].length); // 3
+	alert('abc'.length); // 3
+	// 1.在JavaScript中，包括内置类和自定义类，所有类的祖先都是Object，所以如果对所有对象都扩展方法，可以通过修改Object类的原型实现。
+*/
+// 扩展Object类
+	Object.prototype.test = function() {
+		alert('hello world');
+	};
+	var a = [1, 2, 3], b = 'abc', c = {}, d = true, e = function() {};
+	a.test(); // hello world 
+	b.test(); // hello world
+	c.test(); // hello world
+	d.test(); // hello world
+	e.test(); // hello world
+	function Dog(o) {
+		this.name = o;
+	}
+	Dog.prototype.toString = function() {
+		return 'my name is ' + this.name;
+	}
+	var f = new Dog('旺财');
+	f.test(); // hello world
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+	<input type="button" value="click me" id="btn" name="BUTTON" />
+<script>
+var name = 'somebody';
+var leo = {
+    name: 'leo',
+    say: function() {
+        alert("I'm " + this.name);
+    }
+};
+var btn = document.getElementById('btn');
+btn.onclick = leo.say; // I'm BUTTON 
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

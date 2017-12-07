@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<script src="base.js"></script>
+<script src="common.js"></script>
+<style type="text/CSS">
+
+</style>
+</head>
+<body>
+<!-- 	
+	base层
+	为common层和page层提供接口。
+	1. IE9+/Firefox弹出undefined，而IE9-弹出item2
+ -->
+
+
+<script>
+	// 设置cookie
+	document.cookie = "name = leo; expires = Mon, 30 Dec 2017 17:59:59 GMT; path=/";
+	document.cookie = "sex = male; expires = Mon, 30 Dec 2017 17:59:59 GMT; path=/";	
+	document.cookie = "blog = http://blog.csdn.net/qq_25479327; expires = Mon, 30 Dec 2017 17:59:59 GMT; path=/";	
+	/* 读取 cookie
+	** 此时 cookie 里的值为"name=adang; sex=male; blog=http://www.adanghome.com"
+	*/
+	var cookieStr = document.cookie;
+	// console.log(cookieStr);
+	// 对字符进行操作，取出 name 对应的值
+	var name = cookieStr.split("name")[1].split(";")[0].split("=")[1];
+	console.log(name);
+</script>
+
+
+
+
+
+
+</body>
+</html>

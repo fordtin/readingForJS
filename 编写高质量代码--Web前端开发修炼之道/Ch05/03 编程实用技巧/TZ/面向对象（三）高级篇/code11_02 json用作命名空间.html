@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+// JSON在JS面向对象的应用中，主要的一个作用就是命名空间
+//仿java.lang包
+var lang = {};
+
+lang.Math = {
+  // 求绝对值
+  abs: function(a){
+     return a > 0 ? a : -a;
+  },
+  // 求最大值
+  max: function(a, b){
+     return a > b ? a : b;
+  },
+  PI: 3.1415926
+};
+
+lang.String = {
+  // 求字符串长度
+  length: function(str){
+     return str.length;
+  },
+  // 将字符串转为小写
+  toLowerCase: function(str){
+     return str.toLowerCase();
+  },
+  // 将字符串转为大写
+  toUpperCase: function(str){
+     return str.toUpperCase();
+  }
+}
+
+//调用
+alert(lang.Math.abs(-22)); //22
+alert(lang.Math.PI);
+alert(lang.String.toUpperCase('happy')); // HAPPY
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

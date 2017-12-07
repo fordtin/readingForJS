@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<link rel="stylesheet" href="index4.css" />
+</head>
+<body>
+
+ <!-- 第一个选项卡 -->
+<div class="tab J_tab">
+    <ul class="tab-menuWrapper">
+        <li class="J_tab-menu tab-currentMenu">menu1-1</li>
+        <li class="J_tab-menu">menu1-2</li>
+        <li class="J_tab-menu underline">menu1-3</li>
+    </ul>
+    <div class="tab-contentWrapper">
+        <div class="J_tab-content"><div>content1-1 <ul><li>abc</li></ul></div></div>
+        <div class="J_tab-content" style="display: none;" ><p>content1-2</p><div>abc</div></div>
+        <div class="J_tab-content" style="display: none;" >content1-3</div>
+    </div>
+</div>
+ <!-- 第二个选项卡 -->
+<div class="tab J_tab">
+    <ul class="tab-menuWrapper">
+        <li class="J_tab-menu tab-currentMenu">menu2-1</li>
+        <li class="J_tab-menu">menu2-2</li>
+    </ul>
+    <div class="tab-contentWrapper">
+        <div class="J_tab-content"><div>content2-1 <ul><li>abc</li></ul></div></div>
+        <div class="J_tab-content" style="display: none;" ><p>content2-2</p><div>abc</div></div>
+    </div>
+</div>
+ <!-- 第三个选项卡 -->
+<div class="tab J_tab">
+    <ul class="tab-menuWrapper">
+        <li class="J_tab-menu tab-currentMenu2">menu3-1</li>
+        <li class="J_tab-menu">menu3-2</li>
+        <li class="J_tab-menu">menu3-3</li>
+        <li class="J_tab-menu">menu3-4</li>
+        <li class="J_tab-menu">menu3-5</li>
+    </ul>
+    <div class="tab-contentWrapper">
+        <div class="J_tab-content"><div>content3-1 <ul><li>abc</li></ul></div></div>
+        <div class="J_tab-content" style="display: none;" ><p>content3-2</p><div>abc</div></div>
+        <div class="J_tab-content" style="display: none;" ><p>content3-3</p><div>abc</div></div>
+        <div class="J_tab-content" style="display: none;" ><p>content3-4</p><div>abc</div></div>
+        <div class="J_tab-content" style="display: none;" ><p>content3-5</p><div>abc</div></div>
+    </div>
+</div>
+
+<script>
+var GLOBAL = {};
+GLOBAL.namespace = function(str) {
+    var arr = str.split("."),
+        o = GLOBAL;
+    for(i = (arr[0] == "GLOBAL") ? 1 : 0; i < arr.length; i++) {
+        o[arr[i]] = o[arr[i]] || {};
+        o = o[arr[i]];
+    }
+};
+// 与DOM相关
+GLOBAL.namespace("Dom");
+GLOBAL.Dom.get = function(node) {
+    node = typeof node === 'string' ? document.getElementById(node) : node;
+    return node;
+};
+GLOBAL.Dom.getElementsByClassName = function(str, root, tag) {
+    if(root) {
+        root = GLOBAL.Dom.get(root);
+    }
+    else {
+        root = document.body;
+    }
+    tag = tag || '*';
+    var eles = root.getElementsByTagName(tag), // 获取父容器下所有标签
+        arr = [];
+    for(var i = 0, n = eles.length; i < n; i++) {
+        for(var j = 0, k = eles[i].className.split(' '), l = k.length; j < l; j++) {
+            if(k[j] == str) {
+                arr.push(eles[i]);
+                break;
+            }
+        }
+    }
+    return arr;
+};  
+// 添加class
+GLOBAL.Dom.addClass = function(node, str) {
+    if(!new RegExp("(^|\\s+)"+str).test(node.className)) {
+        node.className = node.className + ' ' + str;
+    }
+};
+// 移除class
+GLOBAL.Dom.removeClass = function(node, str) {
+    node.className = node.className.replace(new RegExp("(^|\\s+)" + str), '');
+};
+
+// 与Event相关
+GLOBAL.namespace('Event');
+// 添加事件（或者说监听事件）
+GLOBAL.Event.addHandler = function(node, eventType, handler) {
+    node = GLOBAL.Dom.get(node);
+    if(node.addEventListener) {
+        node.addEventListener(eventType, handler, false);
+    }
+    else if(node.attachEvent) {
+        node.attachEvent('on' + eventType, handler);
+    }
+    else {
+        node['on' + eventType] = handler;
+    }
+};
+
+
+
+function setTab(root, currentClass, trigger) {
+    // 获得tabMenu和tabContent的DOM节点，并保存在变量中
+    var tabMenus = GLOBAL.Dom.getElementsByClassName('J_tab-menu', root),
+        tabContents = GLOBAL.Dom.getElementsByClassName('J_tab-content', root);
+        // 如果不传入激活类型，默认激活类型为点击
+        trigger = trigger || "click";
+
+    //遍历数组，让 tabMenu 监听 click 事件
+    for(var i = 0; i < tabMenus.length; i++) {
+        tabMenus[i]._index = i;
+
+        GLOBAL.Event.addHandler(tabMenus[i], trigger, function() {
+            for(var j = 0; j < tabContents.length; j++) {
+                tabContents[j].style.display = 'none';
+            }
+            alert(this._index);
+            tabContents[this._index].style.display = 'block';
+
+            // 设置样式
+            if(currentClass) {
+                var currentMenu = GLOBAL.Dom.getElementsByClassName(currentClass, root)[0];
+                if(currentMenu) {
+                    GLOBAL.Dom.removeClass(currentMenu, currentClass);
+                }
+                GLOBAL.Dom.addClass(this, currentClass);
+            }
+
+        });
+    }
+}
+var tabs = GLOBAL.Dom.getElementsByClassName('J_tab');
+setTab(tabs[0], null, 'mouseover');
+setTab(tabs[1], 'tab-currentMenu');
+setTab(tabs[2], 'tab-currentMenu2', 'mouseover');
+
+</script>
+</body>
+</html>

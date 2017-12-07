@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+
+</style>
+</head>
+<body>
+<!-- 	
+	base层，为common层和page层提供接口。
+	on/attachEvent/addEventListener
+	如果要让某个DOM节点监听事件，最简单方法就是使用on-xxx方法
+	
+	需要让click事件再触发另一个监听函数
+		希望点击按钮：先弹1，再弹2
+		实际上：只会弹2
+
+	怎么解决这个问题？
+	使用attachEvent和addEventListener方法来代替on-xxx监听事件，其中attachEvent是IE支持的方法和addEventListener是Firefox支持的方法，这两个方法监听处理函数的叠加，而不是覆盖。
+ -->
+<input type="button" value="click me" id="btn" />
+<script>
+function on(node, eventType, handler) {
+	node = typeof node == 'string' ? document.getElementById(node) : node;
+	if(document.all) {
+		node.attachEvent('on' + eventType, handler);
+	}
+	else {
+		node.addEventListener(eventType, handler, false);
+	}
+}
+
+
+var btn = document.getElementById('btn');
+on(btn, 'click', function() {
+	alert(1);
+});
+on(btn, 'click', function() {
+	alert(2);
+});
+
+</script>
+</body>
+</html>

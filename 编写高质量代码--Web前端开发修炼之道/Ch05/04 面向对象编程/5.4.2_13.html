@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<!-- 	
+	
+ -->
+<script>
+// 上面的Animal类没有使用原型，我们将它改用原型的方式重写
+/*  使用原型
+	// 定义Animal类
+	function Animal() {
+
+	};
+	// 修改Animal类的原型
+	Animal.prototype = {
+		name: 'xxx',
+		type: 'animal',
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is 旺财
+*/
+
+
+// JavaScript类的典型用法
+/*
+	// 定义Animal类
+	function Animal(name) {
+		this.name = name || 'xxx';
+		this.type = 'animal';
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is xxx
+	// 1.myDog的name和type属性来自构造函数，而say行为来自原型。
+	// 2.this关键字无论出现在构造函数中， 还是出现在原型中，指向的都是实例对象，通过this关键字，可以让属性和方法在构造函数和原型间通信。
+*/
+
+// 继承
+/*
+	// 1.JavaScript中实例的属性和行为是由构造函数和原型两部分共同组成，我们定义两个类：Animal和Bird
+	// 2.如果想让Bird继承自Animal，我们需要把Animal构造函数和原型中的属性和行为全都传给Bird的构造函数和原型。
+  	// 定义Animal类
+	function Animal() {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype = function() {
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird() {
+
+	}
+	Bird.prototype = {
+
+	};
+*/
+// Bird类虽然有自己特有的属性和行为，但它大部分属性和行为和Animal相同，需要继承自Animal类。
+// 先让Bird继承Animal的构造函数中的属性和行为，如下：
+  	// 定义Animal类
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		this.name = name;
+		this.type = 'animal';
+	}
+	Bird.prototype = {
+
+	};
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	alert(myBird.type); // animal
+	// 1.我们在Bird构造函数中将Animal的属性和行为全都复制了一份，与其说是“继承”，不如说是“真巧”，这两个类的构造函数除了函数名不同，其它地方都长得一样。
+	// 2.缺点很明显：如果Animal类的构造函数有任何变动，我们也许要手动地修改同步Bird类的构造函数，同样一份代码，我们复制了一份写在了程序中的不同地方，这违反了DRY原则，降低了代码的可维护性。
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

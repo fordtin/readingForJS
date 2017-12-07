@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<!-- 	
+	
+ -->
+<script>
+
+
+/*
+	1.程序由变量和函数组成，而变量和函数无法联系起来共同描述同一个物件，无法很语义化地表达“Leo说”、“Leo睡觉”。
+	2. 属性本质上其实是个变量，即面向过程中的数据，而行为本质上其实是函数，即面向过程中的处理函数。
+	3.不同之处：
+		面向过程中，数据和处理函数并没有关联起来，共同属于某个物件；
+		而面向对象将数据和处理函数定义到了一个对象的内部，作为这个对象的属性和行为存在。在对象外部，属性和行为可以用作对象的属性和对象的行为来调用，从而让程序有了按真实世界的思维方式进行描述的能力，在对象内部，对象的属性和行为通过this关键字关联起来。
+	4. OO包括：OOA、OOD、OOP	
+		OOA：经常用到的是UML语言。输出结果一个个类（或对象的模型图）
+		OOD：用到各种设计模式
+		OOP
+		OOA、OOD是个反复迭代的过程，本身没有非常清晰的边界，是相互影响、制约的。是面向对象编程的思想和具体语言无关，而OOP是面向对象编程的工具，和选用的语言相关。OOP是OOA和OOD的底层，不同语言的语法不同，所以OOP不同。
+
+		OOP是使用面向对象技术的基础，面向对象是思维最后要通过OOP来实施
+	5. 高内聚、低耦合：
+		聚合：把一个复杂的事物看成若干比较简单的事物的组装体，从而简化对复杂事物的描述
+		高内聚：指对象（或类）对外提供的接口非常简单易懂，复杂的底层操作都封装在对象（或类）的接口内部，对用户透明。用户不用关心过多的底层细节，只需知道类提供了哪些接口，用户知道的底层细节越少，对象的聚合程度就越高。
+		耦合：类与类之间关联和依赖的程度
+		低耦合：指类与类之间依赖的程度低，类与类通信需要关联的接口越少，耦合程度越低。
+	很多工程师误以为高内聚、低耦合是OOP的工作，其实不然，决定聚合和耦合程度的是OOA、OOD，它们是工作在架构层面的，而OOP是工作在编码层面的。从大局上决定程序品质的，不是OOP，而是OOA和OOD
+
+	
+
+
+*/
+// 一般的面向对象语言都是通过Class来定义类，然后在Class内部定义构造函数和其它的属性、行为。
+// 用Java来定义一个类
+/*
+	public class Animal {
+		String name, type = 'animal';
+		public Animal(String a) {
+			name = a;
+		}
+		public void say() {
+			System.out.printIn("I'm a(an) " + type + " , my name is " + name);
+		}
+	}
+	// 实例化Animal类
+	Animal myDog = new Animal('旺财');
+	myDog.say();
+*/
+// JavaScript很奇怪，它没有Class关键字，它是用函数来充当类的。函数在JavaScript中即可以充当普通函数会用，也可以当作类来使用，在充当类的时候，它本身又担负着构造函数的责任。
+// 函数作为普通函数
+	function sayHi() {
+		alert('hi');
+	}
+// 调用函数
+	sayHi(); // hi 
+// 函数作为类
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';
+		this.say = function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	var myDog = new Animal('旺财');
+	myDog.say(); // I'm a(an) animal , my name is 旺财
+/*
+	JavaScript是基于原型的语言，通过new实例化出来的对象，其属性和行为来自于两部分，一部分来自于构造函数，另一部分来自于原型。
+
+	原型？当我们声明一个类时，其实同时生成了一个对应的原型。如我们定义Animal这个类时，会生成一个与Animal类对应的原型，通过Animal.prototype可以指向这个原型，原型可以通过constructor指向Animal类。更确切地说，是指向Animal类的构造函数。	
+*/
+	var a = Animal.prototype; // a指向Animal类对应的原型
+	var b = a.constructor; // b指向a对应的类的构造函数
+	console.log(b == Animal);	// true
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

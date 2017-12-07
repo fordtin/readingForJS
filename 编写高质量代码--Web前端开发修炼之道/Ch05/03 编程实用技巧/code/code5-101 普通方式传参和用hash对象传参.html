@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<script>
+// 普通方式传参
+function  test(a, b, c) {
+    var oA = a || 1, oB = b || 2, oC = c || 3;
+}
+console.log(test(4, 5, 6));
+console.log(test(null, 5, 6));
+console.log(test(null, null, 6));
+
+
+// 用hash对象传参
+function test2(config) {
+    var oA = config.a || 1, oB = config.b || 2, oC = config.c || 3;
+}
+console.log(test2({a: 4, b: 5, c: 6}));
+console.log(test2({b: 7, c: 8}));
+console.log(test2({c: 9}));
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+	.testStyle {color: red; background-color: black; font-size: 40px; font-weight: bold;}
+</style>
+</head>
+<body>
+
+<!-- 改变DOM样式的三种方式 -->
+<!-- 第一种——————通过设置DomNode的style属性（最简单最直接方式） -->
+	<span id="test">hello world 1</span><br/>
+	<script>
+		var node = document.getElementById('test');
+		node.style.color = 'red';
+		// 1.效果等同于“<span id="test" style="color: red;">hello world</span>”
+	</script>
+
+	<!-- 如果需要同时设置多个样式呢？我们仍然可以通过设置DomNode的style属性实现 -->
+	<span id="test2">hello world 2</span><br/>
+	<script>
+		var node = document.getElementById('test2');
+		node.style.color = 'red';
+		node.style.backgroundColor = 'black';
+		node.style.fontSize = '40px';
+		node.style.fontWeight = 'bold';
+		// 1.将每一项我们需要设置的样式都设置一遍，效果等同于"<span id="test2" style="color: red; background-color: black; font-size: 40px; font-weight: bold;">hello world 2</span>"
+		// 2.但这样会让JavaScript代码较长，而且过多地承担了表现层的职责。表现层应该是由CSS控制的，所以我们有个更好的方法来处理这种样式的批量操作
+	</script>
+<!-- 第二种—————— -->
+	<span id="test3">hello world 3</span><br/>
+	<script>
+		var node = document.getElementById('test3');
+		node.className = 'testStyle';	
+		// 1.效果等同于“.testStyle {color: red; background-color: black; font-size: 40px; font-weight: bold;}<span id="test3" class="testStyle">hello world 3</span>”
+		// 2.如果我们需要给多个DOM节点批量设置样式呢？
+	</script>
+	
+	<!-- 1.要批量设置<span>标签的样式，设置font-size为40px，background为#000，除了id为test的span的color为red，其它span的color都为#fff。 
+
+	<span id="test4">hello world 4</span><br/>
+	<span>aaaaaa</span><br/>
+	<span>bbbbbb</span><br/>
+	<span>cccccc</span>
+	2.无论设置DomNode的style属性，还是设置className属性，都是针对单个DOM节点的操作。我们可以逐个设置， 
+
+	等同于：
+	<span id="test4" style="font-size: 40px; background-color: #000; color: red; ">hello world 4</span>
+	<span style="font-size: 40px; background-color: #000; color: #fff;">aaaaaa</span>
+	<span style="font-size: 40px; background-color: #000; color: #fff;">bbbbbb</span><br/>
+	<span style="font-size: 40px; background-color: #000; color: #fff;">cccccc</span>
+
+	等同于：
+	.testStyle {font-size: 40px; background-color: black; color: red;}
+	#test4 {color: red;}
+	<span id="test4" class="testStyle">hello world 4</span>
+	<span class="testStyle">aaaaaa</span><br/>
+	<span class="testStyle">bbbbbb</span><br/>
+	<span class="testStyle">cccccc</span>	
+	3.这两种方式都不支持批量处理。接下来介绍第三种改变DOM节点样式方法
+ 	-->
+
+<!-- 第三种方式 -->
+	<span >&nbsp;</span>
+	<div id="test4">hello world 4</div>
+	<div>aaaaaa</div>
+	<div>bbbbbb</div>
+	<div>cccccc</div>
+	<script>
+		function addStyleNode(str) {
+			var styleNode = document.createElement('style');
+			styleNode.type = 'text/css';
+			if(styleNode.styleSheet) { // IE10-下进行的操作
+				styleNode.styleSheet.cssText = str;
+			}
+			else { // 非IE浏览器和IE11+
+				styleNode.innerHTML = str;
+			}
+			document.getElementsByTagName('head')[0].appendChild(styleNode);
+		}
+		addStyleNode('div{font-size: 40px; background-color: #000; color: #fff; } #test4 {color: red; }');
+
+
+		// 1.这种方式的思路是创建一个<style>标签，然后往里填入CSS，再将它添加到页面里。
+		// 2.这种方式让我们可以直接在JavaScript里按CSS的语法规则来编写样式，更灵活地控制DOM节点的样
+	</script>
+
+
+
+
+
+
+</body>
+</html>

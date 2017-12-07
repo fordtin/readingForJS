@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+#box {
+	width: 100px; 
+	height: 100px; 
+	background: blue; 
+	position: absolute;
+}
+</style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+// 原始的面向过程代码	
+	var oBox=null;
+	var disX=0;
+	var disY=0;
+
+	window.onload=function(){
+		oBox=document.getElementById('box');
+		oBox.onmousedown=fnDown;
+	};
+	//鼠标按下事件
+	function fnDown(ev){
+		var oEvent = ev||event;
+		disX = oEvent.clientX - oBox.offsetLeft;
+		disY = oEvent.clientY - oBox.offsetTop;
+
+		document.onmousemove = fnMove;
+		document.onmouseup = fnUp;
+	}
+	//鼠标移动事件
+	function fnMove(ev){
+		var oEvent=ev||event;
+
+		oBox.style.left = oEvent.clientX - disX + 'px';
+		oBox.style.top = oEvent.clientY - disY + 'px';
+	}
+	//鼠标抬起事件
+	function fnUp(){
+		document.onmousemove = null;
+		document.onmouseup = null;
+	}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

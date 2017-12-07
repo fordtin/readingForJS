@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+
+</style>
+</head>
+<body>
+<!-- 	
+	base层
+	为common层和page层提供接口。
+	1. IE9+/Firefox弹出undefined，而IE9-弹出item2
+	2.修改后的代码IE9+/Firefox弹出3(item1的nextSibling为文本节点)和7，而IE9-弹出1和3，即Firefox会将包含空白、换行等文本信息也当做childNodes中的一员，而IE则会忽略它，只将DOM节点当做是childNodes的一员。下面就需要解决兼容性了！
+ -->
+
+<ul>
+	<li id="item1"></li>
+	<li id="item2"></li>
+	<li id="item3"></li>
+</ul>
+<script>
+	var item1 = document.getElementById('item1');
+	alert(item1.nextSibling.nodeType); 
+	alert(document.getElementsByTagName('ul')[0].childNodes.length);
+</script>
+
+
+
+
+
+
+</body>
+</html>

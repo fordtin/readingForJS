@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<!-- 	
+	
+ -->
+<script>
+// 上面的Animal类没有使用原型，我们将它改用原型的方式重写
+/*  使用原型
+	// 定义Animal类
+	function Animal() {
+
+	};
+	// 修改Animal类的原型
+	Animal.prototype = {
+		name: 'xxx',
+		type: 'animal',
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is 旺财
+*/
+
+// 原型是个hash对象，继续修改为——————使用原型的另一种写法
+/*
+	// 定义Animal类
+	function Animal() {}
+	// 修改Animal类的原型
+	Animal.prototype.name = 'xxx';
+	Animal.prototype.type = 'animal';
+	Animal.prototype.say = function() {
+		alert("I'm a(an) " + this.type + " , my name is " + this.name);
+	};
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is xxx
+
+*/
+// 一般来说，我们习惯把属性放在构造函数里，而不是放在原型里，方便从构造函数里接收参数
+// JavaScript类的典型用法
+/*
+	// 定义Animal类
+	function Animal(name) {
+		this.name = name || 'xxx';
+		this.type = 'animal';
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is xxx
+	// 1.myDog的name和type属性来自构造函数，而say行为来自原型。
+	// 2.this关键字无论出现在构造函数中， 还是出现在原型中，指向的都是实例对象，通过this关键字，可以让属性和方法在构造函数和原型间通信。
+*/
+// JavaScript中公有还是私有是通过作用域实现的
+/*
+	// 定义Animal类
+	function Animal(name) {
+		// 公有属性
+		this.name = name || 'xxx';
+		this.type = 'animal';
+
+		// 私有属性
+		var age = 20;
+		// 私有方法
+		var move = function() {
+			alert("I'm moving now");
+		}
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		// 公有方法
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	alert(myDog.name); // xxx
+	alert(myDog.age); // undefined
+	myDog.move(); // 报错，myDog.move is not a function
+	// 1.thisxxx定义的属性是公有的，而var xxx定义的属性是私有的
+	// 2.通过在Animal构造函数中用var定义变量age，我们给Animal类添加了私有属性age。因为私有属性没有和this挂钩，所以定义在构造函数中的私有属性，没办法被原型中的方法访问，私有属性的作用域只在类的构造函数中。
+*/
+// 私有属性的作用域
+/*
+	// 定义Animal类
+	function Animal(name) {
+		// 公有属性
+		this.name = name || 'xxx';
+		this.type = 'animal';
+
+		// 私有属性
+		var age = 20;
+		// 私有方法
+		var move = function() {
+			alert("I'm moving now");
+		}
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		// 公有方法
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name + ", I'm " + age);
+		},
+		act: function() {
+			move();
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // 报错，age is not defined
+	myDog.act(); // 报错，move is not defined
+	// 1.让公有行为能够访问私有属性和私有行为，最简单的方法是将公有行为也写在类的构造函数里，这样属性和行为无论是公有还是私有都共同作用在构造函数的作用域里。
+*/
+// 行为访问私有属性的方法	
+/*
+	// 定义Animal类
+	function Animal(name) {
+		// 公有属性
+		this.name = name || 'xxx';
+		this.type = 'animal';
+
+		// 私有属性
+		var age = 20;
+		// 私有方法
+		var move = function() {
+			alert("I'm moving now");
+		}
+		this.say = function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name + ", I'm " + age);
+		}
+		this.act = function() {
+			move();
+		}
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is xxx, I'm 20
+	myDog.act(); // I'm moving now
+	// 1.将所有属性和行为，无论公有还是私有全部写在构造函数里，的确是最方便的方式，但并不推荐这么做。
+	// 2.因为在内存中一个类的原型只有一个，写在原型中的行为，可以被所有实例所共享，实例化的时候，并不会在实例的内存中再复制一份，而写在类里的行为，实例化的时候会在每个实例里复制一份。
+	// 3.把行为写在原型里可以减少内存消耗，没有特殊原因，推荐尽量把行为写在原型里。
+	// 4.写在原型中的行为一定是公有的，而且无法访问私有属性，所以如何处理私有行为和私有属性是个难题。
+	// 5.一般来说，如果对属性和行为的私有性有非常高的强制性，比如说多人合作，为了确保维护不会出现问题，在开发之初明确好各个类的接口，除了必要的接口设为公有，其他所有接口一律设为私有，以此来降低类之间的耦合程度，确保可维护性，这时我们不得不牺牲内存，将私有行为放在构造函数里，实现真正的私有；
+	// 如果对属性和行为的私有性要求不高，更常见的做法是约定私有行为，我们还是用this.xxx定义私有属性，在原型中定义私有行为，但通过给属性和行为的名称前加上“_”来约定它是私有的，这是一种命名约定，它并不能真正实现行为的私有，但它能够让工程师知道它是设计成私有的，从而注意避开像公有行为那样调用它。
+*/
+// 使用命名约定来模拟私有属性
+/*
+	// 定义Animal类
+	function Animal(name) {
+		// 公有属性
+		this.name = name || 'xxx';
+		this.type = 'animal';
+
+		// 私有属性
+		// var age = 20;
+		this._age = 20;
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		// 以_开头的为私有方法
+		_move : function() {
+			alert("I'm moving now");
+		},
+		// 公有方法
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name + ", I'm " + this._age);
+		},
+		act : function() {
+			this._move();
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is xxx, I'm 20
+	myDog.act(); // I'm moving now
+	myDog._move(); // I'm moving now  (不推荐实例直接调用_move，违反命名约定)
+	alert(myDog._age); // 20 (不推荐实例直接调用_age，违反命名约定)
+	1.一些OOP的极端主义者认为，直接访问类的属性是不好的，所有的属性都应该设为私有，然后通过get和set方法来获取和设置属性。
+*/
+// 通过get和set方法访问属性
+/*
+	// 定义Animal类
+	function Animal(name) {
+		var name;
+		var type = 'animal';
+		var _age = 20;
+		this.getName = function() {
+			return name;
+		}
+		this.setName = function(o) {
+			name = o;
+		}
+		this.getType = function() {
+			return type;
+		}
+		this.setType = function(o) {
+			type = o;
+		}
+		this._getAge = function() {
+			return _age;
+		}
+		this._setAge = function(o) {
+			_age = o;
+		}
+		this.setName(name);
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		// 以_开头的为私有方法
+		_move : function() {
+			alert("I'm moving now");
+		},
+		// 公有方法
+		say : function() {
+			alert("I'm a(an) " + this.getType() + " , my name is " + this.getName() + ", I'm " + this._getAge());
+		},
+		act : function() {
+			this._move();
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal('旺财');
+	myDog.say(); // I'm a(an) animal , my name is 旺财, I'm 20
+	myDog.setType('dog');  // 通过 set 方法设置 type 属性的值
+	alert(myDog.getType()); // dog  通过 get 方法获取 type 属性的值
+	// 1.通过set和get方法来访问属性需要将相关的方法都放到构造函数里，和把所有方法都放到原型里相比，这么做会占用更多内存，但它可以更好的保护属性，例如我们想让Animal类的name属性只能为“旺财”或“小强”，而type属性为只读的，我们该怎么做呢？我们可以在setName方法里做些判断，在给name属性赋值以前，判断一下赋的值是否满足条件，对type属性，我们可以在setType方法里去掉赋值语句，改用一个提示提醒用户这是个只读属性。
+*/
+// 通过set方法保护属性
+	// 定义Animal类
+	function Animal(name) {
+		var name;
+		var type = 'animal';
+		var _age = 20;
+		this.getName = function() {
+			return name;
+		}
+		this.setName = function(o) {
+			if(o != '旺财' && o != '小强') {
+				alert('您设置的name值不合要求');
+				return;
+			}
+			name = o;
+		}
+		this.getType = function() {
+			return type;
+		}
+		this.setType = function(o) {
+			alert('赋值失败，Animal类的type属性是只读的');
+		}
+		this._getAge = function() {
+			return _age;
+		}
+		this._setAge = function(o) {
+			_age = o;
+		}
+		this.setName(name);
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		// 以_开头的为私有方法
+		_move : function() {
+			alert("I'm moving now");
+		},
+		// 公有方法
+		say : function() {
+			alert("I'm a(an) " + this.getType() + " , my name is " + this.getName() + ", I'm " + this._getAge());
+		},
+		act : function() {
+			this._move();
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal('旺财');
+	myDog.say(); // I'm a(an) animal , my name is 旺财, I'm 20
+	myDog.setName('abc');  // 您设置的name值不合要求
+	alert(myDog.getName()); // 旺财
+	myDog.setName('小强'); 
+	alert(myDog.getName()); // 小强
+	myDog.setType('dog'); // 赋值失败，Animal类的type属性是只读的
+	// 1.对于简单的应用，推荐使用this.xxx来对属性进行直接的读写；对于复杂的应用，对扩展性和健壮性的要求很高，此时使用set和get方法读写属性更为合适。
+	// 2. 另外，如果使用set方法来设置属性，那么我们就有了监听属性valueChange的入口
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+
+</style>
+</head>
+<body>
+
+<a href="http:www.baidu.com" id="a" blogInfo="{name: 'leo', type:'前端开发'}">my blog</a>
+<script>
+// 5.5.2 标签的自定义属性
+	// 数据的序列化：将复杂类型的数据转化成字符串，其逆操作叫做数据的反序列化。
+	// 数据的反序列化，最经典的应用当数Ajax了。Ajax本来只支持字符串和xml这两种格式的返回数据，但又创造了另一种格式：json————————选择返回数据为字符串格式，但让这个字符串长得像hash对象（或数组），将返回数据进行反序列化，得到真正的hash对象（或数字）
+	// 字符串的反序列化是通过eval函数实现的，只要字符串长得像JavaScript支持的数据格式，就可以进行反序列化，而与是不是Ajax的返回数据无关。
+
+// 自定义属性的反序列化
+
+	var node = document.getElementById('a');
+	var info = node.getAttribute('blogInfo');
+	console.log(typeof info); // string
+	console.log(info.name); // undefined
+	console.log(info.type); // undefined
+	info = eval("("+info+")");
+	console.log(typeof info); // object
+	console.log(info.name); // leo
+	console.log(info.type); // 前端开发
+
+
+
+
+</script>
+
+
+</body>
+</html>

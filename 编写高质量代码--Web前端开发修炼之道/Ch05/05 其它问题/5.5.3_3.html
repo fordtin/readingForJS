@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+
+</style>
+</head>
+<body>
+
+<!-- <input type="button" id="btn" value="click me event对象的兼容处理"  />
+<input type="button" id="btn2" value="click me event对象的兼容处理" onclick="alert(event.type);"  />
+ -->
+<script>
+// event对象的兼容处理
+	// document.getElementById('btn').onclick = function(e) {
+	// 	e = window.event || e;
+	// }
+
+
+
+
+
+
+</script>
+
+
+<input type="button" id="btn" value="click me" onclick="alert(123);"  />
+<script>
+function handler() {
+	alert(456);
+}
+
+
+var addHandler = function(node, eventType, handler) {
+	node = typeof node === 'string' ? document.getElementById(node) : node;
+	if(node.addEventListener) {
+		node.addEventListener(eventType, function() {handler.apply(arguments)}, false);
+	}
+	else if(node.attachEvent) {
+		node.attachEvent('on' + eventType, function() {handler.apply(arguments)});
+	}
+	else {
+		node['on' + eventType] = handler;
+	}
+};
+addHandler('btn', 'click', handler);
+
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+var a = [1, 2, 3];
+console.log(a); // [1, 2, 3]
+Array.prototype.toString = function(str) {
+    return "I'm an array";
+};
+console.log(a); // [1, 2, 3] ???
+alert(a); // I'm an array
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+<div id="foo">foo</div>
+<script>
+// DOM event this
+// 在一个 HTML DOM 事件处理程序里，this 始终指向这个处理程序所绑定的 HTML DOM 节点
+function Listener(id) {
+	document.getElementById(id).addEventListener('click', this.handleClick);
+}
+Listener.prototype.handleClick = function(event) {
+	console.log(this); // <div id="foo">foo</div>
+}
+var listener = new Listener('foo');
+document.getElementById('foo').click();
+
+
+// 这个很好理解，就相当于是给函数传参，使 handleClick 运行时上下文改变了，相当于下面这样的代码
+
+var obj = {
+	x: 10,
+	fn: function() {
+		console.log(this); // window
+		console.log(this.x); // undefined
+	}
+};
+function foo(fn) {
+	fn();
+}
+foo(obj.fn);
+
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

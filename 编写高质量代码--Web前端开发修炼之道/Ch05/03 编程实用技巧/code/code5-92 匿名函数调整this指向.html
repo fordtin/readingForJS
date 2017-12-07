@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+	<input type="button" value="click me" id="btn" name="BUTTON" />
+<script>
+var name = 'somebody';
+var leo = {
+    name: 'leo',
+    say: function() {
+        alert("I'm " + this.name);
+    }
+};
+// leo.say(); // I'm leo
+// setTimeout(function() {leo.say()}, 1000); // I'm leo
+// setInterval(function() {leo.say()}, 1000); // I'm leo
+// btn.onclick = function() {leo.say() }; // I'm leo
+// setTimeout(function() {alert(this == window)}, 1000); // true
+// btn.onclick = function() {alert(this == btn)}; // true
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

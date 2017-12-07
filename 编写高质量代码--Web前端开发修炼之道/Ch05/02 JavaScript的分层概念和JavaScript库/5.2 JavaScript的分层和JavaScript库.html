@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+
+</style>
+</head>
+<body>
+<script>
+5.2.1 JavaScript如何分层（主观）
+	分层好处：代码组织条理更清晰，减少冗余，提高代码重用率。
+	分三层：base/common/page层。
+	base层：最底端，两个职责，封装不同浏览器下JavaScript的差异，提供统一的接口；
+	扩展JavaScript语言底层提供的接口，让它提供更多更为易用的接口。base层功能：给common层和page层提供接口。
+	common层：依赖base层提供的接口，提供可供复用的组件（mvc中的m），和页面内具体功能没有直接关系。common层功能：给page层提供组件。
+	page层：三层最顶端，和页面里具体功能需求直接相关（MVC中的C），依赖base层和common层。page层功能：完成页面内的功能需求。
+5.2.2 base层
+	// 简单代码
+
+	<ul>
+	    <li id="item1"></li>
+	    <li id="item2"></li>
+	    <li id="item3"></li>
+	</ul>
+	<script>
+	    var item1 = document.getElementById('item1');
+	    alert(item1.nextSibling.id); 
+	// IE9+/Firefox弹出undefined，而IE9-弹出item2
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

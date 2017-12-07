@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+/*
+function Foo() {
+	this.x = 10;
+	console.log(this); // window
+}
+var foo = Foo();
+console.log(foo.x); // Cannot read property 'x' of undefined
+*/
+
+// 如果构造函数显式的返回一个对象，那么 this 则会指向该对象
+function Foo() {
+	this.x = 10;
+	console.log(this); // window
+	return {
+		x: 50
+	}
+}
+var foo = Foo();
+console.log(foo.x); // 50
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

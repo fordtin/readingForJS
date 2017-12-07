@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<!-- 	
+	
+ -->
+<script>
+// 上面的Animal类没有使用原型，我们将它改用原型的方式重写
+	// 定义Animal类
+	function Animal() {
+
+	};
+	// 修改Animal类的原型
+	Animal.prototype = {
+		name: 'xxx',
+		type: 'animal',
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is 旺财
+
+
+
+
+</script>
+</body>
+</html>

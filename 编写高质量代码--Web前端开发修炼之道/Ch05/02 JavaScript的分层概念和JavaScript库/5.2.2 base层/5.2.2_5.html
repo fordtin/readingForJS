@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+
+</style>
+</head>
+<body>
+<!-- 	
+	base层
+	为common层和page层提供接口。
+	1. IE9+/Firefox弹出undefined，而IE9-弹出item2
+	2.修改后的代码IE9+/Firefox弹出3(item1的nextSibling为文本节点)和7，而IE9-弹出1和3，即Firefox会将包含空白、换行等文本信息也当做childNodes中的一员，而IE则会忽略它，只将DOM节点当做是childNodes的一员。下面就需要解决兼容性了！
+	方案一：将所有空白和换行去掉，这样就和IE一致了！
+			缺点：绑定了HTML结构，让程序和HTML产生了耦合
+	方案二：IE支持document.all属性，Firefox不支持
+			缺点：代码可读性变差了，代码的重用性不高
+	方案三：定义一个接口函数getNextNode，这就是base层，用以屏蔽原生JavaScript在不同浏览器下的差异
+ -->
+
+<ul>
+	<li id="item1"></li>
+	<li id="item2"></li>
+	<li id="item3"></li>
+</ul>
+<script>
+
+function getNextNode(node) {
+	node = typeof node == 'string' ? document.getElementById(node) : node;
+	var nextNode = node.nextSibling;
+	if(!nextNode) return null;
+	if(!document.all) {
+		while(true) {
+			if(nextNode.nodeType == 1) {
+				break;
+			}
+			else {
+				if(nextNode.nextSibling) {
+					nextNode = nextNode.nextSibling;
+				}
+				else {
+					break;
+				}
+			}
+		}
+	}
+	return nextNode;
+}
+var nextNode = getNextNode('item1');
+alert(nextNode.id); // item2,但是IE9-10弹出undefined
+var nextNode2 = getNextNode('item2');
+alert(nextNode2.id); // item3,但是IE9-10弹出undefined	
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

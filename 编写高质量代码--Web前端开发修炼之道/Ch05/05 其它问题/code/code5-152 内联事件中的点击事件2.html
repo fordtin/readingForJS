@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+<input type="button" id="btn" value="click me" onclick="handler();" />
+<script>
+
+btn.onclick = handler;
+function handler() {
+    alert(arguments.length); // IE下弹出0， Firefox下弹出1（这个参数是event）
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

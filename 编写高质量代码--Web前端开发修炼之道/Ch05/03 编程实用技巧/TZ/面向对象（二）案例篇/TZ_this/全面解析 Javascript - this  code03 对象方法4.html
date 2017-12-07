@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+// 如果函数作为对象的方法时，方法中的 this 指向该对象
+/*
+var obj = {
+	x: 10,
+	foo: function() {
+		console.log(this); // {x: 10, foo: ƒ}
+		console.log(this.x); // 10
+	}
+};
+obj.foo();
+*/
+
+/*
+// 注意：若是在对象方法中定义函数，那么情况就不同了
+
+var obj = {
+	x: 10,
+	foo: function() {
+		function f() {
+			console.log(this); // window
+			console.log(this.x); // undefined
+		}
+		f();
+	}
+}
+obj.foo();
+// 可以这么理解：函数 f 虽然是在 obj.foo 内部定义的，但它仍然属于一个普通函数，this 仍指向 window。(这是个坑，要记牢) 
+*/
+
+/*
+// 如果想要调用上层作用域中的变量 obj.x，可以使用 self 缓存外部 this 变量
+
+var obj = {
+	x: 10,
+	foo: function() {
+		var self = this;
+		function f() {
+			console.log(self); // {x: 10, foo: ƒ}
+			console.log(self.x); // 10
+		}
+		f();
+	}
+}
+obj.foo();
+
+*/
+
+// 如果 foo 函数不作为对象方法被调用
+var obj = {
+	x: 10,
+	foo: function() {
+		function f() {
+			console.log(this); // window
+			console.log(this.x); // undefined
+		}
+		f();
+	}
+}
+var fn = obj.foo;
+fn();
+// obj.foo 被赋值给一个全局变量，并没有作为 obj 的一个属性被调用，那么此时 this 的值是 window
+
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

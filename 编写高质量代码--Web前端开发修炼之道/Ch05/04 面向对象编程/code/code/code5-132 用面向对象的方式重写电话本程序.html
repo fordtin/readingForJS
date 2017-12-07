@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+<script>
+// 用面向对象的方式重写电话本程序
+/*
+	// 定义电话本管理类
+	function PhonebookManager() {
+		this._phonebook = null;
+	}
+	PhonebookManager.prototype = {
+		// 查询电话
+		getTel: function() {
+
+		},
+		// 添加记录
+		addItem: function() {
+
+		},
+		// 删除记录
+		removeItem: function() {
+
+		}
+	}
+	// 1.接下来需要进一步细化接口
+*/
+// 定义行为的参数
+/*
+	function PhonebookManager(o) {
+		this._phonebook = o;
+	}
+	PhonebookManager.prototype = {
+		// 查询电话
+		getTel: function(oName) {
+
+		},
+		// 添加记录
+		addItem: function(oName, oTel) {
+
+		},
+		// 删除记录
+		removeItem: function(oName) {
+
+		}
+	}
+	// 1.接口细化之后，就要编写底层的具体逻辑了！
+*/
+// 编写具体的底层逻辑
+
+	function PhonebookManager(o) {
+		this._phonebook = o;
+	}
+	PhonebookManager.prototype = {
+		// 查询电话
+		getTel: function(oName) {
+			var tel = '';
+			for(var i = 0; i < this._phonebook.length; i++) {
+				if(this._phonebook[i].name == oName) {
+					tel = this._phonebook[i].tel;
+					break;
+				}
+			}
+			return tel;
+		},
+		// 添加记录
+		addItem: function(oName, oTel) {
+			this._phonebook.push({name: oName, tel: oTel});
+		},
+		// 删除记录
+		removeItem: function(oName) {
+			var n;
+			for(var i = 0; i < this._phonebook.length; i++) {
+				if(this._phonebook[i].name == oName) {
+					n = i;
+					break;
+				}
+			}
+			if(n != undefined) {
+				this._phonebook.splice(n, 1);
+			}
+		}
+	}
+
+	// 1.PhonebookManager类定义完了，接下来看下如何使用它吧！
+	var myPhonebookManager = new PhonebookManager([
+		{name:"雷欧",tel:"111111"},
+		{name:"王二",tel:"444444"},
+		{name:"张三",tel:"222222"},
+		{name:"李四",tel:"333333"},
+		{name:"赵五",tel:"555555"}
+	]), myPhonebookManager2 = new PhonebookManager([
+		{name:"leo",tel:"111111"},
+		{name:"Tom",tel:"222222"},
+		{name:"Bob",tel:"333333"}
+	]);
+	// 从电话本 1 中查询”Bob”的电话
+	var str = myPhonebookManager.getTel('Bob');
+	console.log(str); // ""
+	// 在电话本 1 中添加”leo”的记录
+	myPhonebookManager.addItem('leo', '666666');
+	str = myPhonebookManager.getTel('leo');
+	console.log(str); // 666666
+
+
+</script>
+</body>
+</html>

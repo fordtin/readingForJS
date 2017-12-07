@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+// 如果函数作为对象的方法时，方法中的 this 指向该对象
+var obj = {
+	x: 10,
+	foo: function() {
+		console.log(this); // {x: 10, foo: ƒ}
+		console.log(this.x); // 10
+	}
+};
+obj.foo();
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

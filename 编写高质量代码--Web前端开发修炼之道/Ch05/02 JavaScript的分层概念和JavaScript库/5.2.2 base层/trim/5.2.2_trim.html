@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+
+</style>
+</head>
+<body>
+<!-- 	
+	base层，为common层和page层提供接口。
+	1. trim()：去除字符串首尾空白字符
+		检查输入是否为空：空格、缩进等
+	2. 添加类型判断方法
+		isNumber、 isString、isBoolean、isFunction、isNull、isUndefinde、isEmpty、isArray
+	3. get()、$()
+	3. getElementsByClassName
+
+ -->
+<div id="test1">hello</div>
+<div id="test2">world</div>
+
+<span class="a">1</span>
+<span class="a">2</span>
+<p class="a">3</p>
+<div class="b">4</div>
+<strong class="b">5</strong>
+<div id="wrapper"><strong class="b">6</strong></div>
+
+<script>
+function trim(ostr) {
+	return ostr.replace(/^\s+|\s+$/g, '');
+}
+var str = "   abc  ";
+// alert(trim(str).length); // 3
+// alert("   " == ""); // false
+// alert(trim("   ") === ""); // true
+// alert(document.getElementById('test1'));
+function get(node) {
+	node = typeof node == 'string' ? document.getElementById(node) : node;
+	return node;
+}
+function $(node) {
+	node = typeof node == 'string' ? document.getElementById(node) : node;
+	return node;	
+}
+
+
+// alert(get('test1').innerHTML);
+// alert($('test2').innerHTML)
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+
+
+<script>
+// 继承
+// 使用call方法确定this的指向
+  	// 定义Animal类
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		Animal.call(this, name);
+	}
+	Bird.prototype = {
+
+	};
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	alert(myBird.type); // animal
+	// 1.构造函数的属性和行为已经成功实现了继承，接下来我们要实现原型中的属性和行为的继承。
+	// 2.既然Bird类需要有和Animal类原型中同样的属性和行为，那么能否将Animal类的原型直接传给Bird类的原型？
+
+
+
+</script>
+</body>
+</html>

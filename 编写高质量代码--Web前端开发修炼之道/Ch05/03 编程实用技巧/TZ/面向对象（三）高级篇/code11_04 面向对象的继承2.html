@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+// JS中的继承，Student <extends> Person；
+    
+/**            
+* Person 父类 人
+* @param {Object} name
+* @param {Object} sex
+*/
+function Person(name, sex){
+	this.name = name;
+	this.sex = sex;
+}
+Person.prototype.showName = function(){
+	alert("姓名："+this.name); 
+}
+Person.prototype.showSex = function(){
+	alert("性别："+this.sex); 
+}
+             
+/*-----------------------------------------------------*/
+     
+/**
+* Student   学生 继承 人
+* @param {Object} name
+* @param {Object} sex
+* @param {Object} major 学生特有属性：专业
+*/
+function Student(name, sex, major){
+	//调用父类的构造函数（通过call来调用父类的构造方法继承父类的属性）
+	Person.call(this, name, sex);
+
+	//添加自己的属性
+	this.major = major;
+}
+//继承父类原型中的方法（通过原型来继承父类的方法）
+for(var p in Person.prototype) {
+	Student.prototype[p] = Person.prototype[p];
+}
+//添加自己特有的方法
+Student.prototype.showMajor = function(){
+	alert("专业："+this.major);
+}
+// 注意：先调用父类构造函数，再添加自己的属性；先继承父类的方法，再添加自己的方法。
+var student = new Student("leo", "男", "计算机");
+student.showName();
+student.showSex();
+student.showMajor();
+
+alert(Person.prototype.showMajor);
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

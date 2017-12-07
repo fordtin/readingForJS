@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+//使用new 来创建JavaScript对象
+function Person(name, age) {
+	/*	可以假想成系统会创建一个对象
+	var this = new Object(); */
+	alert(this); // Object
+
+	this.name = name;
+	this.age = age;
+
+	this.showName = function(){
+		alert("姓名："+this.name);
+	}
+	this.showAge = function(){
+		alert("年龄："+this.age);
+	}
+
+	/* 假想返回了对象
+	return this;  */
+}
+//创建两个对象————————在外面new了在function里面就不用new了；在function里面new了，在外面就不用new了
+var p1 = new Person('leo', 25);
+var p2 = new Person('Bob', 20);
+
+
+alert(p1.showName == p2.showName); //false
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

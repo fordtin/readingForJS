@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+
+
+<script>
+// 继承
+// 原型的继承
+
+
+// 改进原型继承——————方法一（有问题：myBird.say is not a function）
+
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		Animal.call(this, name);
+	}
+	Bird.prototype = new Animal(); // 实例化的时候，Bird.prototype.constructor指向了Animal
+	Bird.prototype.constructor = Bird;
+	Bird.prototype.fly = function() {
+		alert("I'm flying");
+	}
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	myBird.say(); // I'm a(an) animal , my name is 八哥
+	myBird.fly(); // I'm flying
+	var myDog = new Animal('旺财');
+	myDog.fly(); // 报错，myDog.fly is not a function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+// JSON方式适用于只创建一个对象的情况，代码简介又优雅
+var person = {
+		name: "leo",
+		age: 25,
+		showName: function(){
+		alert(this); //[Object Object]
+		alert("姓名："+this.name); // 姓名：leo
+	},
+		showAge: function(){
+		alert("年龄："+this.age); // 25
+	}
+};
+person.showName();
+person.showAge();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

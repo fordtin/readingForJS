@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<script src="Drag_code01.js"></script>
+<style>
+#box {
+    width: 100px; 
+    height: 100px; 
+     background: blue; 
+     position: absolute;
+ }
+</style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+
+window.onload=function(){
+	new Drag('box');
+};
+
+// 面向对象的代码 
+	// Drag.js
+	function Drag(id) {
+		this.oBox=document.getElementById(id);
+		this.disX = 0;
+		this.disY = 0;
+		var _this = this;
+		this.oBox.onmousedown = function() {
+			_this.fnDown();
+		};
+	}
+	Drag.prototype = {
+		//鼠标按下事件
+		fnDown: function(ev){
+			var oEvent = ev||event;
+			this.disX = oEvent.clientX - this.oBox.offsetLeft;
+			this.disY = oEvent.clientY - this.oBox.offsetTop;
+			var _this = this;
+			document.onmousemove = function() {
+				_this.fnMove();
+			};
+			document.onmouseup = function() {
+				_this.fnUp();
+			};
+		},
+		//鼠标移动事件
+		fnMove: function(ev){
+			var oEvent=ev||event;
+
+			this.oBox.style.left = oEvent.clientX - this.disX + 'px';
+			this.oBox.style.top = oEvent.clientY - this.disY + 'px';
+		},
+		//鼠标抬起事件
+		fnUp: function(){
+			document.onmousemove = null;
+			document.onmouseup = null;
+		}
+	};
+
+
+
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

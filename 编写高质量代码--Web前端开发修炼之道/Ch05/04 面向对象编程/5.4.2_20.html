@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<!-- 	
+	
+ -->
+<script>
+// 上面的Animal类没有使用原型，我们将它改用原型的方式重写
+/*  使用原型
+	// 定义Animal类
+	function Animal() {
+
+	};
+	// 修改Animal类的原型
+	Animal.prototype = {
+		name: 'xxx',
+		type: 'animal',
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is 旺财
+*/
+
+
+// JavaScript类的典型用法
+/*
+	// 定义Animal类
+	function Animal(name) {
+		this.name = name || 'xxx';
+		this.type = 'animal';
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is xxx
+	// 1.myDog的name和type属性来自构造函数，而say行为来自原型。
+	// 2.this关键字无论出现在构造函数中， 还是出现在原型中，指向的都是实例对象，通过this关键字，可以让属性和方法在构造函数和原型间通信。
+*/
+
+// 继承
+/*
+	// 1.JavaScript中实例的属性和行为是由构造函数和原型两部分共同组成，我们定义两个类：Animal和Bird
+	// 2.如果想让Bird继承自Animal，我们需要把Animal构造函数和原型中的属性和行为全都传给Bird的构造函数和原型。
+  	// 定义Animal类
+	function Animal() {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype = function() {
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird() {
+
+	}
+	Bird.prototype = {
+
+	};
+*/
+// Bird类虽然有自己特有的属性和行为，但它大部分属性和行为和Animal相同，需要继承自Animal类。
+// 先让Bird继承Animal的构造函数中的属性和行为，如下：
+/*
+  	// 定义Animal类
+	function Animal() {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird() {
+		this.name = name;
+		this.type = 'animal';
+	}
+	Bird.prototype = {
+
+	};
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	alert(myBird.type); // animal
+	// 1.我们在Bird构造函数中将Animal的属性和行为全都复制了一份，与其说是“继承”，不如说是“真巧”，这两个类的构造函数除了函数名不同，其它地方都长得一样。
+	// 2.缺点很明显：如果Animal类的构造函数有任何变动，我们也许要手动地修改同步Bird类的构造函数，同样一份代码，我们复制了一份写在了程序中的不同地方，这违反了DRY原则，降低了代码的可维护性。
+*/	
+// 改进构造函数中的继承
+/*
+  	// 定义Animal类
+	function Animal() {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird() {
+		Animal(name);
+	}
+	Bird.prototype = {
+
+	};
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	alert(myBird.type); // undefined
+	// 1.在Bird类的构造函数里调用Animal()函数，希望它内部的this.xxx可以在Bird类的构造函数里执行一遍，但奇怪的是，弹出的是undefined，这是怎么回事？
+	// 2.这和Animal的调用方式有关。在JavaScript中，function有两种不同的用法：
+		// 2.1作为函数存在，直接使用“()”进行调用，如“function test() {}; test();”test被用做函数，直接被“()”符号调用
+		// 2.2 作为类的构造函数，使用new调用，如“function test() {}; new test();”test作为类的构造函数，通过new进行test类的实例化。这两种方法的调用，function内部的this指向会有所不同————作为函数的function，其this指向的是window对象，而作为类构造函数的function，其this指向的是实例对象。
+	// 3.Bird类构造函数中的Animal是通过函数方式调用的，它内部的this指向的是window对象。
+*/	
+// 实际效果
+/*
+  	// 定义Animal类
+	function Animal() {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird() {
+		window.name = name;
+		window.type = 'animal';	
+	}
+	Bird.prototype = {
+
+	};
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	alert(myBird.type); // undefined
+	alert(type); // animal
+	// 1.如果想让Animal内部的this指向Bird类的实例，可以通过call或apply方法实现
+*/
+// 使用call方法确定this的指向
+/*
+  	// 定义Animal类
+	function Animal() {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		Animal.call(this, name);
+	}
+	Bird.prototype = {
+
+	};
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	alert(myBird.type); // animal
+	// 1.构造函数的属性和行为已经成功实现了继承，接下来我们要实现原型中的属性和行为的继承。
+	// 2.既然Bird类需要有和Animal类原型中同样的属性和行为，那么能否将Animal类的原型直接传给Bird类的原型？
+*/	
+// 原型的继承
+/*	
+  	// 定义Animal类
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		Animal.call(this, name);
+	}
+	Bird.prototype = Animal.prototype;
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	myBird.say(); // I'm a(an) animal , my name is 八哥
+	// 1.通过将Animal类的原型传给Bird类的原型，Bird类成功获得了say行为
+	// 2.但事情并不像想象中那么简单，如果我想要给Bird类添加fly行为，会怎么样呢？
+*/
+// 添加fly行为
+/*	
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		Animal.call(this, name);
+	}
+	Bird.prototype = Animal.prototype;
+	Bird.prototype.fly = function() {
+		alert("I'm flying");
+	}
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	myBird.say(); // I'm a(an) animal , my name is 八哥
+	myBird.fly(); // I'm flying
+	var myDog = new Animal('旺财');
+	myDog.fly(); // I'm flying
+	// 1.只想给Bird类添加fly行为，为什么Animal类也获得了fly行为？
+	// 2.数组、hash对象等复杂数据类型（数组、hash对象可包括简单数据类型），在进行赋值时会直接用内存地址赋值，而不是将数据复制一份，用复制的数据进行赋值，即通常所说的传址。
+	// 3.prototype本质上也是个hash对象，所以直接用它赋值时会进行传址。
+	// 4.我们可以用for in 来遍历prototype，从而实现prototype的传值。
+	// 5. 因为prototype和function(用做类的function)的关系，我们还有另一种方法实现prototype的传值——————new SomeFunction()
+*/
+
+// 改进原型继承——————方法一（有问题：myBird.say is not a function）
+// 改进原型继承——————方法二
+/*
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		Animal.call(this, name);
+	}
+	Bird.prototype = new Animal(); // 实例化的时候，Bird.prototype.constructor指向了Animal
+	Bird.prototype.constructor = Bird;
+	Bird.prototype.fly = function() {
+		alert("I'm flying");
+	}
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	myBird.say(); // I'm a(an) animal , my name is 八哥
+	myBird.fly(); // I'm flying
+	var myDog = new Animal('旺财');
+	myDog.fly(); // 报错，myDog.fly is not a function
+
+*/
+// 封装————定义一个extend函数
+	function extend(subClass, superClass) {
+		var F = function() {};
+		F.prototype = superClass.prototype;
+		subClass.prototype = new F();
+		subClass.prototype.constructor = subClass;
+		subClass.superClass = superClass.prototype;
+		if(superClass.prototype.constructor == Object.prototype.constructor) {
+			superClass.prototype.constructor = superClass;
+		}
+	}
+
+	// 定义Animal类
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		// console.log(this.constructor);
+		// alert(this.constructor);
+		// alert(this.superClass);
+		// alert(this.constructor.superClass.constructor);
+		this.constructor.superClass.constructor.apply(this, arguments);
+		this.type = 'bird';
+	}
+	extend(Bird, Animal);
+/*	
+	// 定义Bird类
+	function Bird(name) {
+		Animal.call(this, name);
+	}
+	Bird.prototype = new Animal(); // 实例化的时候，Bird.prototype.constructor指向了Animal
+	Bird.prototype.constructor = Bird;
+*/
+
+	Bird.prototype.fly = function() {
+		alert("I'm flying");
+	}
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	myBird.say(); // I'm a(an) animal , my name is 八哥
+	myBird.fly(); // I'm flying
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

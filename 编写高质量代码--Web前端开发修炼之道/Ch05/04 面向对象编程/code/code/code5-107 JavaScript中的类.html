@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+<script>
+
+
+
+
+
+
+
+// 用Java来定义一个类
+/*
+	public class Animal {
+		String name, type = 'animal';
+		public Animal(String a) {
+			name = a;
+		}
+		public void say() {
+			System.out.printIn("I'm a(an) " + type + " , my name is " + name);
+		}
+	}
+	// 实例化Animal类
+	Animal myDog = new Animal('旺财');
+	myDog.say();
+*/
+
+// JavaScript中的类
+	// 函数作为普通函数
+	function sayHi() {
+		alert('hi');
+	}
+	// 调用函数
+	sayHi(); // hi 
+	// 函数作为类
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';
+		this.say = function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal('旺财');
+	myDog.say(); // I'm a(an) animal , my name is 旺财
+
+</script>
+</body>
+</html>

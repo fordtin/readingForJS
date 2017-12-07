@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<!-- 	
+	
+ -->
+<script>
+// 上面的Animal类没有使用原型，我们将它改用原型的方式重写
+/*  使用原型
+	// 定义Animal类
+	function Animal() {
+
+	};
+	// 修改Animal类的原型
+	Animal.prototype = {
+		name: 'xxx',
+		type: 'animal',
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is 旺财
+*/
+
+// 原型是个hash对象，继续修改为——————使用原型的另一种写法
+/*
+	// 定义Animal类
+	function Animal() {}
+	// 修改Animal类的原型
+	Animal.prototype.name = 'xxx';
+	Animal.prototype.type = 'animal';
+	Animal.prototype.say = function() {
+		alert("I'm a(an) " + this.type + " , my name is " + this.name);
+	};
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is xxx
+
+*/
+// 一般来说，我们习惯把属性放在构造函数里，而不是放在原型里，方便从构造函数里接收参数
+// JavaScript类的典型用法
+/*
+	// 定义Animal类
+	function Animal(name) {
+		this.name = name || 'xxx';
+		this.type = 'animal';
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is xxx
+	// 1.myDog的name和type属性来自构造函数，而say行为来自原型。
+	// 2.this关键字无论出现在构造函数中， 还是出现在原型中，指向的都是实例对象，通过this关键字，可以让属性和方法在构造函数和原型间通信。
+*/
+// JavaScript中公有还是私有是通过作用域实现的
+/*
+	// 定义Animal类
+	function Animal(name) {
+		// 公有属性
+		this.name = name || 'xxx';
+		this.type = 'animal';
+
+		// 私有属性
+		var age = 20;
+		// 私有方法
+		var move = function() {
+			alert("I'm moving now");
+		}
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		// 公有方法
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	alert(myDog.name); // xxx
+	alert(myDog.age); // undefined
+	myDog.move(); // 报错，myDog.move is not a function
+	// 1.thisxxx定义的属性是公有的，而var xxx定义的属性是私有的
+	// 2.通过在Animal构造函数中用var定义变量age，我们给Animal类添加了私有属性age。因为私有属性没有和this挂钩，所以定义在构造函数中的私有属性，没办法被原型中的方法访问，私有属性的作用域只在类的构造函数中。
+*/
+// 私有属性的作用域
+/*
+	// 定义Animal类
+	function Animal(name) {
+		// 公有属性
+		this.name = name || 'xxx';
+		this.type = 'animal';
+
+		// 私有属性
+		var age = 20;
+		// 私有方法
+		var move = function() {
+			alert("I'm moving now");
+		}
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+		// 公有方法
+		say: function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name + ", I'm " + age);
+		},
+		act: function() {
+			move();
+		}
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // 报错，age is not defined
+	myDog.act(); // 报错，move is not defined
+	// 1.让公有行为能够访问私有属性和私有行为，最简单的方法是将公有行为也写在类的构造函数里，这样属性和行为无论是公有还是私有都共同作用在构造函数的作用域里。
+*/
+// 行为访问私有属性的方法	
+	// 定义Animal类
+	function Animal(name) {
+		// 公有属性
+		this.name = name || 'xxx';
+		this.type = 'animal';
+
+		// 私有属性
+		var age = 20;
+		// 私有方法
+		var move = function() {
+			alert("I'm moving now");
+		}
+		this.say = function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name + ", I'm " + age);
+		}
+		this.act = function() {
+			move();
+		}
+	}
+	// 修改Animal类的原型
+	Animal.prototype = {
+
+	}
+	// 实例化Animal类
+	var myDog = new Animal();
+	myDog.say(); // I'm a(an) animal , my name is xxx, I'm 20
+	myDog.act(); // I'm moving now
+
+</script>
+</body>
+</html>

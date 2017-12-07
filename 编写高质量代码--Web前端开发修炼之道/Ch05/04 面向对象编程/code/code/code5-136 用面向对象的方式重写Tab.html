@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+ul {padding: 0; margin: 0;}
+.tab {width: 500px;}
+.tab-menuWrapper {padding-left: -20px;}
+.tab-menuWrapper li { float: left; display: inline; padding: 5px; border: 1px solid #333; border-bottom: none; margin-right: 5px; }
+.tab-contentWrapper {border: 1px solid #333; clear: left; padding: 5px;}
+.tab .tab-currentMenu {background-color: #333; color: #fff; }
+.tab .tab-currentMenu2 {background-color: #0000ff; color: #fff; }
+.underline {text-decoration: underline;}
+</style>
+</head>
+<body>
+	<!-- 用面向对象的方式重写选项卡 -->
+	 <!-- 第一个选项卡 -->
+	<div class="tab J_tab">
+		<ul class="tab-menuWrapper">
+			<li class="J_tab-menu">menu1-1</li>
+			<li class="J_tab-menu">menu1-2</li>
+			<li class="J_tab-menu underline">menu1-3</li>
+		</ul>
+		<div class="tab-contentWrapper">
+			<div class="J_tab-content"><div>content1-1 <ul><li>abc</li></ul></div></div>
+			<div class="J_tab-content" style="display: none;" ><p>content1-2</p><div>abc</div></div>
+			<div class="J_tab-content" style="display: none;" >content1-3</div>
+		</div>
+	</div>
+	 <!-- 第二个选项卡 -->
+	<div class="tab J_tab">
+		<ul class="tab-menuWrapper">
+			<li class="J_tab-menu tab-currentMenu">menu2-1</li>
+			<li class="J_tab-menu">menu2-2</li>
+		</ul>
+		<div class="tab-contentWrapper">
+			<div class="J_tab-content"><div>content2-1 <ul><li>abc</li></ul></div></div>
+			<div class="J_tab-content" style="display: none;" ><p>content2-2</p><div>abc</div></div>
+		</div>
+	</div>
+	 <!-- 第三个选项卡 -->
+	<div class="tab J_tab">
+		<ul class="tab-menuWrapper">
+			<li class="J_tab-menu tab-currentMenu2">menu3-1</li>
+			<li class="J_tab-menu">menu3-2</li>
+			<li class="J_tab-menu">menu3-3</li>
+			<li class="J_tab-menu">menu3-4</li>
+			<li class="J_tab-menu">menu3-5</li>
+		</ul>
+		<div class="tab-contentWrapper">
+			<div class="J_tab-content"><div>content3-1 <ul><li>abc</li></ul></div></div>
+			<div class="J_tab-content" style="display: none;" ><p>content3-2</p><div>abc</div></div>
+			<div class="J_tab-content" style="display: none;" ><p>content3-3</p><div>abc</div></div>
+			<div class="J_tab-content" style="display: none;" ><p>content3-4</p><div>abc</div></div>
+			<div class="J_tab-content" style="display: none;" ><p>content3-5</p><div>abc</div></div>
+		</div>
+	</div>
+<script>
+// 用面向对象的方式重写电话本程序
+/*
+	// 定义电话本管理类
+	function PhonebookManager() {
+		this._phonebook = null;
+	}
+	PhonebookManager.prototype = {
+		// 查询电话
+		getTel: function() {
+
+		},
+		// 添加记录
+		addItem: function() {
+
+		},
+		// 删除记录
+		removeItem: function() {
+
+		}
+	}
+	// 1.接下来需要进一步细化接口
+*/
+// 定义行为的参数
+/*
+	function PhonebookManager(o) {
+		this._phonebook = o;
+	}
+	PhonebookManager.prototype = {
+		// 查询电话
+		getTel: function(oName) {
+
+		},
+		// 添加记录
+		addItem: function(oName, oTel) {
+
+		},
+		// 删除记录
+		removeItem: function(oName) {
+
+		}
+	}
+	// 1.接口细化之后，就要编写底层的具体逻辑了！
+*/
+// 编写具体的底层逻辑
+/*
+	function PhonebookManager(o) {
+		this._phonebook = o;
+	}
+	PhonebookManager.prototype = {
+		// 查询电话
+		getTel: function(oName) {
+			var tel = '';
+			for(var i = 0; i < this._phonebook.length; i++) {
+				if(this._phonebook[i].name == oName) {
+					tel = this._phonebook[i].tel;
+					break;
+				}
+			}
+			return tel;
+		},
+		// 添加记录
+		addItem: function(oName, oTel) {
+			this._phonebook.push({name: oName, tel: oTel});
+		},
+		// 删除记录
+		removeItem: function(oName) {
+			var n;
+			for(var i = 0; i < this._phonebook.length; i++) {
+				if(this._phonebook[i].name == oName) {
+					n = i;
+					break;
+				}
+			}
+			if(n != undefined) {
+				this._phonebook.splice(n, 1);
+			}
+		}
+	}
+
+	// 1.PhonebookManager类定义完了，接下来看下如何使用它吧！
+	var myPhonebookManager = new PhonebookManager([
+		{name:"雷欧",tel:"111111"},
+		{name:"王二",tel:"444444"},
+		{name:"张三",tel:"222222"},
+		{name:"李四",tel:"333333"},
+		{name:"赵五",tel:"555555"}
+	]), myPhonebookManager2 = new PhonebookManager([
+		{name:"leo",tel:"111111"},
+		{name:"Tom",tel:"222222"},
+		{name:"Bob",tel:"333333"}
+	]);
+	// 从电话本 1 中查询”Bob”的电话
+	var str = myPhonebookManager.getTel('Bob');
+	console.log(str); // ""
+	// 在电话本 1 中添加”leo”的记录
+	myPhonebookManager.addItem('leo', '666666');
+	str = myPhonebookManager.getTel('leo');
+	console.log(str); // 666666
+*/
+
+</script>
+<script>
+
+var GLOBAL = {};
+GLOBAL.namespace = function(str) {
+	var arr = str.split("."),
+		o = GLOBAL;
+	for(i = (arr[0] == "GLOBAL") ? 1 : 0; i < arr.length; i++) {
+		o[arr[i]] = o[arr[i]] || {};
+		o = o[arr[i]];
+	}
+};
+// DOM相关
+	GLOBAL.namespace("Dom");
+	GLOBAL.Dom.getElementsByClassName = function(str, root, tag) {
+		if(root) {
+			root = typeof root == 'string' ? document.getElementById(root) : root;
+		}
+		else {
+			root = document.body;
+		}
+		tag = tag || '*';
+		var eles = root.getElementsByTagName(tag), // 获取父容器下所有标签
+			arr = [];
+		for(var i = 0, n = eles.length; i < n; i++) {
+			for(var j = 0, k = eles[i].className.split(' '), l = k.length; j < l; j++) {
+				if(k[j] == str) {
+					arr.push(eles[i]);
+					break;
+				}
+			}
+		}
+		return arr;
+	};	
+	GLOBAL.Dom.addClass = function(node, str) {
+		if(!new RegExp("(^|\\s+)"+str).test(node.className)) {
+			node.className = node.className + ' ' + str;
+		}
+	};
+	GLOBAL.Dom.removeClass = function(node, str) {
+		node.className = node.className.replace(new RegExp("(^|\\s+)" + str), '');
+	};
+// Event相关
+	GLOBAL.namespace('Event');
+	// 显示指定this指针指向
+	GLOBAL.Event.on = function(node, eventType, handler, scope) {
+		node = typeof node == 'string' ? document.getElementById(node) : node;
+		scope = scope || node;
+		if(document.all) {
+			node.attachEvent('on' + eventType, function() {handler.apply(scope, arguments)});
+		}
+		else {
+			node.addEventListener(eventType, function() {handler.apply(scope, arguments)}, false);
+		}
+	};
+
+
+function Tab(config) {
+	this._root = config.root;
+	this._currentClass = config.currentClass;
+	var trigger = config.trigger || 'click';
+	this._handler = config.handler;
+	var autoPlay = config.autoPlay;
+	var playTime = config.playTime || 3000;
+	this._tabMenus = GLOBAL.Dom.getElementsByClassName('J_tab-menu', this._root),
+	this._tabContents = GLOBAL.Dom.getElementsByClassName('J_tab-content', this._root);
+	this.currentIndex = 0;
+	var This = this;
+	if(autoPlay) {
+		setInterval(function() {This._autoHandler()}, playTime);
+	}
+	for(var i = 0; i < this._tabMenus.length; i++) {
+		this._tabMenus[i]._index = i;
+		GLOBAL.Event.on(this._tabMenus[i], trigger, function() {
+			This.showItem(this._index);
+			this.currentIndex = this._index;
+		});
+	}
+}
+
+Tab.prototype = {
+	showItem: function(n) {
+		for(var i = 0; i < this._tabContents.length; i++) {
+			this._tabContents[i].style.display = 'none';
+		}
+		this._tabContents[n].style.display = 'block';
+		if(this._currentClass) {
+			var currentMenu = GLOBAL.Dom.getElementsByClassName(this._currentClass, this._root)[0];
+
+			if(currentMenu) {
+				GLOBAL.Dom.removeClass(currentMenu, this._currentClass);
+			}
+			GLOBAL.Dom.addClass(this._tabMenus[n], this._currentClass);
+		}
+		if(this._handler) {
+			this._handler(n);
+		}
+	},
+	_autoHandler: function() {
+		this.currentIndex++;
+		if(this.currentIndex >= this._tabMenus.length) {
+			this.currentIndex = 0;
+		}
+		this.showItem(this.currentIndex);
+	}
+
+};
+
+var tabs = GLOBAL.Dom.getElementsByClassName('J_tab');
+new Tab({root: tabs[0], trigger:'mouseover'});
+new Tab({root: tabs[1], currentClass: 'tab-currentMenu', autoPlay: true, playTime: 2000});
+new Tab({root: tabs[2], currentClass: 'tab-currentMenu2', trigger: 'mouseover', handler: function(index) {alert('您激活的是第' + (index + 1) + '个标签')}});
+
+</script>
+
+
+
+
+</body>
+</html>

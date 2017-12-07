@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<h1>饭店</h1>
+<p>卫生：</p>
+<p class="J_rate">
+	<img src="big-stars_2.png" alt="" title="很烂" />
+	<img src="big-stars_2.png" alt="" title="一般" />
+	<img src="big-stars_2.png" alt="" title="还好" />
+	<img src="big-stars_2.png" alt="" title="较好" />
+	<img src="big-stars_2.png" alt="" title="很好" />
+</p>
+<p>价格：</p>
+<p class="J_rate">
+	<img src="big-stars_2.png" alt="" title="很烂" />
+	<img src="big-stars_2.png" alt="" title="一般" />
+	<img src="big-stars_2.png" alt="" title="还好" />
+	<img src="big-stars_2.png" alt="" title="较好" />
+	<img src="big-stars_2.png" alt="" title="很好" />
+</p>
+<p>味道：</p>
+<p class="J_rate">
+	<img src="big-stars_2.png" alt="" title="很烂" />
+	<img src="big-stars_2.png" alt="" title="一般" />
+	<img src="big-stars_2.png" alt="" title="还好" />
+	<img src="big-stars_2.png" alt="" title="较好" />
+	<img src="big-stars_2.png" alt="" title="很好" />
+</p>
+<script>
+// 封装DOM、Event接口
+	var GLOBAL = {};
+	GLOBAL.namespace = function(str) {
+		var arr = str.split("."),
+			o = GLOBAL;
+		for(i = (arr[0] == "GLOBAL") ? 1 : 0; i < arr.length; i++) {
+			o[arr[i]] = o[arr[i]] || {};
+			o = o[arr[i]];
+		}
+	};
+	// DOM相关
+	GLOBAL.namespace("Dom");
+	GLOBAL.Dom.getElementsByClassName = function(str, root, tag) {
+		if(root) {
+			root = typeof root == 'string' ? document.getElementById(root) : root;
+		}
+		else {
+			root = document.body;
+		}
+		tag = tag || '*';
+		var eles = root.getElementsByTagName(tag), // 获取父容器下所有标签
+			arr = [];
+		for(var i = 0, n = eles.length; i < n; i++) {
+			for(var j = 0, k = eles[i].className.split(' '), l = k.length; j < l; j++) {
+				if(k[j] == str) {
+					arr.push(eles[i]);
+					break;
+				}
+			}
+		}
+		return arr;
+	};
+	// Event相关
+	GLOBAL.namespace('Event');
+	GLOBAL.Event.on = function(node, eventType, handler, scope) {
+		node = typeof node == 'string' ? document.getElementById(node) : node;
+		scope = scope || node;
+		if(document.all) {
+			node.attachEvent('on' + eventType, function() {handler.apply(scope, arguments)});
+		}
+		else {
+			node.addEventListener(eventType, function() {handler.apply(scope, arguments)}, false);
+		}
+	};
+// 定义Rate类
+	function Rate(rateRoot) {
+		var root = typeof rateRoot == 'string' ? document.getElementById(rateRoot) : rateRoot;
+		var items = root.getElementsByTagName('img');
+		var imgs = ['big-stars_2.png', 'big-star.png'];
+		var rateFlag;
+		for(var i = 0, n = items.length; i < n; i++) {
+			items[i].index = i;
+		}
+		GLOBAL.Event.addHandler(root, 'mouseover', function(e) {
+			if(rateFlag) return;
+			var target = e.target || e.srcElement;
+			if(target.tagName.toLowerCase() != 'img') return;
+			for(var i = 0; i < n; i++) {
+				if(i <= target.index) {
+					items[i].src = imgs[1];
+				}
+				else {
+					items[i].src = imgs[0];
+				}
+			}
+		});
+		GLOBAL.Event.addHandler(root, 'mouseout', function(e) {
+			if(rateFlag) return;
+			var target = e.target || e.srcElement;
+			for(var i = 0; i < n; i++) {
+				items[i].src = imgs[0];
+			}
+		});
+		GLOBAL.Event.addHandler(root, 'click', function(e) {
+			if(rateFlag) return;
+			rateFlag = true;
+			var target = e.target || e.srcElement;
+			alert('您打了' + (target.index + 1) + '分');
+		});		
+	}
+// 实例化Rate类
+	var rateNodes = GLOBAL.Dom.getElementsByClassName('J_rate');
+	for(var i = 0, n = rateNodes.length; i < n; i++) {
+		new Rate(rateNodes[i]);
+	}
+	// 1.冒泡思路：在祖先节点上监听事件，结合event.target/event.srcElement来实现最终效果。利用冒泡可以让事件挂钩更干净，有效减小内存开销。
+
+
+
+
+</script>
+
+
+
+</body>
+</html>

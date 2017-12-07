@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+
+</style>
+</head>
+<body>
+<!-- 	
+	base层，为common层和page层提供接口。
+	1. trim()：去除字符串首尾空白字符
+		检查输入是否为空：空格、缩进等
+	2. 添加类型判断方法
+		isNumber、 isString、isBoolean、isFunction、isNull、isUndefinde、isEmpty、isArray
+	3. get()、$()
+	4. getElementsByClassName
+
+ -->
+<!-- <div id="test1">hello</div>
+<div id="test2">world</div> -->
+
+<span class="a">1</span>
+<span class="a">2</span>
+<p class="a">3</p>
+<div class="b">4</div>
+<strong class="b">5</strong>
+<div id="wrapper"><strong class="b  a">6</strong></div>
+
+<script>
+// getElementsByClassName(class名[, 父容器(缺省为body), DOM节点的标签名])
+function getElementsByClassName(str, root, tag) {
+	if(root) {
+		root = typeof root == 'string' ? document.getElementById(root) : root;
+	}
+	else {
+		root = document.body;
+	}
+	tag = tag || '*';
+	var eles = root.getElementsByTagName(tag), // 获取父容器下所有标签
+		arr = [];
+	for(var i = 0, n = eles.length; i < n; i++) {
+		for(var j = 0, k = eles[i].className.split(' '), l = k.length; j < l; j++) {
+			if(k[j] == str) {
+				arr.push(eles[i]);
+				break;
+			}
+		}
+	}
+	return arr;
+}
+
+var aEles = getElementsByClassName('a'),
+	bEles = getElementsByClassName('b', 'wrapper'),
+	bEles2 = getElementsByClassName('b', null, 'strong');
+console.log(aEles.length); // 4
+console.log(bEles.length); // 1
+console.log(bEles2.length); // 2
+</script>
+</body>
+</html>

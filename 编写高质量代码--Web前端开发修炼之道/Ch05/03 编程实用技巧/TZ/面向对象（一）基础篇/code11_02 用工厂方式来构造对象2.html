@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+//构造函数：工厂
+function createPerson(name, age) {
+	var person = new Object();
+	//为person对象添加属性——————// 原料
+	person.name = name;
+	person.age = age;
+	//为person对象添加方法——————// 加工
+	person.showName = function(){
+		alert("姓名："+this.name);
+	}
+	person.showAge = function(){
+		alert("年龄："+this.age);
+	}
+	// person.showSex = function(){} 等价于 person.showSex = new Function('');——————即我们在创建这个函数的时候就是新建了一个对象
+	person.showSex = new Function('alert("性别："+this.sex)');
+	// 出厂
+	return person;
+}
+//创建两个对象
+var p1 = createPerson('leo', 25);
+var p2 = createPerson('Bob', 20);
+
+
+alert(p1.showName == p2.showName); //false
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

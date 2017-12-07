@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+// 对数组原型扩展一个求和的方法
+Array.prototype.sum = function () {
+	var sum = 0;
+	for(var i = 0; i < this.length; i++) {
+		sum += this[i];
+	}
+	return sum;
+}
+//通过new Array() 和 [] 创建数组完全是一样的效果
+var arr1 = new Array(1, 2, 3, 4);
+var arr2 = [11, 12, 13, 14];
+
+alert(arr1.sum()); // 10
+alert(arr2.sum()); // 50
+
+alert(arr1.sum === arr2.sum); // true
+alert(arr2.sum === Array.prototype.sum); // true
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

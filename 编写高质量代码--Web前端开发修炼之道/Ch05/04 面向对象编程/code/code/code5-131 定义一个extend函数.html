@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<!-- 	
+	
+ -->
+<script>
+// 继承
+// 封装————定义一个extend函数
+	function extend(subClass, superClass) {
+		var F = function() {};
+		F.prototype = superClass.prototype;
+		subClass.prototype = new F();
+		subClass.prototype.constructor = subClass;
+		subClass.superClass = superClass.prototype;
+		if(superClass.prototype.constructor == Object.prototype.constructor) {
+			superClass.prototype.constructor = superClass;
+		}
+	}
+
+	// 定义Animal类
+	function Animal(name) {
+		this.name = name;
+		this.type = 'animal';	
+	}
+	Animal.prototype =  {
+		say : function() {
+			alert("I'm a(an) " + this.type + " , my name is " + this.name);
+		}
+	};
+	// 定义Bird类
+	function Bird(name) {
+		// console.log(this.constructor);
+		// alert(this.constructor);
+		// alert(this.superClass);
+		// alert(this.constructor.superClass.constructor);
+		this.constructor.superClass.constructor.apply(this, arguments);
+		this.type = 'bird';
+	}
+	extend(Bird, Animal);
+/*	
+	// 定义Bird类
+	function Bird(name) {
+		Animal.call(this, name);
+	}
+	Bird.prototype = new Animal(); // 实例化的时候，Bird.prototype.constructor指向了Animal
+	Bird.prototype.constructor = Bird;
+*/
+
+	Bird.prototype.fly = function() {
+		alert("I'm flying");
+	}
+	// 实例化Bird对象
+	var myBird = new Bird('八哥');
+	myBird.say(); // I'm a(an) animal , my name is 八哥
+	myBird.fly(); // I'm flying
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

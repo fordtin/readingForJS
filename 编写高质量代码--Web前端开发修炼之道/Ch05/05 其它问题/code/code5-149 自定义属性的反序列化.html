@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+<a href="http:www.baidu.com" id="a" blogInfo="{name: 'leo', type:'前端开发'}">my blog</a>
+<script>
+
+
+var node = document.getElementById('a');
+var info = node.getAttribute('blogInfo');
+console.log(typeof info); // string
+console.log(info.name); // undefined
+console.log(info.type); // undefined
+info = eval("("+info+")");
+console.log(typeof info); // object
+console.log(info.name); // leo
+console.log(info.type); // 前端开发
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

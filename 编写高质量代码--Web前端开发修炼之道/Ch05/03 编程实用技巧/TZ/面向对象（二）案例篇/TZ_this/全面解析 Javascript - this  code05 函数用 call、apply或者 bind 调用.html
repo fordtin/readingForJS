@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+// 函数用 call、apply或者 bind 调用
+var obj = {
+	x: 10
+}
+function foo() {
+	console.log(this); // {x: 10}
+	console.log(this.x); // 10
+}
+
+foo.call(obj);
+foo.apply(obj);
+foo.bind(obj)();
+// 当一个函数被 call、apply 或者 bind 调用时，this 的值就取传入的对象的值
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+
+</style>
+</head>
+<body>
+
+<input type="button" id="btn1" value="click me" /><br/><br/>
+<input type="button" id="btn2" value="click me 内联事件" onclick="handler();" /><br/><br/>
+<input type="button" id="btn3" value="click me 内联事件2" /><br/><br/>
+<input type="button" id="btn4" value="click me 内联事件3" />
+<script>
+// 5.5.3 标签的内联事件和event对象
+	// event对象在IE和Firefox下的表现是不同的。在IE下，event是window对象的一个属性，是在全局作用域下的，而在Firefox里，event对象作为事件的参数存在
+// 简单的点击事件
+	document.getElementById('btn1').onclick = function() {
+		alert(arguments.length); // IE下弹出0， Firefox下弹出1（这个参数是event）
+	}
+	// 1.如果在标签内联事件中触发事件又会如何呢？
+// 内联事件中的点击事件
+	function handler() {
+		alert(arguments.length); // IE、Firefox下弹出都是0
+	}
+	// 2.标签内联事件没有被替换成代码：
+	btn3.onclick = handler;
+	function handler() {
+		alert(arguments.length); // IE下弹出0， Firefox下弹出1（这个参数是event）
+	}
+	// 3.被替换成了：
+	btn4.onclick = function() {
+		handler();
+	}
+	function handler() {
+		alert(arguments.length);
+	}
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

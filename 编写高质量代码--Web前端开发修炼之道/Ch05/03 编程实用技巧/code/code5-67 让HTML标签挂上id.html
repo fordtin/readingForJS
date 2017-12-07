@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+<div class="tab">
+    <ul class="tab-menuWrapper">
+        <li id="tab-menu1">menu1</li>
+        <li id="tab-menu2">menu2</li>
+        <li id="tab-menu3">menu3</li>
+    </ul>
+    <div class="tab-contentWrapper">
+        <div id="tab-content1">content1</div>
+        <div id="tab-content2" style="display: none;" >content2</div>
+        <div id="tab-content3" style="display: none;" >content3</div>
+    </div>
+</div>
+<script>
+	// 获得tabMenu和tabContent的DOM节点，并保存在变量中
+	var tabMenu1 = document.getElementById('tab-menu1'),
+	    tabMenu2 = document.getElementById('tab-menu2'),
+	    tabMenu3 = document.getElementById('tab-menu3'),
+	    tabContent1 = document.getElementById('tab-content1'),
+	    tabContent2 = document.getElementById('tab-content2'),
+	    tabContent3 = document.getElementById('tab-content3');
+	// 让tabMenu监听click事件
+	tabMenu1.onclick = function() {
+	    tabContent1.style.display = 'block';
+	    tabContent2.style.display = 'none';
+	    tabContent3.style.display = 'none';
+	};
+	tabMenu2.onclick = function() {
+	    tabContent1.style.display = 'none';
+	    tabContent2.style.display = 'block';
+	    tabContent3.style.display = 'none';
+	};
+	tabMenu3.onclick = function() {
+	    tabContent1.style.display = 'none';
+	    tabContent2.style.display = 'none';
+	    tabContent3.style.display = 'block';
+	};	
+</script>
+</body>
+</html>

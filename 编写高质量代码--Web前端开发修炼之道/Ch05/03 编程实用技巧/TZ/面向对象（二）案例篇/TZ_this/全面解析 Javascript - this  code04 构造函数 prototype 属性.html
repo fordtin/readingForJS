@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+// 构造函数 prototype 属性
+function Foo() {
+	this.x = 10;
+}
+Foo.prototype.getX = function() {
+	console.log(this); // Foo {x: 10}
+	console.log(this.x); // 10	
+}
+var foo = new Foo();
+foo.getX();
+// 在 Foo.prototype.getX 函数中，this 指向的 foo 对象。不仅仅如此，即便是在整个原型链中，this 代表的也是当前对象的值。
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

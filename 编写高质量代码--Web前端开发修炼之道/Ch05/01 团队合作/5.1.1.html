@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+
+</style>
+</head>
+<body>
+
+<div>xxxxxxxx</div>
+<script>
+	// 工程师A
+	var a = 123,
+		b = 'hello world';
+
+
+</script>
+<script>
+	// 工程师B
+	var a, c = 'abc';
+	// 脚本产生冲突，怎么避免？————对全局变量进行有效控制，切忌全局变量泛滥。
+	// 一种最简单也是最有效的方法就是用匿名函数将脚本包起来，让变量的作用域控制在匿名函数之内
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 工程师甲编写功能A
+    <div>xxxxxxxx</div>
+    <script>
+		var GLOBAL = {};
+		GLOBAL.namespace = function(str) {
+			var arr = str.split('.'), o = GLOBAL, i;
+			for(i = (arr[0] == 'GLOBAL') ? 1 : 0; i < arr.length; i++) {
+				o[arr[i]] = o[arr[i]] || {};
+				o = o[arr[i]];
+			}
+		};
+    </script>
+    <script>
+        (function () {
+            var a = 123, b = 'hello world';
+            GLOBAL.namespace('A.CAT');
+            GLOBAL.namespace('A.DOG');
+            GLOBAL.A.CAT.name = 'mimi';
+            GLOBAL.A.DOG.name = 'wangcai';
+            GLOBAL.A.CAT.move = function() {
+
+            }
+            GLOBAL.A.DOG.move = function() {
+            	
+            }
+            GLOBAL.A.str2 = a;
+            GLOBAL.A.str = b;
+            // ...
+        })();
+    </script>
+    <div>xxxxxxxx</div>
+
+
+    // 工程师乙编写功能B
+    <script>
+        (function() {
+            var a, c = 'abc';
+            GLOBAL.namespace('B');
+            GLOBAL.B.str = c;
+            // ...
+        })();
+    </script>
+    <div>xxxxxxxx</div>
+
+    // 工程师丙编写功能C
+    <script>
+        (function () {
+        	var a = GLOBAL.A.str2, b = GLOBAL.A.str;
+            var d = 'leo is very handsome!';
+            d = b + ',' + d + a;
+        })();
+    </script>
+
+    // 工程师丁编写功能D
+	<div>xxxxxxxx</div>
+	<script>
+        (function () {
+        	var test = GLOBAL.B.str;
+        	alert(test);
+        	// ...
+        })();		
+	</script>
+
+
+
+
+
+
+</body>
+</html>

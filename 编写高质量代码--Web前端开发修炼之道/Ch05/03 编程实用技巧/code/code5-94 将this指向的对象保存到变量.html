@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<input type="button" value="click me" id="btn" name="BUTTON" />
+<script>
+var name = 'somebody';
+var leo = {
+    name: 'leo',
+    say: function() {
+        alert("I'm " + this.name);
+    },
+    init: function() {
+        var This = this;
+        document.getElementById('btn').onclick = function() {
+            This.say(); // I'm leo
+            // alert('this' + this); // this[object HTMLInputElement]
+            this.say(); // this.say is not a function
+        }
+    }
+};
+
+leo.init(); // I'm leo
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

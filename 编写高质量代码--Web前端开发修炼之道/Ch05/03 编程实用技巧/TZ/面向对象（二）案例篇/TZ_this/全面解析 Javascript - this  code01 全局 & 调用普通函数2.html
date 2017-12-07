@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+
+
+<script>
+
+"use strict";
+var x = 10;
+function foo() {
+	console.log(this); // undefined
+	console.log(this.x); // Uncaught TypeError: Cannot read property 'x' of undefined at foo
+}
+foo();
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

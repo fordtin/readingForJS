@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+<!-- 	
+	1.面向过程编程：将程序分成了“数据”和“处理函数”两部分，程序以“处理函数”为核心，如要执行什么操作，就将“数据”传给相应的“处理函数”，返回我们需要的结果
+	存在的问题：一是数据和处理函数没有直接的关联；二数据和处理函数都暴露在同一作用域内；三、面向过程的思维方式是典型的计算机思维方式——————输入数据给处理器，处理器内部执行运算，处理器返回结果。
+	2.面向对象编程：即抛开计算机思维，使用生活中的思维进行编程的编程方式。面向过程思维就是描述一个个“动作”，而面向对象的思维就是描述一个个“物件”，客观生活中的物件，都可以通过面向对象思维映射到程序中。
+	对象由两部分组成：“属性”和“行为”，对应客观世界中物件的“状态”和“动作”。
+ -->
+
+<script>
+// 定义电话本 1
+	var phonebook = [
+		{name:"雷欧",tel:"111111"},
+		{name:"王二",tel:"444444"},
+		{name:"张三",tel:"222222"},
+		{name:"李四",tel:"333333"},
+		{name:"赵五",tel:"555555"}
+	];
+// 定义电话本 2
+	var phonebook2 = [
+		{name:"leo",tel:"111111"},
+		{name:"Tom",tel:"222222"},
+		{name:"Bob",tel:"333333"}
+	];
+// 查询电话
+	function getTel(oPhonebook,oName){
+		var tel = "";
+		for(var i=0;i<oPhonebook.length;i++){
+			if(oPhonebook[i].name == oName){
+				tel = oPhonebook[i].tel;
+				break;
+			}
+		}
+		return tel;
+	}
+// 添加记录
+	function addItem(oPhonebook,oName,oTel){
+		oPhonebook.push({name:oName,tel:oTel});
+	}
+// 删除记录
+	function removeItem(oPhonebook,oName){
+		var n;
+		for(var i=0;i<oPhonebook.length;i++){
+			if(oPhonebook[i].name == oName){
+				n = i;
+				break;
+			}
+		}
+		if(n != undefined){
+			oPhonebook.splice(n,1);
+		}
+	}
+
+
+
+// 从电话本 1 中查询”niaoren”的电话
+var str = getTel(phonebook, 'leo');
+console.log(str); // ""
+// 在电话本 1 中添加”niaoren”的记录
+addItem(phonebook, 'leo', '666666');
+str = getTel(phonebook, 'leo');
+console.log(str); // 666666
+// 在电话本 1 中删除”niaoren”的记录
+removeItem(phonebook, 'leo');
+str = getTel(phonebook, 'leo');
+console.log(str); // ""
+// 在电话本 2 中查询”niaoren”的记录
+str = getTel(phonebook2, 'leo');
+console.log(str); // 111111
+
+</script>
+<script>
+// 用面向过程的方式来描述一个人
+	var name = 'leo';
+	var state = 'awake';
+	var say = function(oName) {
+		alert("I'm " + oName);
+	};
+	var sleep = function(oState) {
+		oState = 'asleep';
+	};
+	say(name); // I'm leo
+	console.log(sleep(state)); 
+
+/*
+	1.程序由变量和函数组成，而变量和函数无法联系起来共同描述同一个物件，无法很语义化地表达“Leo说”、“Leo睡觉”。
+	2. 属性本质上其实是个变量，即面向过程中的数据，而行为本质上其实是函数，即面向过程中的处理函数。
+	3.不同之处：
+		面向过程中，数据和处理函数并没有关联起来，共同属于某个物件；
+		而面向对象将数据和处理函数定义到了一个对象的内部，作为这个对象的属性和行为存在。在对象外部，属性和行为可以用作对象的属性和对象的行为来调用，从而让程序有了按真实世界的思维方式进行描述的能力，在对象内部，对象的属性和行为通过this关键字关联起来。
+	4. OO包括：OOA、OOD、OOP	
+		OOA：经常用到的是UML语言。输出结果一个个类（或对象的模型图）
+		OOD：用到各种设计模式
+		OOP
+		OOA、OOD是个反复迭代的过程，本身没有非常清晰的边界，是相互影响、制约的。是面向对象编程的思想和具体语言无关，而OOP是面向对象编程的工具，和选用的语言相关。OOP是OOA和OOD的底层，不同语言的语法不同，所以OOP不同。
+
+		OOP是使用面向对象技术的基础，面向对象是思维最后要通过OOP来实施
+	5. 高内聚、低耦合：
+		聚合：把一个复杂的事物看成若干比较简单的事物的组装体，从而简化对复杂事物的描述
+		高内聚：指对象（或类）对外提供的接口非常简单易懂，复杂的底层操作都封装在对象（或类）的接口内部，对用户透明。用户不用关心过多的底层细节，只需知道类提供了哪些接口，用户知道的底层细节越少，对象的聚合程度就越高。
+		耦合：类与类之间关联和依赖的程度
+		低耦合：指类与类之间依赖的程度低，类与类通信需要关联的接口越少，耦合程度越低。
+	很多工程师误以为高内聚、低耦合是OOP的工作，其实不然，决定聚合和耦合程度的是OOA、OOD，它们是工作在架构层面的，而OOP是工作在编码层面的。从大局上决定程序品质的，不是OOP，而是OOA和OOD
+	
+
+
+
+*/
+// 改用面向对象的编程方式，代码如下：
+	var leo = {
+		name :'leo',
+		state: 'awake',
+		say: function() {
+			alert("I'm " + this.name);
+		},
+		sleep: function() {
+			this.state = 'asleep';
+		}
+	};
+	leo.say(); // I'm leo
+	leo.sleep();
+
+
+
+
+</script>
+</body>
+</html>

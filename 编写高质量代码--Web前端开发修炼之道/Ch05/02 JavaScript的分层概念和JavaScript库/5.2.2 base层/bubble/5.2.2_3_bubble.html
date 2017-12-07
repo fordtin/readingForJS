@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+	#infoBox {padding: 5px; border: 2px dashed #ccc; margin-bottom: 10px; width: 136px; height: 20px; line-height: 20px; text-align: center;}
+	#wrapper {padding: 20px 0; background-color: #000; width: 150px; text-align: center;}
+</style>
+</head>
+<body>
+<!-- 	
+	base层，为common层和page层提供接口。
+	冒泡：
+	希望的结果是：点击黑色区域，虚线框内显示：“你点击的是： div”，点击按钮，显示“你点击的是： input”
+	实际结果：不论怎么点击，都是显示“你点击的是： div”
+
+	怎么阻止点击按钮时的事件冒泡？
+	阻止事件冒泡在IE下是通过设置event对象的cancelBubble属性为true实现的，Firefox下是通过调用event对象的stopPropagation方法实现的
+
+ -->
+<p id="infoBox"></p>
+<div id="wrapper"><input type="button" value="click me" id="btn" /></div>
+<script>
+var infoBox = document.getElementById('infoBox'), wrapper = document.getElementById('wrapper'), btn = document.getElementById('btn');
+wrapper.onclick = function() {
+	infoBox.innerHTML = '你点击的是： div';
+	alert(1); // 1
+}
+btn.onclick = function(e) {
+	infoBox.innerHTML = '你点击的是： input';
+	e = window.event || e;
+	if(document.all) {
+		e.cancelBubble = true;
+	}
+	else {
+		e.stopPropagation();
+	}
+	alert(2); // 先弹出2，再弹出1
+}
+
+</script>
+</body>
+</html>

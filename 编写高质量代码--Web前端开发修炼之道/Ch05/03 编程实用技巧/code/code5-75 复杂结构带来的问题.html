@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+<div class="tab">
+    <ul class="tab-menuWrapper" id="tab-menuWrapper">
+        <li>menu1</li>
+        <li>menu2</li>
+        <li>menu3</li>
+    </ul>
+    <div class="tab-contentWrapper" id="tab-contentWrapper">
+        <div><div>content1 <ul><li>abc</li></ul></div></div>
+        <div style="display: none;" ><p>content2</p><div>abc</div></div>
+        <div style="display: none;" >content3</div>
+    </div>
+</div>
+<script>
+// 获得tabMenu和tabContent的DOM节点，并保存在变量中
+var tabMenus = document.getElementById('tab-menuWrapper').getElementsByTagName('li'),
+    tabContents = document.getElementById('tab-contentWrapper').getElementsByTagName('div');
+alert(tabContents.length); // 5
+</script>
+</body>
+</html>

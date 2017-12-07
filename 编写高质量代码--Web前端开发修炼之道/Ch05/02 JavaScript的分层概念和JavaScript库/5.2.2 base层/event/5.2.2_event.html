@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style type="text/CSS">
+	#test1 {background-color: #0000ff; height: 100px;}
+	#test2 {background-color: #00ff00;height: 100px;}
+</style>
+</head>
+<body>
+<!-- 	
+	base层，为common层和page层提供接口。
+	event对象： 在IE中，event对象是作为window的属性作用于全局作用域的，在Firefox中，event对象是作为事件的参数存在的
+
+
+ -->
+<input type="button" id="btn" value="按钮" />
+
+<script>
+var btn = document.getElementById('btn');
+btn.onclick = function () {
+	alert(arguments.length);  // IE8-弹出0，Firefox下弹出1，这是个event对象。
+}
+
+</script>
+</body>
+</html>

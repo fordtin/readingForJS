@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+<div class="tab">
+    <ul class="tab-menuWrapper" id="tab-menuWrapper">
+        <li>menu1</li>
+        <li>menu2</li>
+        <li>menu3</li>
+    </ul>
+    <div class="tab-contentWrapper">
+        <div class="J_tab-content"><div>content1 <ul><li>abc</li></ul></div></div>
+        <div class="J_tab-content" style="display: none;" ><p>content2</p><div>abc</div></div>
+        <div class="J_tab-content" style="display: none;" >content3</div>
+    </div>
+</div>
+
+<script>
+var GLOBAL = {};
+GLOBAL.namespace = function(str) {
+    var arr = str.split("."),
+        o = GLOBAL;
+    for(i = (arr[0] == "GLOBAL") ? 1 : 0; i < arr.length; i++) {
+        o[arr[i]] = o[arr[i]] || {};
+        o = o[arr[i]];
+    }
+};
+GLOBAL.namespace("Dom");
+GLOBAL.Dom.getElementsByClassName = function(str, root, tag) {
+    if(root) {
+        root = typeof root == 'string' ? document.getElementById(root) : root;
+    }
+    else {
+        root = document.body;
+    }
+    tag = tag || '*';
+    var eles = root.getElementsByTagName(tag), // 获取父容器下所有标签
+        arr = [];
+    for(var i = 0, n = eles.length; i < n; i++) {
+        for(var j = 0, k = eles[i].className.split(' '), l = k.length; j < l; j++) {
+            if(k[j] == str) {
+                arr.push(eles[i]);
+                break;
+            }
+        }
+    }
+    return arr;
+};  
+
+
+// 获得tabMenu和tabContent的DOM节点，并保存在变量中
+var tabMenus = document.getElementById('tab-menuWrapper').getElementsByTagName('li'),
+    tabContents = GLOBAL.Dom.getElementsByClassName('J_tab-content');
+//遍历数组，让 tabMenu 监听 click 事件
+for(var i = 0; i < tabMenus.length; i++) {
+    tabMenus[i]._index = i;
+    tabMenus[i].onclick = function() {
+        console.log(tabContents.length); // 3
+        for(var j = 0; j < tabContents.length; j++) {
+            tabContents[j].style.display = 'none';
+        }
+        tabContents[this._index].style.display = 'block';
+    }
+}
+</script>
+</body>
+</html>

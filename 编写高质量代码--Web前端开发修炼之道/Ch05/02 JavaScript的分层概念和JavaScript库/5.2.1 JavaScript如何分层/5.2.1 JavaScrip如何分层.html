@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+<script>
+5.2.1 JavaScrip如何分层
+	分层目的：代码更清晰、减少冗余，提高代码重用率。
+	怎么分？（主观）
+	base层：（为common层和page层提供接口）
+	职责一是，封装不同的浏览器下JavaScript差异，提供统一的接口；二是扩展JavaScript语言底层提供的接口，让它提供更多易用的接口。
+	common层：（给page层提供组件）
+	提供可供复用的组件，和页面的具体功能没有直接关系。
+	page层：（完成页面内的功能需求）。
+5.2.2 base层
+	...
+base层接口从大的方向上看，分成三块，一是用来操作DOM（包括DOM节点的设置和设置DOM属性）、二是用来操作事件（event对象的属性和设置事件监听）、三是用来模仿其它语言提供原生JavaScript不提供的函数（如trim、extend、isNumber）。分别用GLOBAL.DOM、GLOBAL.Event、GLOBAL.Lang作为base层函数的命名空间。
+5.2.3 common层
+
+5.2.4 page层：
+
+</script>
+</body>
+</html>

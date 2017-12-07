@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<style>
+ .tab input {
+     background: #F6F3F3;
+     border: 1px solid #FF0000;
+ }
+ .tab .active {
+     background: #E9D4D4;
+ }
+ .tab div {
+     width:300px; 
+     height:250px; 
+     display:none;
+     padding: 10px;
+     background: #E9D4D4;
+     border: 1px solid #FF0000;
+ }
+</style>
+</head>
+<body>
+<div class = 'tab' id="tabBox">
+	<input type="button" value="游戏" class="active" />
+	<input type="button" value="旅行" />
+	<input type="button" value="音乐" />
+	<div style="display:block;">GTA5、孤岛惊魂</div>
+	<div>澳大利亚、西藏</div>
+	<div>暗里着迷、一生有你</div>
+</div>
+<br />
+<div class="tab" id="tabBox2">
+	<input type="button" value="技术" class="active" />
+	<input type="button" value="工具" />
+	<input type="button" value="网站" />
+	<div style="display:block;">Java、Spring</div>
+	<div>Eclipse、HBuilder</div>
+	<div>博客园、CSD</div>
+</div>
+<script>
+
+
+window.onload = function(){
+	var tab = new Tab('tabBox');
+	var tab2 = new Tab('tabBox2');
+};
+
+
+
+
+
+
+
+/**
+* 选项卡
+* @param {Object} id 选项卡id
+*/
+// 将之前window.onload里的代码提到一个构造函数里.
+// 可以将这个Tab构造函数想象成一个Tab类,@param {Object} id：选项卡id以参数的形式传入
+function Tab(id) {
+	var tabBox = document.getElementById(id);
+	//将之前的全局变量变为对象的属性
+	this.tabBtn = tabBox.getElementsByTagName('input');
+	this.tabDiv = tabBox.getElementsByTagName('div');
+
+	for(var i=0;i < this.tabBtn.length;i++){
+		this.tabBtn[i].index = i;
+		 //将this保存成一个变量，就可以在下面代码中调用对象的方法了
+		var _this = this;
+		this.tabBtn[i].onclick = function(){
+			//注意参数this代表的是this.tabBtn[i]，即input按钮
+			_this.clickBtn(this);
+		}
+	}
+}
+//将之前的全局函数添加到构造函数的原型里，作为对象的一个方法
+Tab.prototype.clickBtn = function(btn) {
+	// alert(this); // [object Object]
+    for(var j = 0; j < this.tabBtn.length; j++){
+        this.tabBtn[j].className='';
+        this.tabDiv[j].style.display='none';
+    }
+    btn.className='active';
+    this.tabDiv[btn.index].style.display='block';
+}
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
