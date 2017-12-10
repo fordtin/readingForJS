@@ -10,3 +10,5 @@
 
 ## 20171129——————————addHandler/removeHandler(this指向)
 
+## 20171210
+firstChild，lastChild，nextSibling，previousSibling兼容

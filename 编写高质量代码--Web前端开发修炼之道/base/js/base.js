@@ -121,6 +121,19 @@ GLOBAL.namespace = function(str) {
 		}
 		return i;
 	};
+	// firstChild，lastChild，nextSibling，previousSibling兼容方案
+	GLOBAL.Dom.firstChild = function(node) {
+		return node.firstElementChild ? node.firstElementChild : node.firstChild;
+	};
+	GLOBAL.Dom.lastChild = function(node) {
+		return node.lastElementChild ? node.lastElementChild : node.lastChild;
+	};
+	GLOBAL.Dom.nextSibling = function(node) {
+		return node.nextElementSibling ? node.nextElementSibling : node.nextSibling;
+	};
+	GLOBAL.Dom.previousSibling = function(node) {
+		return node.previousElementSibling ? node.previousElementSibling : node.previousSibling;
+	};
 
 	// GLOBAL.Dom.hasClass = function (name,type) {
  //        var r = [];
