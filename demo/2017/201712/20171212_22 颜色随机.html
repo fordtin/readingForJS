@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+div {
+	float: left;
+	width: 100px;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	margin: 20px;
+	border: 1px solid #000;
+}
+</style>
+</head>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+<script>
+(function () {
+	// 生成颜色
+	function randomColor() {
+		var r = Math.floor(Math.random()*256).toString(16);
+		var g = Math.floor(Math.random()*256).toString(16);
+		var b = Math.floor(Math.random()*256).toString(16);
+		return '#' + r + g + b;
+	}
+	// 生成颜色的个数
+	function generateColor(len) {
+		var colorArr = [];
+		for(var i = 0; i < len; i++) {
+			colorArr.push(randomColor());
+		}
+		return colorArr;
+	}
+	function init() {
+		var divs = document.getElementsByTagName('div');
+		var len = divs.length;
+		var colorArr = generateColor(len);
+		for(var i = 0; i < len; i++) {
+			divs[i].style.backgroundColor = colorArr[i];
+			divs[i].innerHTML = colorArr[i];
+		}
+	}
+	init();
+})();
+</script>
+</body>
+</html>
